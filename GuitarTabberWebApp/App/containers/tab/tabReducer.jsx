@@ -1,4 +1,4 @@
-import { GET_TAB_ERROR, GET_TAB_SUCCESS } from './tabConstants.jsx'
+import { GET_TAB_ERROR, GET_TAB_SUCCESS, CREATE_TAB_SUCCESS, CREATE_TAB_ERROR } from './tabConstants.jsx'
 
 const initialState = {
     tab: {},
@@ -13,6 +13,15 @@ export default function tabReducer(state = initialState, action) {
 
         case GET_TAB_ERROR:
             return { ...state, error: action.error }
+
+        case CREATE_TAB_SUCCESS:
+             return { ...state}
+
+        case CREATE_TAB_SUCCESS:
+             return { ...state, tab: action.tab}
+        
+        case CREATE_TAB_ERROR:
+            return {...state, error: action.err}
 
         default:
             return state;

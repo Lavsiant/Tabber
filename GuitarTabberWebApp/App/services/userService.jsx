@@ -17,7 +17,7 @@ function login(username, password) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
     };
-
+    localStorage.removeItem('user');
     return fetch(config.apiUrl + '/api/Identity/authenticate', requestOptions)
         .then(handleResponse, handleError)
         .then(user => {

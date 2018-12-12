@@ -21,6 +21,10 @@
     display: flex;
 }
 
+.filter{
+    margin: 10px;
+}
+
 .tab-list{
     width: 30%;
     border: 2px solid gray;
@@ -39,6 +43,7 @@
 .root{
     width: '100%';
     margin: 5% 3% 5% 3%;
+    text-align: center;
  }
 
 .table{
@@ -62,4 +67,18 @@
 
   .filter-field{
       margin: 10px 10px 10px 10px;
+  }
+
+  .login{
+      width: 30%;
+      margin: auto;
+      text-align: center;
+  }
+
+  .login-field{
+      margin-top: 20px
+  }
+
+  .form-group{
+      margin: 15px 15px 15px 15px;
   }

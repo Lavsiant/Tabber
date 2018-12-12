@@ -38,7 +38,7 @@ namespace GuitarTabberWebApp.Controllers
 
             var appSettings = new AppSettings();
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("aaa");
+            var key = Encoding.ASCII.GetBytes("aaa123aaa");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -48,8 +48,8 @@ namespace GuitarTabberWebApp.Controllers
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
+            // var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = model.UserName;
 
             // return basic user info (without password) and token to store client side
             return Ok(new

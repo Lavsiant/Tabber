@@ -1,6 +1,6 @@
 import { userConstants } from './userConstants.jsx';
 import { userService } from '../../services/userService.jsx'
-import { history } from '../../helpers/history.jsx';
+import { config } from '../../helpers/config.jsx';
 
 export const userActions = {
     login,
@@ -11,6 +11,7 @@ export const userActions = {
 };
 
 function login(username, password) {
+ 
     return dispatch => {
         dispatch(request({ username }));
 
@@ -18,6 +19,7 @@ function login(username, password) {
             .then(
                 user => { 
                     dispatch(success(user));
+                    window.location = config.apiUrl + "/tabs";
                 },
                 error => {
                     dispatch(failure(error));
@@ -44,7 +46,7 @@ function register(user) {
             .then(
                 () => { 
                     dispatch(success());
-                    history.push('/login');
+                    window.location = config.apiUrl + "/login";
                   //  dispatch(alertActions.success('Registration successful'));
                 },
                 error => {

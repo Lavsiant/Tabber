@@ -36,7 +36,7 @@ namespace GuitarTabberWebApp.Services.Implementations
                 return null;
 
             // check if password is correct
-            if (password == user.Password)
+            if (password != user.Password)
                 return null;
 
             // authentication successful

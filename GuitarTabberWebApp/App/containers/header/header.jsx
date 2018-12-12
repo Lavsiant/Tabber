@@ -7,23 +7,51 @@ import Paper from '@material-ui/core/Paper';
 
 export default class Header extends React.Component {
     state = {
-        value: 0     
+        value: 0 ,
+        isLoggedIn: false    
     };
     
     handleChange = (event, value) => {
         this.setState({ value });
     };
 
+    handleLoginClick = () => {
+        this.setState({isLoggedIn: true});
+      }
+    
+      handleLogoutClick = () => {
+        this.setState({isLoggedIn: false});
+      }
+
+      handleLogOut = () => {
+        localStorage.removeItem('user');
+      }
+
     render() {
-        return (
-            <Paper>
+        const isLoggedIn = this.state.isLoggedIn;
+        let authControl;
+        
+        if (localStorage.getItem('user')) {
+            authControl =  
                 <Tabs value={this.state.value}  onChange={this.handleChange} centered>
-                    <Tab label="Tabs" component={Link} to="/tabs" />
-                    <Tab label="About" component={Link} to="/about" /> 
-                    <Tab label="Test tab" component={Link} to="/test" />         
-                    <Tab label="Register" component={Link} to="/register" />         
-                </Tabs>                   
-            </Paper>   
+                <Tab label="Tabs" component={Link} to="/tabs" />
+                <Tab label="About" component={Link} to="/about" /> 
+                <Tab label="Test tab" component={Link} to="/test" />                       
+                <Tab label="Logout" onClick={this.handleLogOut} component={Link} to="/login" />             
+        </Tabs>     
+        } else {
+            authControl =   
+                <Tabs value={this.state.value}  onChange={this.handleChange} centered>
+                <Tab label="Tabs" component={Link} to="/tabs" />
+                <Tab label="About" component={Link} to="/about" /> 
+                <Tab label="Test tab" component={Link} to="/test" />         
+                <Tab label="Register" component={Link} to="/register" />     
+                <Tab label="Login" component={Link} to="/login" />;         
+        </Tabs>     
+        }
+
+        return (
+            <Paper>{authControl}</Paper>        
         );
     }
 };

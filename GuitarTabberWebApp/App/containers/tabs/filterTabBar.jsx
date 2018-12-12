@@ -32,27 +32,33 @@ export default class FilterTabBar extends React.Component {
     render() {
         return (
             <div className="filter-bar">
-                <TextField 
-                    className="filter-field"
-                    label="Tab name"
-                    margin="normal"
-                    onChange={this.onNameChanged}
-                />
-                <TextField                   
-                    label="Min tempo"
-                    defaultValue=""
-                    type="number"
-                    className="filter-field"
-                    margin="normal"
-                    onChange={this.onMinTempoChanged}
-                />
-                <TextField
-                    className="filter-field"
-                    label="Max tempo"
-                    type="number"
-                    margin="normal"
-                    onChange={this.onMaxTempoChanged}
-                />
+                <div className="filter">
+                    <TextField 
+                        className="filter-field"
+                        label="Tab name"
+                        margin="normal"
+                        onChange={this.onNameChanged}
+                    />
+                </div>
+                <div className="filter">
+                    <TextField                   
+                        label="Min tempo"
+                        defaultValue=""
+                        type="number"
+                        className="filter-field"
+                        margin="normal"
+                        onChange={this.onMinTempoChanged}
+                    />
+                </div>
+                <div className="filter">
+                    <TextField
+                        className="filter-field"
+                        label="Max tempo"
+                        type="number"
+                        margin="normal"
+                        onChange={this.onMaxTempoChanged}
+                    />
+                </div>
             </div>
         );
     }
