@@ -1,0 +1,65 @@
+.main-toolbar{
+    width: 100%;
+    align-content: center;
+    background-color: #3f51b5;
+}
+.tab-toolbar{
+    text-align: center;
+    font-weight: 700;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    text-transform: uppercase;
+}
+
+.container{
+    margin: 20px 5% 20px 5%;
+    padding: 40px;
+    display: flex;
+    min-height: 500px;
+}
+
+.filter-bar{
+    display: flex;
+}
+
+.tab-list{
+    width: 30%;
+    border: 2px solid gray;
+    border-radius: 12px;
+    float: left;
+}
+
+.selected-tab{
+    width: 100%;
+    border: 2px solid gray;
+    border-radius: 12px;
+    float: right;
+    margin: 0% 0% 0% 5%;
+}
+
+.root{
+    width: '100%';
+    margin: 5% 3% 5% 3%;
+ }
+
+.table{
+    min-width: 500px;
+}
+
+.table-field{
+    text-decoration: none;
+}
+
+
+.table-wrapper{
+    overflow-x: auto;
+ }
+
+ .root-pagination{
+    flex-shrink: 0;
+    color: gray;
+    margin-left: 6px
+  }
+
+  .filter-field{
+      margin: 10px 10px 10px 10px;
+  }

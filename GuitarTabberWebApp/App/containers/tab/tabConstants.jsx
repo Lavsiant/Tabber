@@ -1,0 +1,2 @@
+export const GET_TAB_SUCCESS = 'GET_TAB_SUCCESS'
+export const GET_TAB_ERROR = 'GET_TAB_ERROR'
