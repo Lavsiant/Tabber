@@ -1,6 +1,7 @@
 ﻿using DbRepository.Interfaces;
 using GuitarTabberWebApp.Services.Interfaces;
 using Model.GuitarTab;
+using Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,16 @@ namespace GuitarTabberWebApp.Services.Implementations
         public async Task AddTab(Tab tab)
         {
             await _tabRepository.AddTab(tab);
+        }
+
+        public async Task DeleteTab(int id)
+        {
+            await _tabRepository.DeleteTab(id);
+        }
+
+        public List<User> GetSubscribedUsers(int id)
+        {
+            return _tabRepository.GetSubscribedUsers(id);
         }
     }
 }

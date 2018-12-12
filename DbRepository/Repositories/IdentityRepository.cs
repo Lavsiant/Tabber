@@ -29,5 +29,29 @@ namespace DbRepository.Repositories
                 return await context.Tabs.Where(x => x.Creator == userName).ToListAsync();
             }
         }
+
+        public async Task<User> GetUserWithTabs(string userName)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                return await context.Users.Include(x=>x.BoughtTabs).FirstOrDefaultAsync(u => u.UserName == userName);
+            }
+        }
+
+        public async Task<User> GetUserWithCourses(string userName)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                return await context.Users.Include(x => x.Courses).FirstOrDefaultAsync(u => u.UserName == userName);
+            }
+        }
+
+        public async Task<User> GetUserFullInfo(string userName)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                return await context.Users.Include(x => x.Courses).Include(x=>x.BoughtTabs).FirstOrDefaultAsync(u => u.UserName == userName);
+            }
+        }
     }
 }

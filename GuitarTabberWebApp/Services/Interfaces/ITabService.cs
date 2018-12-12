@@ -1,4 +1,5 @@
 ﻿using Model.GuitarTab;
+using Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,9 @@ namespace GuitarTabberWebApp.Services.Interfaces
         Task<Tab> GetTabById(int id);
 
         Task AddTab(Tab tab);
+
+        Task DeleteTab(int id);
+
+        List<User> GetSubscribedUsers(int tabId);
     }
 }

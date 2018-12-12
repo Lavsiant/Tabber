@@ -1,8 +1,10 @@
 ﻿using DbRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Model.GuitarTab;
+using Model.UserModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -48,6 +50,24 @@ namespace DbRepository.Repositories
                     await context.SaveChangesAsync();
                 }             
             }
+        }
+
+        public List<User> GetSubscribedUsers(int tabId)
+        {
+            var usersList = new List<User>();
+
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                foreach (var user in context.Users)
+                {
+                    var findedUser = user.BoughtTabs.FirstOrDefault(x => x.ID == tabId);
+                    if (findedUser != null)
+                    {
+                        usersList.Add(user);
+                    }
+                }
+            }
+            return usersList;
         }
     }
 }

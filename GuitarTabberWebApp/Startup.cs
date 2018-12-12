@@ -59,11 +59,10 @@ namespace GuitarTabberWebApp
             services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>(); 
             services.AddScoped<IIdentityRepository>(provider => new IdentityRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>())); // 2
             services.AddScoped<ITabRepository>(provider => new TabRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>())); // 2
+            services.AddScoped<ICourseRepository>(provider => new CourseRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>())); // 2
             services.AddScoped<ITabService, TabService>();
             services.AddScoped<IIdentityService, IdentityService>();
-
-
-
+            services.AddScoped<ICourseService, CourseService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

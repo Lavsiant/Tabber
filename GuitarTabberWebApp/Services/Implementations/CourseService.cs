@@ -1,6 +1,8 @@
 ﻿using DbRepository.Interfaces;
 using GuitarTabberWebApp.Services.Interfaces;
+using GuitarTabberWebApp.ViewModels;
 using Model.GuitarTab;
+using Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,26 @@ namespace GuitarTabberWebApp.Services.Implementations
         public async Task<Course> GetCourse(int id)
         {
             return await _courseRepository.GetCourse(id);
+        }
+
+        public List<User> GetAllSubscribedUsers(int id)
+        {
+            return  _courseRepository.GetAllSubscribedUsers(id);
+        }
+
+        public async Task CreateCourse(CourseCreateViewModel vm)
+        {
+            await _courseRepository.CreateCourse(new Course()
+            {
+                Lessons = vm.Lessons,
+                Name = vm.Name,
+                Type = vm.Type
+            });
+        }
+
+        public async Task DeleteCourse(int id)
+        {
+            await _courseRepository.DeleteCourse(id);
         }
     }
 }

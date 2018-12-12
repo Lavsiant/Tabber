@@ -12,5 +12,11 @@ namespace DbRepository.Interfaces
         Task<User> GetUser(string userName);
 
         Task<List<Tab>> GetCreatedUserTabs(string userName);
+
+        Task<User> GetUserWithCourses(string userName);
+
+        Task<User> GetUserWithTabs(string userName);
+
+        Task<User> GetUserFullInfo(string userName);
     }
 }

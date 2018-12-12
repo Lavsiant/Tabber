@@ -1,4 +1,6 @@
-﻿using Model.GuitarTab;
+﻿using GuitarTabberWebApp.ViewModels;
+using Model.GuitarTab;
+using Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +13,11 @@ namespace GuitarTabberWebApp.Services.Interfaces
         Task<List<Course>> GetAllCourses();
 
         Task<Course> GetCourse(int id);
+
+        List<User> GetAllSubscribedUsers(int courseId);
+
+        Task CreateCourse(CourseCreateViewModel course);
+
+        Task DeleteCourse(int id);
     }
 }

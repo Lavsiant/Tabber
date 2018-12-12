@@ -1,4 +1,5 @@
 ﻿using Model.GuitarTab;
+using Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,5 +16,7 @@ namespace DbRepository.Interfaces
         Task AddTab(Tab tab);
 
         Task DeleteTab(int id);
+
+        List<User> GetSubscribedUsers(int tabId);
     }
 }

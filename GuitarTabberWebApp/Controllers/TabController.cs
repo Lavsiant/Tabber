@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GuitarTabberWebApp.Services.Interfaces;
+using GuitarTabberWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Model.GuitarTab;
 
@@ -35,6 +36,13 @@ namespace GuitarTabberWebApp.Controllers
         public async Task<Tab> GetTab(int id)
         {
             return await _tabService.GetTabById(id);
+        }
+
+        [Route("tab-create")]
+        [HttpPost]
+        public async Task CreateTab (TabCreateViewModel tabCreateVM)
+        {
+
         }
     }
 }
