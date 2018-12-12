@@ -1,4 +1,5 @@
 ﻿using DbRepository.Interfaces;
+using GuitarTabberWebApp.Helpers;
 using GuitarTabberWebApp.Services.Interfaces;
 using Model.GuitarTab;
 using Model.UserModel;
@@ -18,9 +19,55 @@ namespace GuitarTabberWebApp.Services.Implementations
             _identityRepository = identityRepository;
         }
 
+        public async Task<List<User>> GetAllUsers()
+        {
+            return await _identityRepository.GetAllUsers();
+        }
+
+        public async Task<User> Authenticate(string username, string password)
+        {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                return null;
+
+            var user = await _identityRepository.GetUser(username);
+
+            // check if username exists
+            if (user == null)
+                return null;
+
+            // check if password is correct
+            if (password == user.Password)
+                return null;
+
+            // authentication successful
+            return user;
+        }
+
+        public async Task<User> Create(User user)
+        {
+            // validation
+            if (string.IsNullOrWhiteSpace(user.Password))
+            {
+                return null;
+            }
+
+            if (await _identityRepository.GetUser(user.UserName) != null)
+                throw new AppException("Username '" + user.UserName + "' is already taken");
+
+            await _identityRepository.Create(user);
+
+            return user;
+        }
+
         public async Task<User> GetUser(string userName)
         {
             return await _identityRepository.GetUser(userName);
+        }
+
+
+        public async Task<User> GetUser(int id)
+        {
+            return await _identityRepository.GetUserById(id);
         }
 
         public async Task<List<Tab>> GetCreatedUserTabs(string userName)
@@ -42,5 +89,6 @@ namespace GuitarTabberWebApp.Services.Implementations
         {
             return await _identityRepository.GetUserFullInfo(userName);
         }
+
     }
 }

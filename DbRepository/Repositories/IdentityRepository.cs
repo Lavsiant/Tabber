@@ -14,6 +14,14 @@ namespace DbRepository.Repositories
     {
         public IdentityRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
+        public async Task<List<User>> GetAllUsers()
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                return await context.Users.ToListAsync();
+            }
+        }
+
         public async Task<User> GetUser(string userName)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
@@ -27,6 +35,14 @@ namespace DbRepository.Repositories
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 return await context.Tabs.Where(x => x.Creator == userName).ToListAsync();
+            }
+        }
+
+        public async Task<User> GetUserById(int id)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                return await context.Users.FirstOrDefaultAsync(x => x.ID == id);
             }
         }
 
@@ -51,6 +67,15 @@ namespace DbRepository.Repositories
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 return await context.Users.Include(x => x.Courses).Include(x=>x.BoughtTabs).FirstOrDefaultAsync(u => u.UserName == userName);
+            }
+        }
+
+        public async Task Create(User user)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                context.Users.Add(user);
+                await context.SaveChangesAsync();
             }
         }
     }

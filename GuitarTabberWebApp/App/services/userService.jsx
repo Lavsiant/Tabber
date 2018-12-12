@@ -18,7 +18,7 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
-    return fetch(config.apiUrl + '/users/authenticate', requestOptions)
+    return fetch(config.apiUrl + '/api/Identity/authenticate', requestOptions)
         .then(handleResponse, handleError)
         .then(user => {
             // login successful if there's a jwt token in the response
@@ -51,7 +51,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(config.apiUrl + '/users/' + _id, requestOptions).then(handleResponse, handleError);
+    return fetch(config.apiUrl + '/api/Identity/' + _id, requestOptions).then(handleResponse, handleError);
 }
 
 function register(user) {
@@ -61,7 +61,7 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(config.apiUrl + '/users/register', requestOptions).then(handleResponse, handleError);
+    return fetch(config.apiUrl + '/api/Identity/register', requestOptions).then(handleResponse, handleError);
 }
 
 function update(user) {
@@ -71,7 +71,7 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(config.apiUrl + '/users/' + user.id, requestOptions).then(handleResponse, handleError);
+    return fetch(config.apiUrl + '/api/Identity/' + user.id, requestOptions).then(handleResponse, handleError);
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -81,7 +81,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(config.apiUrl + '/users/' + id, requestOptions).then(handleResponse, handleError);
+    return fetch(config.apiUrl + '/api/Identity/' + id, requestOptions).then(handleResponse, handleError);
 }
 
 function handleResponse(response) {

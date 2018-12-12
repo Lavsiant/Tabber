@@ -11,6 +11,10 @@ namespace DbRepository.Interfaces
     {
         Task<User> GetUser(string userName);
 
+        Task<List<User>> GetAllUsers();
+
+        Task<User> GetUserById(int id);
+
         Task<List<Tab>> GetCreatedUserTabs(string userName);
 
         Task<User> GetUserWithCourses(string userName);
@@ -18,5 +22,7 @@ namespace DbRepository.Interfaces
         Task<User> GetUserWithTabs(string userName);
 
         Task<User> GetUserFullInfo(string userName);
+
+        Task Create(User user);
     }
 }

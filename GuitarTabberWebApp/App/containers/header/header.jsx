@@ -19,9 +19,10 @@ export default class Header extends React.Component {
             <Paper>
                 <Tabs value={this.state.value}  onChange={this.handleChange} centered>
                     <Tab label="Tabs" component={Link} to="/tabs" />
-                    <Tab label="About" component={Link} to="/about" />               
+                    <Tab label="About" component={Link} to="/about" /> 
+                    <Tab label="Test tab" component={Link} to="/test" />         
+                    <Tab label="Register" component={Link} to="/register" />         
                 </Tabs>                   
-                <Link to="/register">Register</Link> 
             </Paper>   
         );
     }

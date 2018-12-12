@@ -1,5 +1,6 @@
 import { userConstants } from './userConstants.jsx';
 import { userService } from '../../services/userService.jsx'
+import { history } from '../../helpers/history.jsx';
 
 export const userActions = {
     login,
@@ -17,7 +18,6 @@ function login(username, password) {
             .then(
                 user => { 
                     dispatch(success(user));
-                    history.push('/');
                 },
                 error => {
                     dispatch(failure(error));

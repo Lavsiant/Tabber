@@ -18,5 +18,14 @@ namespace GuitarTabberWebApp.Services.Interfaces
         Task<User> GetUserWithTabs(string userName);
 
         Task<User> GetUserFullInfo(string userName);
+
+        Task<User> GetUser(int id);
+
+        Task<User> Create(User user);
+
+        Task<User> Authenticate(string username, string password);
+
+        Task<List<User>> GetAllUsers();
+
     }
 }

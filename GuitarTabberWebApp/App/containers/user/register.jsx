@@ -59,33 +59,25 @@ class RegisterPage extends React.Component {
             <div className="col-md-6 col-md-offset-3">
                 <h2>Register</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
-                    <div className={'form-group' + (submitted && !user.firstName ? ' has-error' : '')}>
-                        <label htmlFor="firstName">First Name</label>
-                        <input type="text" className="form-control" name="firstName" value={user.firstName} onChange={this.handleChange} />
-                        {submitted && !user.firstName &&
-                            <div className="help-block">First Name is required</div>
-                        }
+                    <div>
+                        <label >First Name</label>
+                        <input type="text" className="form-control" name="firstName" value={user.firstName} onChange={this.handleChange} />                     
                     </div>
-                    <div className={'form-group' + (submitted && !user.lastName ? ' has-error' : '')}>
-                        <label htmlFor="lastName">Last Name</label>
-                        <input type="text" className="form-control" name="lastName" value={user.lastName} onChange={this.handleChange} />
-                        {submitted && !user.lastName &&
-                            <div className="help-block">Last Name is required</div>
-                        }
+                    <div>
+                        <label >Last Name</label>
+                        <input type="text" className="form-control" name="lastName" value={user.lastName} onChange={this.handleChange} />                   
                     </div>
-                    <div className={'form-group' + (submitted && !user.username ? ' has-error' : '')}>
-                        <label htmlFor="username">Username</label>
-                        <input type="text" className="form-control" name="username" value={user.username} onChange={this.handleChange} />
-                        {submitted && !user.username &&
-                            <div className="help-block">Username is required</div>
-                        }
+                    <div >
+                        <label>Username</label>
+                        <input type="text" className="form-control" name="username" value={user.username} onChange={this.handleChange} />                      
                     </div>
-                    <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />
-                        {submitted && !user.password &&
-                            <div className="help-block">Password is required</div>
-                        }
+                    <div>
+                        <label >Password</label>
+                        <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />                      
+                    </div>
+                    <div>
+                        <label >Email</label>
+                        <input type="email" name="email" value={user.email} onChange={this.handleChange} />                      
                     </div>
                     <div className="form-group">
                         <button className="btn btn-primary">Register</button>
