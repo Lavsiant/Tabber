@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTab } from './tabActions.jsx'
+import Paper from '@material-ui/core/Paper';
 
 import "isomorphic-fetch";
 
@@ -22,7 +23,14 @@ class TabDetails extends React.Component {
     render() {
      
         return (
-            <div>as{this.props.tab.id}</div>)
+            <Paper className='login'>
+            <div className = 'root'>
+                <div>Id = {this.props.tab.id}</div>
+                <div>Name = {this.props.tab.name}</div>
+                <div>Tempo = {this.props.tab.tempo}</div>
+                <div>Creator = {this.props.tab.creator}</div>
+            </div>
+            </Paper>)
         }
 }
 

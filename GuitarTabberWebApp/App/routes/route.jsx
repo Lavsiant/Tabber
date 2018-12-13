@@ -7,6 +7,7 @@ import TabDetails from '../containers/tab/tabDetails.jsx';
 import RegisterPage from '../containers/user/register.jsx';
 import RequestTest from '../containers/test/testRequest.jsx';
 import LoginPage from '../containers/user/login.jsx';
+import CreateTab from '../containers/tab/tabCreate.jsx';
 
 
 export default class Routing extends React.Component {
@@ -20,6 +21,7 @@ export default class Routing extends React.Component {
                     <Route path="/register" component={RegisterPage} />
                     <Route path="/test" component={RequestTest} />
                     <Route path="/login" component={LoginPage} />
+                    <Route path="/tab-create" component={CreateTab} />
                     <Route path="/tab/:id" render={(props) => <TabDetails id={props.match.params.id} {...props}/>} />
                     <Route exact path="/" render={() => (<Redirect to="/tabs" />)} />
                 </Switch>

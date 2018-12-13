@@ -64,6 +64,7 @@ class TabList extends React.Component {
 
         return (
             <Paper className='root'>
+                <Link to='/tab-create'>Create tab</Link>
                 <FilterTabBar filterTabs={this.filterTabs}></FilterTabBar>
                 <div className='table-wrapper'>
                     <Table className={'table'}>

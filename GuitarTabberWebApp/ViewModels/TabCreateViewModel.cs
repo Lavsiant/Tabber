@@ -11,11 +11,10 @@ namespace GuitarTabberWebApp.ViewModels
 
         public string Name { get; set; }
 
-        public InstrumentType GuitarType { get; set; }
+        public int Type { get; set; }
 
-        public List<TabIteration> Iterations { get; set; }
 
-        public double Tempo { get; set; }
+        public int Tempo { get; set; }
 
         //Creator login
         public string Creator { get; set; }

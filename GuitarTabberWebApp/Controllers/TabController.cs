@@ -47,9 +47,25 @@ namespace GuitarTabberWebApp.Controllers
 
         [Route("tab-create")]
         [HttpPost]
-        public async Task CreateTab (Tab tabCreateVM)
+        public async Task<IActionResult> CreateTab ([FromBody] TabCreateViewModel tabCreateVM)
         {
-            await _tabService.AddTab(tabCreateVM);
+            try
+            {
+                var tab = new Tab()
+                {
+                    Creator = tabCreateVM.Creator,
+                    Name = tabCreateVM.Name,
+                    Tempo = tabCreateVM.Tempo,
+                    GuitarType = (InstrumentType)tabCreateVM.Type
+                };
+                await _tabService.AddTab(tab);
+                return Ok(tab);
+            }
+            catch (Exception ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

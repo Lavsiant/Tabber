@@ -8,52 +8,63 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
+import { createTab } from './tabActions.jsx';
+import Button from '@material-ui/core/Button';
+import { config } from '../../helpers/config.jsx';
 
 class CreateTab extends React.Component {
     constructor() {
         super();
         this.state = {
-            name = '',
-            tempo = 0
+            name : '',
+            tempo : 0,
+            creator : '',
+            type: 0
         };
+        if(localStorage.getItem('user')){
+          this.state.creator = JSON.parse(localStorage.getItem('user')).username;
+        }
+        else{
+            window.location = config.apiUrl + "/login";
+        }
     }
 
-    handleChange(e) {
+    handleChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
 
         this.setState({ submitted: true });
-        const { username, password } = this.state;
-        const { dispatch } = this.props;
-        if (username && password) {
-            dispatch(userActions.login(username, password));
-        }
+        const { name, tempo } = this.state;
+        this.props.createTab({name: this.state.name, tempo: this.state.tempo , type : this.state.type, creator: this.state.creator});
+   
     }
 
 
-    render(){
+    render()
+    { 
+        const { name, tempo } = this.state;
         return(
             <Paper className='root'>
                  <div className="col-md-6 col-md-offset-3">
                     <h2>Login</h2>
                     <form name="form" onSubmit={this.handleSubmit}>
                         <div className='login-field'>
-                            <Input type="text" placeholder="Tab name" className="form-control" name="name" value={username} onChange={this.handleChange} />
+                            <Input type="text" placeholder="Tab name" className="form-control" name="name" value={name} onChange={this.handleChange} />
                         </div>
                         <div className='login-field'>
-                            <Input type="number" placeholder="Tempo" className="form-control" name="password" value={password} onChange={this.handleChange} />
+                            <Input type="number" placeholder="Tempo" className="form-control" name="tempo" value={tempo} onChange={this.handleChange} />
                         </div>
-                        <FormControl className={classes.formControl}>
+                        <FormControl >
                             <InputLabel htmlFor="age-simple">Type</InputLabel>
                             <Select
-                                value={this.state.age}
+                                value={this.state.type}
                                 onChange={this.handleChange}
                                 inputProps={{
-                                name: 'age',
+                                name: 'type',
                                 id: 'age-simple',
                                 }}
                             >
@@ -72,9 +83,10 @@ class CreateTab extends React.Component {
                     </form>
                 </div>
             </Paper>
-        )
+        );
     }
 }
+
 
 let mapProps = (state) => {
     return {
@@ -89,4 +101,4 @@ let mapDispatch = (dispatch) => {
     }
 }
 
-export default connect(mapProps, mapDispatch)(TabDetails) 
+export default connect(mapProps, mapDispatch)(CreateTab) 

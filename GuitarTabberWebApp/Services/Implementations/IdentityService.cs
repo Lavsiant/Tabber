@@ -31,21 +31,17 @@ namespace GuitarTabberWebApp.Services.Implementations
 
             var user = await _identityRepository.GetUser(username);
 
-            // check if username exists
             if (user == null)
                 return null;
 
-            // check if password is correct
             if (password != user.Password)
                 return null;
 
-            // authentication successful
             return user;
         }
 
         public async Task<User> Create(User user)
         {
-            // validation
             if (string.IsNullOrWhiteSpace(user.Password))
             {
                 return null;

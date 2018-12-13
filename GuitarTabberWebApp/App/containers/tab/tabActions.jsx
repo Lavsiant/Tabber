@@ -1,5 +1,6 @@
 import { GET_TAB_SUCCESS, GET_TAB_ERROR, CREATE_TAB_SUCCESS, CREATE_TAB_ERROR } from './tabConstants.jsx'
-import "isomorphic-fetch"
+import "isomorphic-fetch";
+import { config } from '../../helpers/config.jsx';
 
 export function receiveTab(data) {
     return {
@@ -30,14 +31,19 @@ export function getTab(id) {
 }
 
 export function createTab(tab) {
-    const url = 'api/Tab/tab'; 
-    const request = tab;
+    const url = 'api/Tab/tab-create'; 
+    const request = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(tab)
+    };
     return (dispatch) => {        
-        fetch(url,request)
+        return fetch(url,request)
             .then((response) => {
                 return response.json()
-            }).then((data) => {
-                dispatch( {type: CREATE_TAB_SUCCESS, tab: data} )
+            }).then((data) => {               
+                dispatch( {type: CREATE_TAB_SUCCESS, tab: data} );
+                window.location = config.apiUrl + "/tabs";
             }).catch((ex) => {
                 dispatch( {type: CREATE_TAB_ERROR, err: ex})
             });
