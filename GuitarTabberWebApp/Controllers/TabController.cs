@@ -33,9 +33,17 @@ namespace GuitarTabberWebApp.Controllers
 
         [Route("tab")]
         [HttpGet]
-        public async Task<Tab> GetTab(int id)
+        public async Task<TabCreateViewModel> GetTab(int id)
         {
-            return await _tabService.GetTabById(id);
+            var result = await _tabService.GetTabById(id);
+
+            return new TabCreateViewModel()
+            {
+                Name = result.Name,
+                Creator = result.Creator,
+                Tempo = Convert.ToInt32(result.Tempo),
+                Type = (int)result.GuitarType
+            };
         }
 
         [Route("tab-delete")]

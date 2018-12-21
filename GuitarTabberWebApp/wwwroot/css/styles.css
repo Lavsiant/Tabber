@@ -44,7 +44,16 @@
     width: '100%';
     margin: 5% 3% 5% 3%;
     text-align: center;
+    min-width: 300px;
  }
+
+.tab-create{
+    width: 50%;
+      margin: auto;
+      text-align: center;
+      min-width: 500px;
+
+}
 
 .table{
     min-width: 500px;
@@ -69,6 +78,11 @@
       margin: 10px 10px 10px 10px;
   }
 
+  .tab-create-form{
+    text-align: left;
+    padding-left: 10px;
+  }
+
   .login{
       width: 30%;
       margin: auto;
@@ -77,6 +91,10 @@
 
   .login-field{
       margin-top: 20px
+  }
+
+  .field{
+      margin: 30px;
   }
 
   .form-group{

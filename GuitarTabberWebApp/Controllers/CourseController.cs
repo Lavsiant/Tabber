@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using GuitarTabberWebApp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Model.GuitarTab;
 
 namespace GuitarTabberWebApp.Controllers
 {
+    [Route("api/[controller]")]
     public class CourseController : Controller
     {
         private readonly ICourseService _courseService;
@@ -18,14 +20,14 @@ namespace GuitarTabberWebApp.Controllers
 
         [HttpGet]
         [Route("all-courses")]
-        public async Task<IActionResult> GetAllCourses()
+        public async Task<List<Course>> GetAllCourses()
         {
-            var result = await _courseService.GetAllCourses();
-            return Ok(result);
+            return await _courseService.GetAllCourses();
+           // return Ok(result);
         }
 
         [HttpGet]
-        [Route("all-courses")]
+        [Route("course")]
         public async Task<IActionResult> GetCourse(int id)
         {
             var result = await _courseService.GetCourse(id);
@@ -33,7 +35,7 @@ namespace GuitarTabberWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("all-courses")]
+        [Route("subs")]
         public IActionResult GetAllSubscribedUsers(int id)
         {
             var result = _courseService.GetAllSubscribedUsers(id);
