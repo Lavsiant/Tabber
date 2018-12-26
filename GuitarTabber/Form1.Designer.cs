@@ -166,8 +166,14 @@
             this.stop_button = new System.Windows.Forms.Button();
             this.progress_bar = new System.Windows.Forms.TrackBar();
             this.reset_button = new System.Windows.Forms.Button();
+            this.nextButton = new System.Windows.Forms.Button();
+            this.backButton = new System.Windows.Forms.Button();
+            this.NameLabel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tempoSlowK = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.progress_bar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tempoSlowK)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -2056,6 +2062,7 @@
             this.progress_bar.Name = "progress_bar";
             this.progress_bar.Size = new System.Drawing.Size(1145, 45);
             this.progress_bar.TabIndex = 141;
+            this.progress_bar.Scroll += new System.EventHandler(this.progress_bar_Scroll);
             // 
             // reset_button
             // 
@@ -2067,11 +2074,83 @@
             this.reset_button.UseVisualStyleBackColor = true;
             this.reset_button.Click += new System.EventHandler(this.reset_button_Click);
             // 
+            // nextButton
+            // 
+            this.nextButton.Location = new System.Drawing.Point(1024, 534);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(133, 41);
+            this.nextButton.TabIndex = 143;
+            this.nextButton.Text = "Next";
+            this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            // 
+            // backButton
+            // 
+            this.backButton.Location = new System.Drawing.Point(13, 534);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(124, 40);
+            this.backButton.TabIndex = 144;
+            this.backButton.Text = "Previous";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
+            // NameLabel
+            // 
+            this.NameLabel.AutoSize = true;
+            this.NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.NameLabel.Location = new System.Drawing.Point(537, 331);
+            this.NameLabel.Name = "NameLabel";
+            this.NameLabel.Size = new System.Drawing.Size(60, 24);
+            this.NameLabel.TabIndex = 145;
+            this.NameLabel.Text = "label1";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(100, 392);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(117, 18);
+            this.label2.TabIndex = 146;
+            this.label2.Text = "Tempo slow (%)";
+            // 
+            // tempoSlowK
+            // 
+            this.tempoSlowK.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.tempoSlowK.Location = new System.Drawing.Point(223, 392);
+            this.tempoSlowK.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.tempoSlowK.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.tempoSlowK.Name = "tempoSlowK";
+            this.tempoSlowK.Size = new System.Drawing.Size(93, 20);
+            this.tempoSlowK.TabIndex = 147;
+            this.tempoSlowK.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1169, 587);
+            this.Controls.Add(this.tempoSlowK);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.NameLabel);
+            this.Controls.Add(this.backButton);
+            this.Controls.Add(this.nextButton);
             this.Controls.Add(this.reset_button);
             this.Controls.Add(this.progress_bar);
             this.Controls.Add(this.stop_button);
@@ -2213,6 +2292,7 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.progress_bar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tempoSlowK)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2357,6 +2437,11 @@
         private System.Windows.Forms.Button stop_button;
         private System.Windows.Forms.TrackBar progress_bar;
         private System.Windows.Forms.Button reset_button;
+        private System.Windows.Forms.Button nextButton;
+        private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.Label NameLabel;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown tempoSlowK;
     }
 }
 

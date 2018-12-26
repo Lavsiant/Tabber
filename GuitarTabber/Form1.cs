@@ -147,13 +147,19 @@ namespace GuitarTabber
                     },
                 }
             };
-
-            progress_bar.Maximum = _testTab.Iterations.Count-1;
+            var data = new Data();
+            tabs = data.GetAllTabs();
+            currentTab = tabs.First();
+            progress_bar.Maximum = currentTab.Iterations.Count-1;
+            NameLabel.Text = currentTab.Name;
+            tempoSlowK.Value = 100;
         }
 
         private readonly Tab _testTab;
         private int _indexOfLastIteration;
         private CancellationTokenSource _cts;
+        private List<Tab> tabs;
+        private Tab currentTab;
 
 
         private void button79_Click(object sender, EventArgs e)
@@ -172,25 +178,25 @@ namespace GuitarTabber
 
         private void StartTabReading(CancellationToken ct, Form form, int startIndex)
         {
-            for (int i = startIndex; i < _testTab.Iterations.Count; i++)
+            for (int i = startIndex; i < currentTab.Iterations.Count; i++)
             {
                 
                 if (!ct.IsCancellationRequested)
                 {
                     this.InvokeEx(f => f.progress_bar.Value = i);
 
-                    foreach (var note in _testTab.Iterations[i].ActiveNotes)
+                    foreach (var note in currentTab.Iterations[i].ActiveNotes)
                     {
                         var bt = form.Controls.Find($"note_{note.StringNumber}_{note.Fret}", true).First();
                         this.InvokeEx(f => bt.Visible = true);
 
                     }
                     this.InvokeEx(f => f.Update());
-                    Thread.Sleep(Convert.ToInt32(_testTab.Tempo * _testTab.Iterations[i].WaitTimeScalar) * 5);
+                    Thread.Sleep(Convert.ToInt32((currentTab.Tempo * currentTab.Iterations[i].WaitTimeScalar)* 5/100 * Convert.ToInt32(tempoSlowK.Value)));
 
 
 
-                    foreach (var note in _testTab.Iterations[i].ActiveNotes)
+                    foreach (var note in currentTab.Iterations[i].ActiveNotes)
                     {
                         var bt = form.Controls.Find($"note_{note.StringNumber}_{note.Fret}", true).First();
                         this.InvokeEx(f => bt.Visible = false);
@@ -222,6 +228,52 @@ namespace GuitarTabber
         {
             _indexOfLastIteration = 0;
             progress_bar.Value = 0;
+        }
+
+        private void progress_bar_Scroll(object sender, EventArgs e)
+        {
+            _cts.Cancel();
+            start_button.Enabled = true;
+            _indexOfLastIteration = progress_bar.Value;
+          
+        }
+
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            _cts.Cancel();
+            start_button.Enabled = true;
+            var indx = tabs.FindIndex(x => x == currentTab);
+            if(indx+1 == tabs.Count)
+            {
+                currentTab = tabs.First();
+            }
+            else
+            {
+                currentTab = tabs[indx+1];
+            }
+            NameLabel.Text = currentTab.Name;
+            progress_bar.Maximum = currentTab.Iterations.Count - 1;
+            progress_bar.Value = 0;
+            _indexOfLastIteration = progress_bar.Value;
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            _cts.Cancel();
+            start_button.Enabled = true;
+            var indx = tabs.FindIndex(x => x == currentTab);
+            if (indx - 1 < 0)
+            {
+                currentTab = tabs.Last();
+            }
+            else
+            {
+                currentTab = tabs[indx];
+            }
+            NameLabel.Text = currentTab.Name;
+            progress_bar.Maximum = currentTab.Iterations.Count - 1;
+            progress_bar.Value = 0;
+            _indexOfLastIteration = progress_bar.Value;
         }
     }
 
