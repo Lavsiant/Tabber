@@ -50,6 +50,7 @@ namespace GuitarTabberWebApp.Services.Implementations
             if (await _identityRepository.GetUser(user.UserName) != null)
                 throw new AppException("Username '" + user.UserName + "' is already taken");
 
+            user.IsAdmin = false;
             await _identityRepository.Create(user);
 
             return user;

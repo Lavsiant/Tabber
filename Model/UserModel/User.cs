@@ -28,5 +28,9 @@ namespace Model.UserModel
         public List<Tab> BoughtTabs { get; set; }
 
         public List<Course> Courses { get; set; }
+
+        public bool IsAdmin { get; set; }
+
+        public string Bio { get; set; }
     }
 }

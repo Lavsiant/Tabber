@@ -19,5 +19,7 @@ namespace DbRepository
         public DbSet<Tab> Tabs { get; set; }
 
         public DbSet<Course> Courses { get; set; }
+
+        public DbSet<ActiveCourse> ActivatedUserCourses { get; set; }
     }
 }

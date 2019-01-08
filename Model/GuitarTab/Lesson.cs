@@ -11,5 +11,11 @@ namespace Model.GuitarTab
         public string Name { get; set; }
 
         public Tab Tab { get; set; }
+
+        public int RepeatNumber { get; set; }
+
+        public int StartBpm { get; set; }
+
+        public int MinTempoStep { get; set; }
     }
 }

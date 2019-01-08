@@ -18,5 +18,7 @@ namespace Model.GuitarTab
         public List<Lesson> Lessons { get; set; }
 
         public InstrumentType Type { get; set; }
+
+        public string Description { get; set; }
     }
 }

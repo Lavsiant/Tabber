@@ -20,7 +20,16 @@ class CreateTab extends React.Component {
             tempo: 0,
             creator: '',
             type: 0,
-            iteration: { string: 1, note: 0, tempScale: 1 },
+            iteration: {
+                tempScale: 1, strings: [
+                    { string: 1, note: '' },
+                    { string: 2, note: '' },
+                    { string: 3, note: '' },
+                    { string: 4, note: '' },
+                    { string: 5, note: '' },
+                    { string: 6, note: '' },
+                ]
+            },
             iterations: []
         };
         if (localStorage.getItem('user')) {
@@ -39,8 +48,15 @@ class CreateTab extends React.Component {
     handleIterationChange = (e) => {
         const { name, value } = e.target;
         const { iteration } = this.state;
-        iteration[name] = value;
-        this.setState({ [name]: iteration })
+        if (name === "tempScale") {
+            iteration.tempScale = value;
+        }
+        else {
+            iteration.strings[+name - 1].note = value;
+            alert( iteration.strings[+name - 1].note);
+        }
+        // iteration[name] = value;
+        this.setState({ iteration: iteration })
     }
 
     handleSubmit = (e) => {
@@ -53,7 +69,15 @@ class CreateTab extends React.Component {
     handleAddIterationClickButton = (e) => {
         const { iterations, iteration } = this.state;
         iterations.push(iteration);
-        this.setState({ iterations: iterations, iteration: { string: 1, note: 0, tempScale: 1 } });
+        alert(iteration.strings);
+        this.setState({ iterations: iterations, iteration: {   tempScale: 1, strings: [
+            { string: 1, note: '' },
+            { string: 2, note: '' },
+            { string: 3, note: '' },
+            { string: 4, note: '' },
+            { string: 5, note: '' },
+            { string: 6, note: '' },
+        ] } });
     }
 
     handleRemoveIterationClickButton = (e) => {
@@ -65,7 +89,6 @@ class CreateTab extends React.Component {
     render() {
         const { name, tempo } = this.state;
         const strings = [1, 2, 3, 4, 5, 6];
-        let 
         let counter = -1;
         return (
             <Paper className='tab-create'>
@@ -73,13 +96,15 @@ class CreateTab extends React.Component {
                     <h2>Create</h2>
                     <form name="form" className='tab-create-form' onSubmit={this.handleSubmit}>
                         <div className='field'>
+                            <label>Name: </label>
                             <Input type="text" placeholder="Tab name" className="form-control" name="name" value={name} onChange={this.handleChange} />
                         </div>
                         <div className='field'>
+                            <label>Tempo: </label>
                             <Input type="number" placeholder="Tempo" className="form-control" name="tempo" value={tempo} onChange={this.handleChange} />
                         </div>
                         <div className='field'>
-                            <InputLabel htmlFor="age-simple">Type</InputLabel>
+                            <InputLabel htmlFor="age-simple">Type </InputLabel>
                             <Select
                                 value={this.state.type}
                                 onChange={this.handleChange}
@@ -96,33 +121,40 @@ class CreateTab extends React.Component {
                                 <MenuItem value={3}>Piano</MenuItem>
                             </Select>
                         </div>
-                        {this.state.iterations.map(tab => {
+                        {this.state.iterations.map(iteration => {
                             counter++;
                             return (
                                 <Paper className='root'>
-                                    <label>String: {tab.string} </label>
-                                    <label>Note: {tab.note} </label>
-                                    <label>tempScale: {tab.tempScale} </label>
+                                    <label>tempScale: {iteration.tempScale} </label>
+                                    {iteration.strings.map(string => {
+                                        return(
+                                        <div>
+                                            <label>String: {string.string} </label>
+                                            <label>Note: {string.note} </label>
+                                        </div>
+                                        )
+                                    })}
                                     <Button type='button' onClick={() => this.handleRemoveIterationClickButton(counter)} style={{ marginLeft: 5 }}>Remove</Button>
                                 </Paper>
                             );
                         })}
-                        {strings.map(string =>{
-                            return(
-                                <Paper className='root'>
-                                <label> String: {string} </label>
+                        <Paper className='root'>
+                            <label> Temp scale: </label>
+                            <Input type="number" inputProps={{ min: 0, max: 10 }} placeholder="Temp scale" className="form-control" name="tempScale" value={this.state.iteration.tempScale} onChange={this.handleIterationChange} />
+                            {strings.map(string => {
+                                return (
+                                    <div>
+                                        <label> String: {string} </label>
 
-                                <label> Note: </label>
-                                <Input type="number" inputProps={{ min: 0, max: 18 }} placeholder="None" className="form-control" name="tempScale" value={this.state.iteration.tempScale} onChange={this.handleIterationChange} />
-                               
-                                <label> Temp scale: </label>
-                                <Input type="number" inputProps={{ min: 0, max: 10 }} placeholder="Temp scale" className="form-control" name="tempScale" value={this.state.iteration.tempScale} onChange={this.handleIterationChange} />
-                                <Button type='button' onClick={this.handleAddIterationClickButton} style={{ marginLeft: 5 }}>Add</Button>
-                            </Paper>
-                            );
-                        })}
-                       
-                      
+                                        <label> Note: </label>
+                                        <Input type="number" inputProps={{ min: 0, max: 18 }} placeholder="None" className="form-control" name={string.toString()} value={this.state.iteration.strings[string-1].note} onChange={this.handleIterationChange} />
+                                    </div>
+                                );
+                            })}
+                            <Button type='button' onClick={this.handleAddIterationClickButton} style={{ marginLeft: 5 }}>Add</Button>
+
+                        </Paper>
+
 
                         <div className="form-group">
                             <Button size='large' type='submit' className="form-group">Create</Button>

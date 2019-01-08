@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileApp.Lesson">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Text="Back" Clicked="Back"></Button>
+         
+            <Button IsVisible="{Binding IsAdmin}" Text="Delete course" Clicked="DeleteCourse"></Button>
+            <Label Text="{Binding Header}"></Label>
+            <ListView x:Name="Tabs"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding TabList}"
+                  ItemTapped="OnItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout>
+                                    <Label Text="{Binding Name}" FontSize="18" />
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80"></ColumnDefinition>
+                                            <ColumnDefinition Width="80"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Row="0" Grid.Column="0" Text="Tempo: " />
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Tempo}" />
+                                        <Label Grid.Row="1" Grid.Column="0" Text="Creator: "/>
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Creator}"/>
+                                    </Grid>
+                                   
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
