@@ -42,5 +42,14 @@ namespace GuitarTabberWebApp.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("course-add")]
+        public IActionResult AddCourse(int id,string username)
+        {
+            _courseService.AddCourseToUser(id, username);
+            return Ok();
+        }
+
+
     }
 }

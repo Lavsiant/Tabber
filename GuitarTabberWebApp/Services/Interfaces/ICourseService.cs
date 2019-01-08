@@ -19,5 +19,7 @@ namespace GuitarTabberWebApp.Services.Interfaces
         Task CreateCourse(CourseCreateViewModel course);
 
         Task DeleteCourse(int id);
+
+        Task AddCourseToUser(int id, string username);
     }
 }

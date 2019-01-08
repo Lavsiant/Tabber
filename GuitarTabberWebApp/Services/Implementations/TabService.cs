@@ -42,5 +42,10 @@ namespace GuitarTabberWebApp.Services.Implementations
         {
             return _tabRepository.GetSubscribedUsers(id);
         }
+
+        public async Task AddTabToUser(int id, string userName)
+        {
+            
+        }
     }
 }

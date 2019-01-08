@@ -3804,7 +3804,12 @@ var userConstants = exports.userConstants = {
 
     DELETE_REQUEST: 'USERS_DELETE_REQUEST',
     DELETE_SUCCESS: 'USERS_DELETE_SUCCESS',
-    DELETE_FAILURE: 'USERS_DELETE_FAILURE'
+    DELETE_FAILURE: 'USERS_DELETE_FAILURE',
+
+    GETUSER_REQUEST: 'USERS_GETUSER_REQUEST',
+    GETUSER_SUCCESS: 'USERS_GETUSER_SUCCESS',
+    GETUSER_FAILURE: 'USERS_GETUSER_FAILURE'
+
 };
 
 /***/ }),
@@ -9377,11 +9382,14 @@ var _userService = __webpack_require__(399);
 
 var _config = __webpack_require__(56);
 
+var _propTypes = __webpack_require__(3);
+
 var userActions = exports.userActions = {
     login: login,
     logout: logout,
     register: register,
     getAll: getAll,
+    getUser: getUser,
     delete: _delete
 };
 
@@ -9437,6 +9445,23 @@ function register(user) {
     }
     function failure(error) {
         return { type: _userConstants.userConstants.REGISTER_FAILURE, error: error };
+    }
+}
+
+function getUser(id) {
+    return function (dispatch) {
+
+        _userService.userService.getById(id).then(function (user) {
+            return dispatch(success(user));
+        }, function (error) {
+            return dispatch(failure(error));
+        });
+    };
+    function success(user) {
+        return { type: _userConstants.userConstants.GETUSER_SUCCESS, user: user };
+    }
+    function failure(error) {
+        return { type: _userConstants.userConstants.GETUSER_FAILURE, error: error };
     }
 }
 
@@ -35629,7 +35654,7 @@ var Header = function (_React$Component) {
                     _Tabs2.default,
                     { value: this.state.value, onChange: this.handleChange, centered: true },
                     _react2.default.createElement(_Tab2.default, { label: 'Tabs', component: _reactRouterDom.Link, to: '/tabs' }),
-                    _react2.default.createElement(_Tab2.default, { label: 'About', component: _reactRouterDom.Link, to: '/about' }),
+                    _react2.default.createElement(_Tab2.default, { label: 'Courses', component: _reactRouterDom.Link, to: '/courses' }),
                     _react2.default.createElement(_Tab2.default, { label: 'Test tab', component: _reactRouterDom.Link, to: '/test' }),
                     _react2.default.createElement(_Tab2.default, { label: 'Logout', onClick: this.handleLogOut, component: _reactRouterDom.Link, to: '/login' })
                 );
@@ -35638,7 +35663,7 @@ var Header = function (_React$Component) {
                     _Tabs2.default,
                     { value: this.state.value, onChange: this.handleChange, centered: true },
                     _react2.default.createElement(_Tab2.default, { label: 'Tabs', component: _reactRouterDom.Link, to: '/tabs' }),
-                    _react2.default.createElement(_Tab2.default, { label: 'About', component: _reactRouterDom.Link, to: '/about' }),
+                    _react2.default.createElement(_Tab2.default, { label: 'Courses', component: _reactRouterDom.Link, to: '/course' }),
                     _react2.default.createElement(_Tab2.default, { label: 'Test tab', component: _reactRouterDom.Link, to: '/test' }),
                     _react2.default.createElement(_Tab2.default, { label: 'Register', component: _reactRouterDom.Link, to: '/register' }),
                     _react2.default.createElement(_Tab2.default, { label: 'Login', component: _reactRouterDom.Link, to: '/login' }),
@@ -43421,6 +43446,10 @@ var _tabList = __webpack_require__(304);
 
 var _tabList2 = _interopRequireDefault(_tabList);
 
+var _courseList = __webpack_require__(419);
+
+var _courseList2 = _interopRequireDefault(_courseList);
+
 var _about = __webpack_require__(140);
 
 var _about2 = _interopRequireDefault(_about);
@@ -43428,6 +43457,10 @@ var _about2 = _interopRequireDefault(_about);
 var _tabDetails = __webpack_require__(397);
 
 var _tabDetails2 = _interopRequireDefault(_tabDetails);
+
+var _courseDetails = __webpack_require__(421);
+
+var _courseDetails2 = _interopRequireDefault(_courseDetails);
 
 var _register = __webpack_require__(398);
 
@@ -43444,6 +43477,14 @@ var _login2 = _interopRequireDefault(_login);
 var _tabCreate = __webpack_require__(404);
 
 var _tabCreate2 = _interopRequireDefault(_tabCreate);
+
+var _courseCreate = __webpack_require__(423);
+
+var _courseCreate2 = _interopRequireDefault(_courseCreate);
+
+var _userDetails = __webpack_require__(426);
+
+var _userDetails2 = _interopRequireDefault(_userDetails);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43473,12 +43514,20 @@ var Routing = function (_React$Component) {
                     null,
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _about2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/tabs', component: _tabList2.default }),
+                    _react2.default.createElement(_reactRouterDom.Route, { path: '/courses', component: _courseList2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/register', component: _register2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/test', component: _testRequest2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _login2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/tab-create', component: _tabCreate2.default }),
+                    _react2.default.createElement(_reactRouterDom.Route, { path: '/course-create', component: _courseCreate2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/tab/:id', render: function render(props) {
                             return _react2.default.createElement(_tabDetails2.default, _extends({ id: props.match.params.id }, props));
+                        } }),
+                    _react2.default.createElement(_reactRouterDom.Route, { path: '/user/:id', render: function render(props) {
+                            return _react2.default.createElement(_userDetails2.default, _extends({ id: props.match.params.id }, props));
+                        } }),
+                    _react2.default.createElement(_reactRouterDom.Route, { path: '/course/:id', render: function render(props) {
+                            return _react2.default.createElement(_courseDetails2.default, _extends({ id: props.match.params.id }, props));
                         } }),
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
                             return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/tabs' });
@@ -56117,7 +56166,7 @@ function getById(id) {
         headers: (0, _authHeader.authHeader)()
     };
 
-    return fetch(_config.config.apiUrl + '/api/Identity/' + _id, requestOptions).then(handleResponse, handleError);
+    return fetch(_config.config.apiUrl + '/api/Identity/user-id?id=' + id, requestOptions).then(handleResponse, handleError);
 }
 
 function register(user) {
@@ -56950,7 +56999,6 @@ var CreateTab = function (_React$Component) {
                 iteration.tempScale = value;
             } else {
                 iteration.strings[+name - 1].note = value;
-                alert(iteration.strings[+name - 1].note);
             }
             // iteration[name] = value;
             _this.setState({ iteration: iteration });
@@ -56971,8 +57019,15 @@ var CreateTab = function (_React$Component) {
                 iterations = _this$state2.iterations,
                 iteration = _this$state2.iteration;
 
-            iterations.push(iteration);
-            alert(iteration.strings);
+            var newIteration = { tempScale: iteration.tempScale, strings: [] };
+            for (var i = 0; i < iteration.strings.length; i++) {
+                if (iteration.strings[i].note !== '') {
+                    newIteration.strings.push(iteration.strings[i]);
+                }
+            }
+            if (newIteration.strings.length > 0) {
+                iterations.push(newIteration);
+            }
             _this.setState({ iterations: iterations, iteration: { tempScale: 1, strings: [{ string: 1, note: '' }, { string: 2, note: '' }, { string: 3, note: '' }, { string: 4, note: '' }, { string: 5, note: '' }, { string: 6, note: '' }] } });
         };
 
@@ -57441,9 +57496,21 @@ var _tabReducer = __webpack_require__(410);
 
 var _tabReducer2 = _interopRequireDefault(_tabReducer);
 
+var _coursesReducer = __webpack_require__(415);
+
+var _coursesReducer2 = _interopRequireDefault(_coursesReducer);
+
+var _courseReducer = __webpack_require__(417);
+
+var _courseReducer2 = _interopRequireDefault(_courseReducer);
+
 var _registrationReducer = __webpack_require__(411);
 
 var _registrationReducer2 = _interopRequireDefault(_registrationReducer);
+
+var _userDetailsReducer = __webpack_require__(425);
+
+var _userDetailsReducer2 = _interopRequireDefault(_userDetailsReducer);
 
 var _authenticationReducer = __webpack_require__(412);
 
@@ -57458,9 +57525,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = (0, _redux.combineReducers)({
     tabsReducer: _tabsReducer2.default,
     tabReducer: _tabReducer2.default,
+    coursesReducer: _coursesReducer2.default,
+    courseReducer: _courseReducer2.default,
     registration: _registrationReducer2.default,
     authentication: _authenticationReducer2.default,
-    users: _userReducer2.default
+    users: _userReducer2.default,
+    userDetailsReducer: _userDetailsReducer2.default
 });
 
 /***/ }),
@@ -57657,6 +57727,18 @@ function users() {
       return {
         error: action.error
       };
+    case _userConstants.userConstants.GETUSER_REQUEST:
+      return {
+        loading: true
+      };
+    case _userConstants.userConstants.GETUSER_SUCCESS:
+      return {
+        user: action.user
+      };
+    case _userConstants.userConstants.GETUSER_FAILURE:
+      return {
+        error: action.error
+      };
     case _userConstants.userConstants.DELETE_REQUEST:
       // add 'deleting:true' property to user being deleted
       return _extends({}, state, {
@@ -57719,6 +57801,826 @@ var thunk = createThunkMiddleware();
 thunk.withExtraArgument = createThunkMiddleware;
 
 /* harmony default export */ __webpack_exports__["default"] = (thunk);
+
+/***/ }),
+/* 415 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = coursesReducer;
+
+var _coursesConstants = __webpack_require__(416);
+
+var initialState = {
+    courses: [],
+    error: ''
+};
+
+function coursesReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case _coursesConstants.GET_COURSES_SUCCESS:
+
+            return _extends({}, state, { tabs: action.tabs, error: '' });
+
+        case _coursesConstants.GET_COURSES_ERROR:
+            return _extends({}, state, { error: action.error });
+
+        default:
+            return state;
+    }
+}
+
+/***/ }),
+/* 416 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var GET_COURSES_SUCCESS = exports.GET_COURSES_SUCCESS = 'GET_COURSES_SUCCESS';
+var GET_COURSES_ERROR = exports.GET_COURSES_ERROR = 'GET_COURSES_ERROR';
+
+/***/ }),
+/* 417 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = courseReducer;
+
+var _courseConstants = __webpack_require__(418);
+
+var initialState = {
+    course: {},
+    error: ''
+};
+
+function courseReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case _courseConstants.GET_COURSE_SUCCESS:
+
+            return _extends({}, state, { course: action.course, error: '' });
+
+        case _courseConstants.GET_COURSE_ERROR:
+            return _extends({}, state, { error: action.error });
+
+        case _courseConstants.CREATE_COURSE_SUCCESS:
+            return _extends({}, state);
+
+        case _courseConstants.CREATE_COURSE_SUCCESS:
+            return _extends({}, state, { course: action.course });
+
+        case _courseConstants.CREATE_COURSE_ERROR:
+            return _extends({}, state, { error: action.err });
+
+        default:
+            return state;
+    }
+}
+
+/***/ }),
+/* 418 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = courseReducer;
+
+var _courseConstants = __webpack_require__(418);
+
+var initialState = {
+    course: {},
+    error: ''
+};
+
+function courseReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case _courseConstants.GET_COURSE_SUCCESS:
+
+            return _extends({}, state, { course: action.course, error: '' });
+
+        case _courseConstants.GET_COURSE_ERROR:
+            return _extends({}, state, { error: action.error });
+
+        case _courseConstants.CREATE_COURSE_SUCCESS:
+            return _extends({}, state);
+
+        case _courseConstants.CREATE_COURSE_SUCCESS:
+            return _extends({}, state, { course: action.course });
+
+        case _courseConstants.CREATE_COURSE_ERROR:
+            return _extends({}, state, { error: action.err });
+
+        default:
+            return state;
+    }
+}
+
+/***/ }),
+/* 419 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(15);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _redux = __webpack_require__(24);
+
+var _reactRedux = __webpack_require__(23);
+
+var _queryString = __webpack_require__(305);
+
+var _queryString2 = _interopRequireDefault(_queryString);
+
+var _reactRouterDom = __webpack_require__(25);
+
+var _coursesActions = __webpack_require__(424);
+
+var _styles = __webpack_require__(118);
+
+__webpack_require__(52);
+
+var _Paper = __webpack_require__(21);
+
+var _Paper2 = _interopRequireDefault(_Paper);
+
+var _List = __webpack_require__(119);
+
+var _List2 = _interopRequireDefault(_List);
+
+var _ListItem = __webpack_require__(120);
+
+var _ListItem2 = _interopRequireDefault(_ListItem);
+
+var _tablePaginationActions = __webpack_require__(317);
+
+var _tablePaginationActions2 = _interopRequireDefault(_tablePaginationActions);
+
+var _ListItemIcon = __webpack_require__(329);
+
+var _ListItemIcon2 = _interopRequireDefault(_ListItemIcon);
+
+var _ListItemText = __webpack_require__(331);
+
+var _ListItemText2 = _interopRequireDefault(_ListItemText);
+
+var _TableHead = __webpack_require__(334);
+
+var _TableHead2 = _interopRequireDefault(_TableHead);
+
+var _Table = __webpack_require__(336);
+
+var _Table2 = _interopRequireDefault(_Table);
+
+var _TableBody = __webpack_require__(338);
+
+var _TableBody2 = _interopRequireDefault(_TableBody);
+
+var _TableCell = __webpack_require__(127);
+
+var _TableCell2 = _interopRequireDefault(_TableCell);
+
+var _TableFooter = __webpack_require__(341);
+
+var _TableFooter2 = _interopRequireDefault(_TableFooter);
+
+var _TablePagination = __webpack_require__(343);
+
+var _TablePagination2 = _interopRequireDefault(_TablePagination);
+
+var _TableRow = __webpack_require__(382);
+
+var _TableRow2 = _interopRequireDefault(_TableRow);
+
+var _filterCourseBar = __webpack_require__(420);
+
+var _filterCourseBar2 = _interopRequireDefault(_filterCourseBar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CourseList = function (_React$Component) {
+    _inherits(CourseList, _React$Component);
+
+    function CourseList() {
+        _classCallCheck(this, CourseList);
+
+        var _this = _possibleConstructorReturn(this, (CourseList.__proto__ || Object.getPrototypeOf(CourseList)).call(this));
+
+        _this.handleChangePage = function (event, page) {
+            _this.setState({ page: page });
+        };
+
+        _this.handleChangeRowsPerPage = function (event) {
+            _this.setState({ rowsPerPage: +event.target.value });
+        };
+
+        _this.filterCourses = function (filterOptions) {
+            var courses = _this.props.courses;
+            if (filterOptions.name) courses = courses.filter(function (x) {
+                return x.name.toLowerCase().includes(filterOptions.name.toLowerCase());
+            });
+
+            // tabs = !isNaN(filterOptions.minTempo) ? tabs.filter(x=>+x.tempo >= +filterOptions.minTempo) : tabs;
+            _this.setState({ filteredCourses: courses });
+        };
+
+        _this.state = {
+            filteredCourses: [],
+            page: 0,
+            rowsPerPage: 5
+        };
+        return _this;
+    }
+
+    _createClass(CourseList, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            this.props.getCourses().then(function () {
+                return _this2.setState({ filteredCourses: _this2.props.courses });
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _state = this.state,
+                rowsPerPage = _state.rowsPerPage,
+                page = _state.page;
+
+            var emptyRows = rowsPerPage - Math.min(rowsPerPage, this.state.filteredCourses.length - page * rowsPerPage);
+
+            return _react2.default.createElement(
+                _Paper2.default,
+                { className: 'root' },
+                _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/course-create' },
+                    'Create course'
+                ),
+                _react2.default.createElement(_filterCourseBar2.default, { filterCourses: this.filterCourses }),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'table-wrapper' },
+                    _react2.default.createElement(
+                        _Table2.default,
+                        { className: 'table' },
+                        _react2.default.createElement(
+                            _TableHead2.default,
+                            null,
+                            _react2.default.createElement(
+                                _TableRow2.default,
+                                null,
+                                _react2.default.createElement(
+                                    _TableCell2.default,
+                                    null,
+                                    'Name'
+                                ),
+                                _react2.default.createElement(
+                                    _TableCell2.default,
+                                    null,
+                                    'Type'
+                                ),
+                                _react2.default.createElement(
+                                    _TableCell2.default,
+                                    { numeric: true },
+                                    'Creator'
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _TableBody2.default,
+                            null,
+                            this.state.filteredCourses.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(function (course) {
+                                return _react2.default.createElement(
+                                    _TableRow2.default,
+                                    { key: course.id, className: 'table-field', component: _reactRouterDom.Link, to: '/course/' + course.id },
+                                    _react2.default.createElement(
+                                        _TableCell2.default,
+                                        { component: 'th', scope: 'row' },
+                                        course.name
+                                    ),
+                                    _react2.default.createElement(
+                                        _TableCell2.default,
+                                        { numeric: true },
+                                        course.creator
+                                    )
+                                );
+                            }),
+                            emptyRows > 0 && _react2.default.createElement(
+                                _TableRow2.default,
+                                { style: { height: 48 * emptyRows } },
+                                _react2.default.createElement(_TableCell2.default, { colSpan: 6 })
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _TableFooter2.default,
+                            null,
+                            _react2.default.createElement(
+                                _TableRow2.default,
+                                null,
+                                _react2.default.createElement(_TablePagination2.default, {
+                                    rowsPerPageOptions: [2, 5, 10, 25],
+                                    colSpan: 3,
+                                    count: this.props.courses.length,
+                                    rowsPerPage: rowsPerPage,
+                                    page: page,
+                                    SelectProps: {
+                                        native: true
+                                    },
+                                    onChangePage: this.handleChangePage,
+                                    onChangeRowsPerPage: this.handleChangeRowsPerPage,
+                                    ActionsComponent: _tablePaginationActions2.default
+                                })
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return CourseList;
+}(_react2.default.Component);
+
+;
+
+var mapProps = function mapProps(state) {
+    return {
+        courses: state.coursesReducer.courses,
+        error: state.coursesReducer.error
+    };
+};
+
+var mapDispatch = function mapDispatch(dispatch) {
+    return {
+        getCourses: (0, _redux.bindActionCreators)(_coursesActions.getCourses, dispatch)
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapProps, mapDispatch)(CourseList);
+
+/***/ }),
+/* 420 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(15);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _TextField = __webpack_require__(137);
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FilterCourseBar = function (_React$Component) {
+    _inherits(FilterCourseBar, _React$Component);
+
+    function FilterCourseBar() {
+        _classCallCheck(this, FilterCourseBar);
+
+        var _this = _possibleConstructorReturn(this, (FilterCourseBar.__proto__ || Object.getPrototypeOf(FilterCourseBar)).call(this));
+
+        _this.onNameChanged = function (e) {
+
+            _this.setState({ name: e.target.value });
+            _this.state.name = e.target.value;
+            _this.props.filterTabs({ name: e.target.value });
+        };
+
+        _this.state = {
+            name: ''
+        };
+        return _this;
+    }
+
+    _createClass(FilterCourseBar, [{
+        key: 'render',
+
+
+        // onMinTempoChanged = e => {
+        //     this.setState({ minTempo: e.target.value });
+        //     this.props.filterTabs({name: this.state.name, maxTempo: this.state.maxTempo, minTempo: e.target.value});
+        // }
+
+        // onMaxTempoChanged = e => {
+        //     this.setState({ maxTempo: e.target.value });
+        //     this.props.filterTabs({name: this.state.name, maxTempo: e.target.value, minTempo: this.state.minTempo});
+        // }
+
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'filter-bar' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'filter' },
+                    _react2.default.createElement(_TextField2.default, {
+                        className: 'filter-field',
+                        label: 'Course name',
+                        margin: 'normal',
+                        onChange: this.onNameChanged
+                    })
+                )
+            );
+        }
+    }]);
+
+    return FilterCourseBar;
+}(_react2.default.Component);
+
+exports.default = FilterCourseBar;
+
+/***/ }),
+/* 421 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(24);
+
+var _reactRedux = __webpack_require__(23);
+
+var _courseActions = __webpack_require__(422);
+
+var _Paper = __webpack_require__(21);
+
+var _Paper2 = _interopRequireDefault(_Paper);
+
+__webpack_require__(52);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CourseDetails = function (_React$Component) {
+    _inherits(CourseDetails, _React$Component);
+
+    function CourseDetails() {
+        _classCallCheck(this, CourseDetails);
+
+        var _this = _possibleConstructorReturn(this, (CourseDetails.__proto__ || Object.getPrototypeOf(CourseDetails)).call(this));
+
+        _this.state = {};
+        return _this;
+    }
+
+    _createClass(CourseDetails, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.props.getCourse(this.props.id);
+            //  this.state.selectedcourse =  this.props.courses ? this.props.courses[0] : null
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                _Paper2.default,
+                { className: 'login' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'root' },
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        'Id = ',
+                        this.props.course.id
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        'Name = ',
+                        this.props.course.name
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        'Description = ',
+                        this.props.course.description
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        'Creator = ',
+                        this.props.course.creator
+                    )
+                )
+            );
+        }
+    }]);
+
+    return CourseDetails;
+}(_react2.default.Component);
+
+var mapProps = function mapProps(state) {
+    return {
+        course: state.courseReducer.course,
+        error: state.courseReducer.error
+    };
+};
+
+var mapDispatch = function mapDispatch(dispatch) {
+    return {
+        getCourse: (0, _redux.bindActionCreators)(_courseActions.getCourse, dispatch)
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapProps, mapDispatch)(CourseDetails);
+
+/***/ }),
+/* 422 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var GET_COURSE_SUCCESS = exports.GET_COURSE_SUCCESS = 'GET_COURSE_SUCCESS';
+var GET_COURSE_ERROR = exports.GET_COURSE_ERROR = 'GET_COURSE_ERROR';
+
+var CREATE_COURSE_SUCCESS = exports.CREATE_COURSE_SUCCESS = 'CREATE_COURSE_SUCCESS';
+var CREATE_COURSE_ERROR = exports.CREATE_COURSE_ERROR = 'CREATE_COURSE_ERROR';
+
+/***/ }),
+/* 423 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+/* 424 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.receiveTabs = receiveTabs;
+exports.errorReceive = errorReceive;
+exports.getCourses = getCourses;
+
+var _coursesConstants = __webpack_require__(416);
+
+__webpack_require__(52);
+
+function receiveTabs(data) {
+    return {
+        type: _coursesConstants.GET_COURSES_SUCCESS,
+        courses: data
+    };
+}
+
+function errorReceive(err) {
+    return {
+        type: _coursesConstants.GET_COURSES_ERROR,
+        error: err
+    };
+}
+
+function getCourses() {
+    return function (dispatch) {
+        return fetch(constants.getTabs).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            dispatch(receiveTabs(data));
+        }).catch(function (ex) {
+            dispatch(errorReceive(ex));
+        });
+    };
+}
+
+/***/ }),
+/* 425 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = userDetailsReducer;
+
+var _userConstants = __webpack_require__(57);
+
+var initialState = {
+    user: {},
+    error: ''
+};
+
+function userDetailsReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case _userConstants.GETUSER_SUCCESS:
+
+            return _extends({}, state, { tab: action.tab, error: '' });
+
+        case _userConstants.GETUSER_ERROR:
+            return _extends({}, state, { error: action.error });
+
+        default:
+            return state;
+    }
+}
+
+/***/ }),
+/* 426 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(24);
+
+var _reactRedux = __webpack_require__(23);
+
+var _userActions = __webpack_require__(143);
+
+var _Paper = __webpack_require__(21);
+
+var _Paper2 = _interopRequireDefault(_Paper);
+
+__webpack_require__(52);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserDetails = function (_React$Component) {
+    _inherits(UserDetails, _React$Component);
+
+    function UserDetails() {
+        _classCallCheck(this, UserDetails);
+
+        var _this = _possibleConstructorReturn(this, (UserDetails.__proto__ || Object.getPrototypeOf(UserDetails)).call(this));
+
+        _this.state = {};
+        return _this;
+    }
+
+    _createClass(UserDetails, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.props.getUser(this.props.id);
+            //  this.state.selectedTab =  this.props.tabs ? this.props.tabs[0] : null
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                _Paper2.default,
+                { className: 'login' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'root' },
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        'Id = ',
+                        this.props.user.id
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        'Name = ',
+                        this.props.user.username
+                    )
+                )
+            );
+        }
+    }]);
+
+    return UserDetails;
+}(_react2.default.Component);
+
+var mapProps = function mapProps(state) {
+    return {
+        user: state.userDetailsReducer.user,
+        error: state.userDetailsReducer.error
+    };
+};
+
+var mapDispatch = function mapDispatch(dispatch) {
+    return {
+        getUser: (0, _redux.bindActionCreators)(_userActions.userActions.getUser, dispatch)
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapProps, mapDispatch)(UserDetails);
 
 /***/ })
 /******/ ]);

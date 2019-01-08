@@ -53,7 +53,6 @@ class CreateTab extends React.Component {
         }
         else {
             iteration.strings[+name - 1].note = value;
-            alert( iteration.strings[+name - 1].note);
         }
         // iteration[name] = value;
         this.setState({ iteration: iteration })
@@ -67,9 +66,16 @@ class CreateTab extends React.Component {
     }
 
     handleAddIterationClickButton = (e) => {
-        const { iterations, iteration } = this.state;
-        iterations.push(iteration);
-        alert(iteration.strings);
+        const { iterations, iteration } = this.state;     
+        let newIteration = {tempScale: iteration.tempScale, strings: []};
+        for(let i = 0;i<iteration.strings.length;i++){
+            if(iteration.strings[i].note !== ''){
+                newIteration.strings.push(iteration.strings[i]);
+            }         
+        }
+        if(newIteration.strings.length>0){
+            iterations.push(newIteration);
+        }
         this.setState({ iterations: iterations, iteration: {   tempScale: 1, strings: [
             { string: 1, note: '' },
             { string: 2, note: '' },

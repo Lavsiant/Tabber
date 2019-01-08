@@ -1,12 +1,14 @@
 import { userConstants } from './userConstants.jsx';
 import { userService } from '../../services/userService.jsx'
 import { config } from '../../helpers/config.jsx';
+import { func } from 'prop-types';
 
 export const userActions = {
     login,
     logout,
     register,
     getAll,
+    getUser,
     delete: _delete
 };
 
@@ -59,6 +61,20 @@ function register(user) {
     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
     function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
+}
+
+function getUser(id){
+    return dispatch => {
+
+        userService.getById(id)
+            .then(
+                user => dispatch(success(user)),
+                error => dispatch(failure(error))
+            );
+            
+    }
+    function success(user) { return { type: userConstants.GETUSER_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.GETUSER_FAILURE, error } }
 }
 
 function getAll() {

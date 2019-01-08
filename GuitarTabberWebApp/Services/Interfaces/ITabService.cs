@@ -18,5 +18,7 @@ namespace GuitarTabberWebApp.Services.Interfaces
         Task DeleteTab(int id);
 
         List<User> GetSubscribedUsers(int tabId);
+
+        Task AddTabToUser(int id, string userName);
     }
 }

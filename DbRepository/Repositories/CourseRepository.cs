@@ -69,5 +69,19 @@ namespace DbRepository.Repositories
                 }
             }
         }
+
+        public async Task AddCourseToUser(int id, string username)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var user = await context.Users.Include(x=>x.Courses).FirstOrDefaultAsync(x => x.UserName == username);
+                var course = await context.Courses.FirstOrDefaultAsync(x => x.ID == id);
+                if(user.Courses.FirstOrDefault(x=>x.ID == id) == null)
+                {
+                    user.Courses.Add(course);
+                }
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

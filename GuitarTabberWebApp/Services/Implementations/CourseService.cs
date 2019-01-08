@@ -48,5 +48,10 @@ namespace GuitarTabberWebApp.Services.Implementations
         {
             await _courseRepository.DeleteCourse(id);
         }
+
+        public async Task AddCourseToUser(int id, string username)
+        {
+            await _courseRepository.AddCourseToUser(id, username);
+        }
     }
 }

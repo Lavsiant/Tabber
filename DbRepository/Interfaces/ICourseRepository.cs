@@ -18,5 +18,7 @@ namespace DbRepository.Interfaces
         Task CreateCourse(Course course);
 
         Task DeleteCourse(int id);
+
+        Task AddCourseToUser(int id, string username);
     }
 }

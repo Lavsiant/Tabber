@@ -35,7 +35,7 @@ export default class Header extends React.Component {
             authControl =  
                 <Tabs value={this.state.value}  onChange={this.handleChange} centered>
                 <Tab label="Tabs" component={Link} to="/tabs" />
-                <Tab label="About" component={Link} to="/about" /> 
+                <Tab label="Courses" component={Link} to="/courses" /> 
                 <Tab label="Test tab" component={Link} to="/test" />                       
                 <Tab label="Logout" onClick={this.handleLogOut} component={Link} to="/login" />             
         </Tabs>     
@@ -43,7 +43,7 @@ export default class Header extends React.Component {
             authControl =   
                 <Tabs value={this.state.value}  onChange={this.handleChange} centered>
                 <Tab label="Tabs" component={Link} to="/tabs" />
-                <Tab label="About" component={Link} to="/about" /> 
+                <Tab label="Courses" component={Link} to="/course" /> 
                 <Tab label="Test tab" component={Link} to="/test" />         
                 <Tab label="Register" component={Link} to="/register" />     
                 <Tab label="Login" component={Link} to="/login" />;         

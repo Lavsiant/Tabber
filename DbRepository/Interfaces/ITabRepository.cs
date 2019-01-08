@@ -18,5 +18,7 @@ namespace DbRepository.Interfaces
         Task DeleteTab(int id);
 
         List<User> GetSubscribedUsers(int tabId);
+
+      
     }
 }

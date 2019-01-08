@@ -14,6 +14,18 @@ export default function users(state = {}, action) {
       return { 
         error: action.error
       };
+      case userConstants.GETUSER_REQUEST:
+      return {
+        loading: true
+      };
+    case userConstants.GETUSER_SUCCESS:
+      return {
+        user: action.user
+      };
+    case userConstants.GETUSER_FAILURE:
+      return { 
+        error: action.error
+      };
     case userConstants.DELETE_REQUEST:
       // add 'deleting:true' property to user being deleted
       return {

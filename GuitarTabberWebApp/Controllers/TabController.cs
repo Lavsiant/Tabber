@@ -53,6 +53,13 @@ namespace GuitarTabberWebApp.Controllers
              await _tabService.DeleteTab(id);
         }
 
+        [Route("tab-add")]
+        [HttpGet]
+        public async Task DeleteTab(int id, string username)
+        {
+            await _tabService.AddTabToUser(id,username);
+        }
+
         [Route("tab-create")]
         [HttpPost]
         public async Task<IActionResult> CreateTab ([FromBody] TabCreateViewModel tabCreateVM)

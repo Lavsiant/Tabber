@@ -51,7 +51,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(config.apiUrl + '/api/Identity/' + _id, requestOptions).then(handleResponse, handleError);
+    return fetch(config.apiUrl + '/api/Identity/user-id?id=' + id, requestOptions).then(handleResponse, handleError);
 }
 
 function register(user) {
