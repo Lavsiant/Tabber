@@ -21,5 +21,9 @@ namespace GuitarTabberWebApp.Services.Interfaces
         Task DeleteCourse(int id);
 
         Task AddCourseToUser(int id, string username);
+
+        Task ActivateCourse(int id, int index);
+
+        Task<ActiveCourse> GetActivatedCourse();
     }
 }

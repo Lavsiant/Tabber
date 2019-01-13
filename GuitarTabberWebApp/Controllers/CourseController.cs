@@ -67,5 +67,23 @@ namespace GuitarTabberWebApp.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("course-activate")]
+        public async Task<IActionResult> ActivateCourse([FromQuery] int id, [FromQuery] int index)
+        {
+            
+            await _courseService.ActivateCourse(id,index);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("get-activated-course")]
+        public Task<ActiveCourse> ActivateCourse()
+        {
+
+           return _courseService.GetActivatedCourse();
+
+        }
+
     }
 }

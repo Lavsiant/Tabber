@@ -104,5 +104,40 @@ namespace DbRepository.Repositories
                 await context.SaveChangesAsync();
             }
         }
+
+        public async Task ActivateCourse(int id, int index)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var x = context.ActivatedUserCourses.FirstOrDefault();
+                if (x == null)
+                {
+                    x = new ActiveCourse();
+                    x.CourseId = id;
+                    x.Index = index;
+                    context.Add(x);
+                    await context.SaveChangesAsync();
+                }
+                else
+                {
+                    x.CourseId = id;
+                    x.Index = index;
+                    context.Entry(x).State = EntityState.Modified;
+                    await context.SaveChangesAsync();
+                }
+
+            }
+        }
+
+
+        public async Task<ActiveCourse> GetActivatedCourse()
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var x = await context.ActivatedUserCourses.FirstOrDefaultAsync();
+                return x;
+
+            }
+        }
     }
 }

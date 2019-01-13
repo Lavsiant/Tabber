@@ -9,8 +9,8 @@ namespace Model.GuitarTab
     {
         public int ID { get; set; }
 
-        public User User { get; set; }
+        public int CourseId { get; set; }
 
-        public Course ActivatedCourse { get; set; }
+        public int Index { get; set; }
     }
 }

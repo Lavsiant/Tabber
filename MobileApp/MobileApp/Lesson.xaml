@@ -27,10 +27,10 @@
                                             <ColumnDefinition Width="80"></ColumnDefinition>
                                             <ColumnDefinition Width="80"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Row="0" Grid.Column="0" Text="Tempo: " />
-                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Tempo}" />
-                                        <Label Grid.Row="1" Grid.Column="0" Text="Creator: "/>
-                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Creator}"/>
+                                        <Label Grid.Row="0" Grid.Column="0" Text="Start Tempo: " />
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding StartBpm}" />
+                                        <Label Grid.Row="1" Grid.Column="0" Text="Repeat: "/>
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding RepeatNumber}"/>
                                     </Grid>
                                    
                                 </StackLayout>

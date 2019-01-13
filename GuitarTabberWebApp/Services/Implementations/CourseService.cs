@@ -49,5 +49,15 @@ namespace GuitarTabberWebApp.Services.Implementations
         {
             await _courseRepository.AddCourseToUser(id, username);
         }
+
+        public async Task ActivateCourse(int id, int index)
+        {
+            await _courseRepository.ActivateCourse(id, index);
+        }
+
+        public async Task<ActiveCourse> GetActivatedCourse()
+        {
+            return await _courseRepository.GetActivatedCourse();
+        }
     }
 }
