@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Input from '@material-ui/core/Input';
 import { userActions } from './userActions.jsx';
 import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 class RegisterPage extends React.Component {
@@ -57,29 +58,111 @@ class RegisterPage extends React.Component {
     render() {
         const { registering } = this.props;
         const { user, submitted } = this.state;
+        const styles = theme => ({
+            container: {
+                display: 'flex',
+                flexWrap: 'wrap',
+            },
+            textField: {
+                marginLeft: theme.spacing.unit,
+                marginRight: theme.spacing.unit,
+            },
+            dense: {
+                marginTop: 16,
+            },
+            menu: {
+                width: 200,
+            },
+        });
         return (
-            <Paper className='login' centered>
+            <Paper className='login' centered style={{marginTop:200}}>
                 <div className="col-md-6 col-md-offset-3">
                     <h2>Register</h2>
                     <form name="form" onSubmit={this.handleSubmit}>
                         <div >
-                            <Input type="text" placeholder='First name' className="form-control" name="firstName" value={user.firstName} onChange={this.handleChange} required/>
+                            <TextField
+                                style={{ width: '90%' }}
+                                label="First name"
+                                className={styles.textField}
+                                type="text"
+                                name="firstName"
+                                autoComplete="Username"
+                                margin="normal"
+                                variant="outlined"
+                                value={user.firstName}
+                                onChange={this.handleChange}
+                                required
+                            />               
+                         
                         </div>
                         <div className='login-field'>
-                            <Input type="text" placeholder="Last name" className="form-control" name="lastName" value={user.lastName} onChange={this.handleChange} required/>
+                        <TextField
+                                style={{ width: '90%' }}
+                                label="Last name"
+                                className={styles.textField}
+                                type="text"
+                                name="lastName"
+                                autoComplete="Lastname"
+                                margin="normal"
+                                variant="outlined"
+                                value={user.lastName}
+                                onChange={this.handleChange}
+                                required
+                            />    
+                           
                         </div>
                         <div className='login-field' >
-                            <Input type="text" placeholder='Username' className="form-control" name="username" value={user.username} onChange={this.handleChange}  required/>
+                        <TextField
+                                style={{ width: '90%' }}
+                                label="Username"
+                                className={styles.textField}
+                                type="text"
+                                name="username"
+                                autoComplete="Username"
+                                margin="normal"
+                                variant="outlined"
+                                value={user.username}
+                                onChange={this.handleChange}
+                                required
+                            />    
+                           
                         </div>
                         <div className='login-field'>
-                            <Input type="password" placeholder='Wassword' className="form-control" name="password" value={user.password} onChange={this.handleChange} required />
+                        <TextField
+                                style={{ width: '90%' }}
+                                label="Passwprd"
+                                className={styles.textField}
+                                type="password"
+                                name="password"
+                                autoComplete="Username"
+                                margin="normal"
+                                variant="outlined"
+                                value={user.password}
+                                onChange={this.handleChange}
+                                required
+                            />    
+                          
                         </div>
                         <div className='login-field'>
-                            <Input type="email" name="email" placeholder = 'Email' value={user.email} onChange={this.handleChange}  required/>
+                        <TextField
+                                style={{ width: '90%' }}
+                                label="Email"
+                                className={styles.textField}
+                                type="email"
+                                name="email"
+                                autoComplete="Username"
+                                margin="normal"
+                                variant="outlined"
+                                value={user.email}
+                                onChange={this.handleChange}
+                                required
+                            />    
+                           
                         </div>
-                        <div className="form-group">
-                            <Button type="submit" className="btn btn-primary" flat>Register</Button>
-                         
+                        <div className="form-group" style={{paddingBottom: 20}}>
+                            <Button size="large" variant="contained" type='submit' style={{ marginBot:20}}  color="primary">
+                                Register
+                            </Button>
                         </div>
                     </form>
                 </div>

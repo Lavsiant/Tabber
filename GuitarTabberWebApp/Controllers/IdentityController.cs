@@ -58,7 +58,8 @@ namespace GuitarTabberWebApp.Controllers
                 Username = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Token = tokenString
+                Token = tokenString,
+                IsAdmin = user.IsAdmin
             });
         }
 
@@ -81,10 +82,10 @@ namespace GuitarTabberWebApp.Controllers
 
         [HttpGet]
         [Route("all")]
-        public async Task<IActionResult> GetUsers(string userName)
+        public async Task<List<User>> GetUsers(string userName)
         {
             var result = await _identityService.GetAllUsers();
-            return Ok(result);
+            return result;
         }
 
         [HttpGet]

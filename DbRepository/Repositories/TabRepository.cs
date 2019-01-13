@@ -18,7 +18,7 @@ namespace DbRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                return await context.Tabs.ToListAsync();
+                return await context.Tabs.Include(x=>x.Iterations).ToListAsync();
             }
         }
 
@@ -26,7 +26,8 @@ namespace DbRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                return await context.Tabs.FirstOrDefaultAsync(x => x.ID == id);
+                var res = context.Tabs.Include(x => x.Iterations).ThenInclude(s=>s.ActiveNotes).FirstOrDefault(x => x.ID == id);
+                return res;
             }
         }
 

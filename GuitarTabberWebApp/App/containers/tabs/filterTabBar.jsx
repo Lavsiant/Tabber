@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TextField from '@material-ui/core/TextField';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
 
 export default class FilterTabBar extends React.Component {
     constructor() {
@@ -29,14 +31,19 @@ export default class FilterTabBar extends React.Component {
         this.props.filterTabs({name: this.state.name, maxTempo: e.target.value, minTempo: this.state.minTempo});
     }
 
+    createTabOpen = () => {
+        window.location = config.apiUrl + "/course-create";
+    }
+
     render() {
         return (
-            <div className="filter-bar">
+            <div className="filter-bar" style={{width:'100%'}}>
                 <div className="filter">
                     <TextField 
                         className="filter-field"
                         label="Tab name"
                         margin="normal"
+                        variant="outlined"
                         onChange={this.onNameChanged}
                     />
                 </div>
@@ -47,6 +54,7 @@ export default class FilterTabBar extends React.Component {
                         type="number"
                         className="filter-field"
                         margin="normal"
+                        variant="outlined"
                         onChange={this.onMinTempoChanged}
                     />
                 </div>
@@ -56,8 +64,14 @@ export default class FilterTabBar extends React.Component {
                         label="Max tempo"
                         type="number"
                         margin="normal"
+                        variant="outlined"
                         onChange={this.onMaxTempoChanged}
                     />
+                </div>
+                <div className="filter" style={{float: 'right', paddingTop: 16}}>
+                <Fab size="large" color="primary" to='/tab-create' style={{float:'right'}} aria-label="Add" onClick={this.props.createTabOpen}>
+                    <AddIcon />
+                </Fab>
                 </div>
             </div>
         );

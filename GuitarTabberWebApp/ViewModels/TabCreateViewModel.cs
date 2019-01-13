@@ -18,5 +18,7 @@ namespace GuitarTabberWebApp.ViewModels
 
         //Creator login
         public string Creator { get; set; }
+
+        public List<TabIteration> iterations { get; set; }
     }
 }

@@ -6,6 +6,8 @@ import Input from '@material-ui/core/Input';
 import { userActions } from './userActions.jsx';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -42,23 +44,67 @@ class LoginPage extends React.Component {
 
     render() {
         const { username, password, submitted } = this.state;
+        const styles = theme => ({
+            container: {
+                display: 'flex',
+                flexWrap: 'wrap',
+            },
+            textField: {
+                marginLeft: theme.spacing.unit,
+                marginRight: theme.spacing.unit,
+            },
+            dense: {
+                marginTop: 16,
+            },
+            menu: {
+                width: 200,
+            },
+        });
         return (
-            <Paper className='login'>
-                <div className="col-md-6 col-md-offset-3">
-                    <h2>Login</h2>
-                    <form name="form" onSubmit={this.handleSubmit}>
-                        <div className='login-field'>
-                            <Input type="text" placeholder="Login" className="form-control" name="username" value={username} onChange={this.handleChange} />
-                        </div>
-                        <div className='login-field'>
-                            <Input type="password" placeholder="Password" className="form-control" name="password" value={password} onChange={this.handleChange} />
-                        </div>
-                        <div className="form-group">
-                            <Button size='large' type='submit' className="form-group">Login</Button>
-                          
-                        </div>
-                    </form>
-                </div>
+            <Paper className='login' style={{ marginTop: 300 }}>
+
+                <h2 style={{color:'#666'}}>Login</h2>
+                <form name="form" onSubmit={this.handleSubmit}>
+                    <div className='login-field'>
+                        <TextField
+                            style={{ width: '90%' }}
+                            label="Login"
+                            className={styles.textField}
+                            type="text"
+                            name="username"
+                            autoComplete="Username"
+                            margin="normal"
+                            variant="outlined"
+                            value={username}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                    <div className='login-field'>
+                        <TextField
+                            style={{ width: '90%' }}
+                            label="Password"
+                            className={styles.textField}
+                            type="password"
+                            name="password"
+                            autoComplete="Username"
+                            margin="normal"
+                            variant="outlined"
+                            value={password}
+                            onChange={this.handleChange}
+                        />                       
+                    </div>
+                    <div className="form-group" style={{justifyContent: 'space-between', display:'flex', paddingBottom:20}}>
+                    <Button variant="contained" type='submit' style={{float: 'left', marginBot:20}}  color="primary">
+                         Sign in
+                    </Button>
+                    <Button variant="contained" type='submit' style={{float: 'right', marginBot:20}} color="primary">
+                         Login
+                    </Button>
+                       
+
+                    </div>
+                </form>
+
             </Paper>
         );
     }

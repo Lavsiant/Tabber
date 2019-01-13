@@ -28,10 +28,18 @@ namespace GuitarTabberWebApp.Controllers
 
         [HttpGet]
         [Route("course")]
-        public async Task<IActionResult> GetCourse(int id)
+        public async Task<Course> GetCourse(int id)
         {
-            var result = await _courseService.GetCourse(id);
-            return Ok(result);
+            var result = new Course();
+            try
+            {
+                 result = await _courseService.GetCourse(id);
+            }
+            catch(Exception e)
+            {
+
+            }
+            return result;
         }
 
         [HttpGet]
@@ -50,6 +58,14 @@ namespace GuitarTabberWebApp.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("course-create")]
+        public IActionResult CourseCreate([FromBody] CourseCreateViewModel cvm,string name)
+        {
+            cvm.UserName = name;
+            _courseService.CreateCourse(cvm);
+            return Ok();
+        }
 
     }
 }

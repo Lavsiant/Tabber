@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Paper from '@material-ui/core/Paper';
+import { AppBar } from '@material-ui/core';
 
 export default class Header extends React.Component {
     state = {
@@ -33,7 +34,7 @@ export default class Header extends React.Component {
         
         if (localStorage.getItem('user')) {
             authControl =  
-                <Tabs value={this.state.value}  onChange={this.handleChange} centered>
+                <Tabs   indicatorColor="primary" textColor="primary" value={this.state.value}  onChange={this.handleChange} centered>
                 <Tab label="Tabs" component={Link} to="/tabs" />
                 <Tab label="Courses" component={Link} to="/courses" /> 
                 <Tab label="Test tab" component={Link} to="/test" />                       
@@ -41,9 +42,9 @@ export default class Header extends React.Component {
         </Tabs>     
         } else {
             authControl =   
-                <Tabs value={this.state.value}  onChange={this.handleChange} centered>
+                <Tabs indicatorColor="primary" textColor="primary" value={this.state.value}  onChange={this.handleChange} centered>
                 <Tab label="Tabs" component={Link} to="/tabs" />
-                <Tab label="Courses" component={Link} to="/course" /> 
+                <Tab label="Courses" component={Link} to="/courses" /> 
                 <Tab label="Test tab" component={Link} to="/test" />         
                 <Tab label="Register" component={Link} to="/register" />     
                 <Tab label="Login" component={Link} to="/login" />;         
@@ -51,7 +52,7 @@ export default class Header extends React.Component {
         }
 
         return (
-            <Paper>{authControl}</Paper>        
+            <AppBar color="default">{authControl}</AppBar>        
         );
     }
 };

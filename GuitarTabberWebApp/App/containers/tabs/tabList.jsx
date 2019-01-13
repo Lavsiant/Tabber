@@ -21,6 +21,10 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import FilterTabBar from './filterTabBar.jsx';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+import { config } from '../../helpers/config.jsx';
+
 
 class TabList extends React.Component {
     constructor() {
@@ -51,10 +55,14 @@ class TabList extends React.Component {
         let tabs = this.props.tabs;
         if (filterOptions.name)
             tabs = tabs.filter(x => x.name.toLowerCase().includes(filterOptions.name.toLowerCase()));
-        tabs = filterOptions.minTempo ? tabs.filter(x=>x.tempo > filterOptions.minTempo) : tabs;
-        tabs = filterOptions.maxTempo ? tabs.filter(x=>x.tempo < filterOptions.maxTempo) : tabs;
+        tabs = filterOptions.minTempo ? tabs.filter(x => x.tempo > filterOptions.minTempo) : tabs;
+        tabs = filterOptions.maxTempo ? tabs.filter(x => x.tempo < filterOptions.maxTempo) : tabs;
         // tabs = !isNaN(filterOptions.minTempo) ? tabs.filter(x=>+x.tempo >= +filterOptions.minTempo) : tabs;
         this.setState({ filteredTabs: tabs });
+    }
+
+    createTabOpen = () => {
+        window.location = config.apiUrl + "/tab-create";
     }
 
     render() {
@@ -64,27 +72,28 @@ class TabList extends React.Component {
 
         return (
             <Paper className='root'>
-                <Link to='/tab-create'>Create tab</Link>
-                <FilterTabBar filterTabs={this.filterTabs}></FilterTabBar>
+
+                <FilterTabBar filterTabs={this.filterTabs} createTabOpen={this.createTabOpen}></FilterTabBar>
+             
                 <div className='table-wrapper'>
-                    <Table className={'table'}>
+                    <Table className={'table'} >
                         <TableHead>
                             <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell numeric>Tempo (bmp)</TableCell>
-                                <TableCell numeric>Creator</TableCell>
+                                <TableCell style={{ fontSize: 20 }}>Name</TableCell>
+                                <TableCell style={{ fontSize: 20 }} numeric>Tempo (bmp)</TableCell>
+                                <TableCell style={{ fontSize: 20 }} numeric>Creator</TableCell>
 
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {this.state.filteredTabs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(tab => {
                                 return (
-                                    <TableRow key={tab.id} className="table-field"  component={Link} to={'/tab/' + tab.id}>
-                                        <TableCell  component="th" scope="row" >
+                                    <TableRow key={tab.id} className="table-field" component={Link} to={'/tab/' + tab.id}>
+                                        <TableCell style={{ fontSize: 18 }} component="th" scope="row" >
                                             {tab.name}
                                         </TableCell>
-                                        <TableCell numeric>{tab.tempo}</TableCell>
-                                        <TableCell numeric>{tab.creator}</TableCell>
+                                        <TableCell style={{ fontSize: 18 }} numeric>{tab.tempo}</TableCell>
+                                        <TableCell style={{ fontSize: 18 }} numeric>{tab.creator}</TableCell>
                                     </TableRow>
                                 );
                             })}
@@ -96,6 +105,7 @@ class TabList extends React.Component {
                         </TableBody>
                         <TableFooter>
                             <TableRow>
+
                                 <TablePagination
                                     rowsPerPageOptions={[2, 5, 10, 25]}
                                     colSpan={3}

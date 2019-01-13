@@ -9,7 +9,7 @@ export default function coursesReducer(state = initialState, action) {
     switch (action.type) {
         case GET_COURSES_SUCCESS:
             
-            return { ...state, tabs: action.tabs, error: '' }
+            return { ...state, courses: action.courses, error: '' }
 
         case GET_COURSES_ERROR:
             return { ...state, error: action.error }

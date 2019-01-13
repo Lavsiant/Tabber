@@ -49,11 +49,20 @@ class CourseList extends React.Component {
 
     filterCourses = (filterOptions) => {
         let courses = this.props.courses;
+        console.log(courses);
         if (filterOptions.name)
         courses = courses.filter(x => x.name.toLowerCase().includes(filterOptions.name.toLowerCase()));
       
         // tabs = !isNaN(filterOptions.minTempo) ? tabs.filter(x=>+x.tempo >= +filterOptions.minTempo) : tabs;
         this.setState({ filteredCourses: courses });
+    }
+
+    getTypeString = (x) => {
+        switch (x) {
+            case 1: return 'Acoustic Guitar';
+            case 2: return 'Electric Guitar';
+            case 3: return 'Classical Guitar';
+        }
     }
 
     render() {
@@ -69,9 +78,9 @@ class CourseList extends React.Component {
                     <Table className={'table'}>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell >Type</TableCell>
-                                <TableCell numeric>Creator</TableCell>
+                                <TableCell style={{ fontSize: 20 }}>Name</TableCell>
+                                <TableCell style={{ fontSize: 20 }}>Type</TableCell>
+                                <TableCell style={{ fontSize: 20 }} numeric>Creator</TableCell>
 
                             </TableRow>
                         </TableHead>
@@ -79,10 +88,13 @@ class CourseList extends React.Component {
                             {this.state.filteredCourses.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(course => {
                                 return (
                                     <TableRow key={course.id} className="table-field"  component={Link} to={'/course/' + course.id}>
-                                        <TableCell  component="th" scope="row" >
+                                        <TableCell  style={{ fontSize: 18 }} component="th" scope="row" >
                                             {course.name}
                                         </TableCell>
-                                        <TableCell numeric>{course.creator}</TableCell>
+                                        <TableCell style={{ fontSize: 18 }} component="th" scope="row" >
+                                            {this.getTypeString(course.type)}
+                                        </TableCell>
+                                        <TableCell style={{ fontSize: 18 }} component="th" scope="row" numeric>{course.creator}</TableCell>
                                     </TableRow>
                                 );
                             })}

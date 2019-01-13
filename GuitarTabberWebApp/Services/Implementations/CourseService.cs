@@ -36,12 +36,8 @@ namespace GuitarTabberWebApp.Services.Implementations
 
         public async Task CreateCourse(CourseCreateViewModel vm)
         {
-            await _courseRepository.CreateCourse(new Course()
-            {
-                Lessons = vm.Lessons,
-                Name = vm.Name,
-                Type = vm.Type
-            });
+
+            await _courseRepository.CreateCourse(vm);
         }
 
         public async Task DeleteCourse(int id)

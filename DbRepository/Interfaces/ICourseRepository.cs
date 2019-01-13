@@ -15,7 +15,7 @@ namespace DbRepository.Interfaces
 
         List<User> GetAllSubscribedUsers(int courseId);
 
-        Task CreateCourse(Course course);
+        Task CreateCourse(CourseCreateViewModel course);
 
         Task DeleteCourse(int id);
 

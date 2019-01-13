@@ -20,5 +20,7 @@ namespace Model.GuitarTab
         public InstrumentType Type { get; set; }
 
         public string Description { get; set; }
+
+        public string Creator { get; set; }
     }
 }

@@ -153,6 +153,9 @@ namespace GuitarTabber
             progress_bar.Maximum = currentTab.Iterations.Count-1;
             NameLabel.Text = currentTab.Name;
             tempoSlowK.Value = 100;
+          
+
+            
         }
 
         private readonly Tab _testTab;

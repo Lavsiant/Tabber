@@ -5,6 +5,17 @@ import { getTab } from './tabActions.jsx'
 import Paper from '@material-ui/core/Paper';
 
 import "isomorphic-fetch";
+import { FormLabel } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import NoSsr from '@material-ui/core/NoSsr';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Button from '@material-ui/core/Button';
+
+import "isomorphic-fetch";
 
 
 class TabDetails extends React.Component {
@@ -20,17 +31,118 @@ class TabDetails extends React.Component {
         //  this.state.selectedTab =  this.props.tabs ? this.props.tabs[0] : null
     }
 
+    getTypeString = (x) => {
+        switch (x) {
+            case 1: return 'Acoustic Guitar';
+            case 2: return 'Electric Guitar';
+            case 3: return 'Classical Guitar';
+        }
+    }
+
     render() {
-     
+        let count = 1;
         return (
-            <Paper className='login'>
-            <div className = 'root'>
-                <div>Id = {this.props.tab.id}</div>
-                <div>Name = {this.props.tab.name}</div>
-                <div>Tempo = {this.props.tab.tempo}</div>
-                <div>Creator = {this.props.tab.creator}</div>
+            <Paper className='tab-create' style={{ fontSize: 20, marginTop: 100, paddingBottom: 50 }} >
+            <div style={{ textAlign: 'center', display: 'block' }}>
+                <div>
+                <FormLabel style={{ fontSize: 22 }}>Tab name </FormLabel>
+                <br/>
+                <TextField
+                    style={{ width: '85%' }}
+                    id="outlined-read-only-input"
+                    value={this.props.tab.name}
+                    defaultValue="Hello World"
+                    margin="normal"
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="outlined"
+                />
+                </div>
+                <br />
+                <div style={{ marginTop: 20 }}>
+                    <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Tempo </FormLabel>
+                    <br/>
+                    <TextField
+                        style={{  width: '85%' }}
+                        id="outlined-read-only-input"
+                        value={this.props.tab.tempo}
+                        defaultValue="Default decription"
+                        margin="normal"
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        variant="outlined"
+                    />
+                </div>
+                <br/>
+                <div style={{ marginTop: 20}}>
+                    <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Type</FormLabel>
+                    <br/>
+                    <TextField
+                        style={{ width: '85%' }}
+                        id="outlined-read-only-input"
+                        value={this.getTypeString(this.props.tab.type)}
+                        defaultValue="Hello World"
+                        margin="normal"
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        variant="outlined"
+                    />
+                </div>
+                <br/>
+                <div style={{ marginTop: 20, marginBottom: 30 }}>
+                    <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Creator</FormLabel>
+                    <br/>
+                    <TextField
+                        style={{ width: '85%' }}
+                        id="outlined-read-only-input"
+                        value={this.getTypeString(this.props.tab.creator)}
+                        defaultValue="Hello World"
+                        margin="normal"
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        variant="outlined"
+                    />
+                </div>
+                <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Lessons</FormLabel>
+                {this.props.tab.iterations.map(iteration => {
+                        return (
+                            <ExpansionPanel style={{ width: '85%', margin: 'auto', marginBop: '15' }}>
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <Typography >Iteration {count++}</Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <Typography style={{ fontSize: 18 }}>
+                                        Tempo scale: {iteration.waitTimeScalar} bpm
+                                        <br/>
+                                        {iteration.activeNotes.map(x=>{
+                                            return(
+                                                <label>  &nbsp;&nbsp;&nbsp; {x.stringNumber}S-{x.fret}F  &nbsp;&nbsp;&nbsp; </label>
+                                            )
+                                        })}
+                                    </Typography>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                            // <Paper className='root' style={{textAlign:'left', width:'max-content', margin:'auto' ,marginBottom:20}}>
+                            //     <label>Lesson name: {lesson.name} </label>
+                            //     <label>Repeat: {lesson.name} </label>
+                            //     <label>Start Bpm: {lesson.startBpm} </label>
+                            //     <label>Step Bpm: {lesson.stepBpm} </label>
+
+                            //     <Button type='button' onClick={() => this.handleRemoveIterationClickButton(counter)} style={{ marginLeft: 5 }}>Remove</Button>
+                            // </Paper>
+                        );
+                    })}
+
+               
+
+
+
             </div>
-            </Paper>)
+        </Paper>)
         }
 }
 

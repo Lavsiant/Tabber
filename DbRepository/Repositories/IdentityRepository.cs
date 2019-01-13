@@ -18,7 +18,7 @@ namespace DbRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                return await context.Users.ToListAsync();
+                return await context.Users.Include(x=>x.Courses).ToListAsync();
             }
         }
 

@@ -16,8 +16,8 @@ export function errorReceive(err) {
 }
 
 export function getCourses() {
-    return (dispatch) => {        
-        return fetch(constants.getTabs)
+    return (dispatch) => {
+        return fetch(constants.getCourses)
             .then((response) => {
                 return response.json()
             }).then((data) => {

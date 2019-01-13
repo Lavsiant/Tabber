@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Model.UserModel;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -14,7 +17,16 @@ namespace MobileApp
             Title = "Login";
             InitializeComponent();
             userData = new UserData().GetUsers();
+            client = new HttpClient();
+            var response = client.GetAsync("https://localhost:44386/api/Identity/all").Result;
+            var content = response.Content.ReadAsStringAsync().Result;
+            userData = JsonConvert.DeserializeObject<List<User>>(content);
+
+
+
         }
+
+        HttpClient client;
 
         List<Model.UserModel.User> userData;
 

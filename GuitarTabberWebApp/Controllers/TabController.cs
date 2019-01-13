@@ -42,7 +42,8 @@ namespace GuitarTabberWebApp.Controllers
                 Name = result.Name,
                 Creator = result.Creator,
                 Tempo = Convert.ToInt32(result.Tempo),
-                Type = (int)result.GuitarType
+                Type = (int)result.GuitarType,
+                iterations = result.Iterations
             };
         }
 
@@ -71,7 +72,8 @@ namespace GuitarTabberWebApp.Controllers
                     Creator = tabCreateVM.Creator,
                     Name = tabCreateVM.Name,
                     Tempo = tabCreateVM.Tempo,
-                    GuitarType = (InstrumentType)tabCreateVM.Type
+                    GuitarType = (InstrumentType)tabCreateVM.Type,
+                    Iterations = tabCreateVM.iterations
                 };
                 await _tabService.AddTab(tab);
                 return Ok(tab);

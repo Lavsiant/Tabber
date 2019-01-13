@@ -26,7 +26,8 @@ namespace DbRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                return await context.Courses.FirstOrDefaultAsync(x=>x.ID == id);
+                var ss = context.Courses.Include(x => x.Lessons).ThenInclude(x=>x.Tab).FirstOrDefault(x => x.ID == id);
+                return ss;
             }
         }
 
@@ -48,11 +49,31 @@ namespace DbRepository.Repositories
             return usersList;
         }
 
-        public async Task CreateCourse(Course course)
+        public async Task CreateCourse(CourseCreateViewModel course)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                context.Courses.Add(course);
+                var lessons = new List<Lesson>();
+                foreach (var l in course.Lessons)
+                {
+                    var lesson = new Lesson();
+                    lesson.Name = l.Name;
+                    lesson.Tab = context.Tabs.FirstOrDefault(x => x.ID == l.tab);
+                    lesson.MinTempoStep = l.stepBpm;
+                    lesson.RepeatNumber = l.repeat;
+                    lesson.StartBpm = l.startBpm;
+                    lessons.Add(lesson);
+                }
+                var newCourse = new Course()
+                {
+                    Description = course.Description,
+                    Lessons = lessons,
+                    Name = course.Name,
+                    Type = course.Type,
+                    Creator = course.UserName
+                    
+                };
+                context.Courses.Add(newCourse);
                 await context.SaveChangesAsync();
             }
         }

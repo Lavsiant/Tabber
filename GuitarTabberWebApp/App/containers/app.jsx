@@ -11,7 +11,7 @@ export default class App extends React.Component {
     render() {
         return (
             <Router>
-                <div>
+                <div style={{fontSize: 20, fontFamily: 'Roboto'}}>
                     <Header />
                     <Routing />                  
                 </div>

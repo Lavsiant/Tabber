@@ -1,7 +1,9 @@
 import { GET_TAB_ERROR, GET_TAB_SUCCESS, CREATE_TAB_SUCCESS, CREATE_TAB_ERROR } from './tabConstants.jsx'
 
 const initialState = {
-    tab: {},
+    tab: {
+        iterations: []
+    },
     error: ''
 }
 

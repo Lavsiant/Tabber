@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TextField from '@material-ui/core/TextField';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+import { config } from '../../helpers/config.jsx';
+
 
 export default class FilterCourseBar extends React.Component {
     constructor() {
@@ -14,7 +18,11 @@ export default class FilterCourseBar extends React.Component {
        
         this.setState({ name: e.target.value });
         this.state.name = e.target.value;
-        this.props.filterTabs({name: e.target.value});
+        this.props.filterCourses({name: e.target.value});
+    }
+
+    createTabOpen = () => {
+        window.location = config.apiUrl + "/course-create";
     }
 
     // onMinTempoChanged = e => {
@@ -35,8 +43,14 @@ export default class FilterCourseBar extends React.Component {
                         className="filter-field"
                         label="Course name"
                         margin="normal"
+                        variant="outlined"
                         onChange={this.onNameChanged}
                     />
+                </div>
+                <div className="filter" style={{float: 'right', paddingTop: 16}}>
+                    <Fab size="large" color="primary" to='/tab-create' style={{float:'right'}} aria-label="Add" onClick={this.createTabOpen}>
+                        <AddIcon />
+                    </Fab>
                 </div>
                 {/* <div className="filter">
                     <TextField                   

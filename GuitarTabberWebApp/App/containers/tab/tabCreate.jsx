@@ -21,13 +21,13 @@ class CreateTab extends React.Component {
             creator: '',
             type: 0,
             iteration: {
-                tempScale: 1, strings: [
-                    { string: 1, note: '' },
-                    { string: 2, note: '' },
-                    { string: 3, note: '' },
-                    { string: 4, note: '' },
-                    { string: 5, note: '' },
-                    { string: 6, note: '' },
+                WaitTimeScalar: 1, activeNotes: [
+                    { StringNumber: 1, Fret: '' },
+                    { StringNumber: 2, Fret: '' },
+                    { StringNumber: 3, Fret: '' },
+                    { StringNumber: 4, Fret: '' },
+                    { StringNumber: 5, Fret: '' },
+                    { StringNumber: 6, Fret: '' },
                 ]
             },
             iterations: []
@@ -49,10 +49,10 @@ class CreateTab extends React.Component {
         const { name, value } = e.target;
         const { iteration } = this.state;
         if (name === "tempScale") {
-            iteration.tempScale = value;
+            iteration.WaitTimeScalar = value;
         }
         else {
-            iteration.strings[+name - 1].note = value;
+            iteration.activeNotes[+name - 1].Fret = value;
         }
         // iteration[name] = value;
         this.setState({ iteration: iteration })
@@ -62,28 +62,32 @@ class CreateTab extends React.Component {
         e.preventDefault();
         this.setState({ submitted: true });
         const { name, tempo } = this.state;
-        this.props.createTab({ name: this.state.name, tempo: this.state.tempo, type: this.state.type, creator: this.state.creator });
+        this.props.createTab({ name: this.state.name, tempo: this.state.tempo, type: this.state.type, creator: this.state.creator, iterations: this.state.iterations });
     }
 
     handleAddIterationClickButton = (e) => {
-        const { iterations, iteration } = this.state;     
-        let newIteration = {tempScale: iteration.tempScale, strings: []};
-        for(let i = 0;i<iteration.strings.length;i++){
-            if(iteration.strings[i].note !== ''){
-                newIteration.strings.push(iteration.strings[i]);
-            }         
+        const { iterations, iteration } = this.state;
+        let newIteration = { WaitTimeScalar: iteration.WaitTimeScalar, activeNotes: [] };
+        for (let i = 0; i < iteration.activeNotes.length; i++) {
+            if (iteration.activeNotes[i].Fret !== '') {
+                newIteration.activeNotes.push(iteration.activeNotes[i]);
+            }
         }
-        if(newIteration.strings.length>0){
+        if (newIteration.activeNotes.length > 0) {
             iterations.push(newIteration);
         }
-        this.setState({ iterations: iterations, iteration: {   tempScale: 1, strings: [
-            { string: 1, note: '' },
-            { string: 2, note: '' },
-            { string: 3, note: '' },
-            { string: 4, note: '' },
-            { string: 5, note: '' },
-            { string: 6, note: '' },
-        ] } });
+        this.setState({
+            iterations: iterations, iteration: {
+                WaitTimeScalar: 1, activeNotes: [
+                    { StringNumber: 1, Fret: '' },
+                    { StringNumber: 2, Fret: '' },
+                    { StringNumber: 3, Fret: '' },
+                    { StringNumber: 4, Fret: '' },
+                    { StringNumber: 5, Fret: '' },
+                    { StringNumber: 6, Fret: '' },
+                ]
+            }
+        });
     }
 
     handleRemoveIterationClickButton = (e) => {
@@ -92,26 +96,98 @@ class CreateTab extends React.Component {
         this.setState({ iterations: iterations });
     }
 
+    getStringName = (x) => {
+        switch (x) {
+            case 1: return 'First string';
+            case 2: return 'Second string';
+            case 3: return 'Third string';
+            case 4: return 'Fourth string';
+            case 5: return 'Fifth string';
+            case 6: return 'Sixth string';
+        }
+    }
+
     render() {
         const { name, tempo } = this.state;
         const strings = [1, 2, 3, 4, 5, 6];
+        const styles = theme => ({
+            container: {
+                display: 'flex',
+                flexWrap: 'wrap',
+            },
+            textField: {
+                marginLeft: theme.spacing.unit,
+                marginRight: theme.spacing.unit,
+            },
+            dense: {
+                marginTop: 16,
+            },
+            menu: {
+                width: 200,
+            },
+        });
         let counter = -1;
         return (
-            <Paper className='tab-create'>
-                <div >
+            <Paper className='tab-create' style={{ marginTop: 100, paddingBottom: 20}} >
+                <div style={{ textAlign: 'center' }}>
                     <h2>Create</h2>
-                    <form name="form" className='tab-create-form' onSubmit={this.handleSubmit}>
+                    <form name="form" className='tab-create-form' onSubmit={this.handleSubmit} style={{ textAlign: 'center' }}>
                         <div className='field'>
-                            <label>Name: </label>
-                            <Input type="text" placeholder="Tab name" className="form-control" name="name" value={name} onChange={this.handleChange} />
+                            <TextField
+                                style={{ width: '90%' }}
+                                label="Tab name"
+                                className={styles.textField}
+                                type="text"
+                                name="name"
+                                autoComplete="Username"
+                                margin="normal"
+                                variant="outlined"
+                                value={name}
+                                onChange={this.handleChange}
+                                required
+                            />
+
                         </div>
                         <div className='field'>
-                            <label>Tempo: </label>
-                            <Input type="number" placeholder="Tempo" className="form-control" name="tempo" value={tempo} onChange={this.handleChange} />
+                            <TextField
+                                style={{ width: '90%' }}
+                                label="Tempo"
+                                className={styles.textField}
+                                type="number"
+                                name="tempo"
+                                autoComplete="Username"
+                                margin="normal"
+                                variant="outlined"
+                                value={tempo}
+                                onChange={this.handleChange}
+                                required
+                            />
                         </div>
                         <div className='field'>
-                            <InputLabel htmlFor="age-simple">Type </InputLabel>
+                            <TextField
+                                select
+                                label="Select type"
+                                className={styles.textField}
+                                style={{ width: '90%' }}
+                                value={this.state.type}
+                                name='type'
+                                SelectProps={{
+                                    MenuProps: {
+                                        className: styles.menu,
+                                    },
+                                }}
+                                helperText="Please select type"
+                                margin="normal"
+                                variant="outlined"
+                                onChange={this.handleChange}
+                            >
+                                <MenuItem value={1}>Acoustic Guitar</MenuItem>
+                                <MenuItem value={2}>Electric Guitar</MenuItem>
+                                <MenuItem value={3}>Classical Guitar</MenuItem>
+                            </TextField>
+                            {/* <InputLabel htmlFor="age-simple">Type </InputLabel>
                             <Select
+                                style={{ width: '90%' }}
                                 value={this.state.type}
                                 onChange={this.handleChange}
                                 inputProps={{
@@ -119,51 +195,65 @@ class CreateTab extends React.Component {
                                     id: 'age-simple',
                                 }}
                             >
-                                <MenuItem value={0}>
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={1}>Guitar</MenuItem>
-                                <MenuItem value={2}>Drums</MenuItem>
-                                <MenuItem value={3}>Piano</MenuItem>
-                            </Select>
+                                <MenuItem value={1}>Acoustic Guitar</MenuItem>
+                                <MenuItem value={2}>Electric Guitar</MenuItem>
+                                <MenuItem value={3}>Classical Guitar</MenuItem>
+                            </Select> */}
                         </div>
                         {this.state.iterations.map(iteration => {
                             counter++;
                             return (
-                                <Paper className='root'>
-                                    <label>tempScale: {iteration.tempScale} </label>
-                                    {iteration.strings.map(string => {
-                                        return(
-                                        <div>
-                                            <label>String: {string.string} </label>
-                                            <label>Note: {string.note} </label>
-                                        </div>
+                                <Paper className='root' style={{ textAlign: 'left', width: 'max-content', margin: 'auto', marginBottom: 100 }}>
+                                    <label><b>Tempo Scale:</b> {iteration.WaitTimeScalar} bpm</label>
+                                    {iteration.activeNotes.map(string => {
+                                        return (
+                                            <span>
+                                                <label> <b>|</b> String: {string.StringNumber} </label>
+                                                <label> Note: {string.Fret} </label>
+                                            </span>
                                         )
                                     })}
                                     <Button type='button' onClick={() => this.handleRemoveIterationClickButton(counter)} style={{ marginLeft: 5 }}>Remove</Button>
                                 </Paper>
                             );
                         })}
-                        <Paper className='root'>
-                            <label> Temp scale: </label>
-                            <Input type="number" inputProps={{ min: 0, max: 10 }} placeholder="Temp scale" className="form-control" name="tempScale" value={this.state.iteration.tempScale} onChange={this.handleIterationChange} />
+                        <Paper className='root' style={{ width: '60%', margin: 'auto', paddingBottom: 15 }}>
+                            <TextField
+                                style={{ width: '90%' }}
+                                label="Tempo scale"
+                                className={styles.textField}
+                                type="number"
+                                name="WaitTimeScalar"
+                                autoComplete="Username"
+                                margin="normal"
+                                variant="outlined"
+                                value={this.state.iteration.WaitTimeScalar}
+                                onChange={this.handleIterationChange}
+                                required
+                            />
+
                             {strings.map(string => {
                                 return (
-                                    <div>
-                                        <label> String: {string} </label>
-
-                                        <label> Note: </label>
-                                        <Input type="number" inputProps={{ min: 0, max: 18 }} placeholder="None" className="form-control" name={string.toString()} value={this.state.iteration.strings[string-1].note} onChange={this.handleIterationChange} />
-                                    </div>
+                                        <TextField
+                                            style={{ width: '40%', padding: 10 }}
+                                            label={this.getStringName(string)}
+                                            className={styles.textField}
+                                            type="number"
+                                            name={string.toString()}
+                                            autoComplete="Username"
+                                            margin="normal"
+                                            variant="outlined"
+                                            value={this.state.iteration.activeNotes[string - 1].Fret}
+                                            onChange={this.handleIterationChange}
+                                        />
                                 );
                             })}
-                            <Button type='button' onClick={this.handleAddIterationClickButton} style={{ marginLeft: 5 }}>Add</Button>
 
+                            <Button variant="contained" type='button' style={{ marginBot:20, width: 150}} color="primary" onClick={this.handleAddIterationClickButton} >Add</Button>
                         </Paper>
 
-
                         <div className="form-group">
-                            <Button size='large' type='submit' className="form-group">Create</Button>
+                            <Button size='large'variant="contained" type='submit' style={{ marginBot:20}} color="primary">Create</Button>
                         </div>
                     </form>
                 </div>
