@@ -26,7 +26,7 @@ namespace DbRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var ss = context.Courses.Include(x => x.Lessons).ThenInclude(x=>x.Tab).FirstOrDefault(x => x.ID == id);
+                var ss = context.Courses.Include(x => x.Lessons).ThenInclude(x=>x.Tab).ThenInclude(x=>x.Iterations).ThenInclude(x=>x.ActiveNotes).FirstOrDefault(x => x.ID == id);
                 return ss;
             }
         }

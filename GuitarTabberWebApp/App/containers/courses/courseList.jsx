@@ -72,7 +72,7 @@ class CourseList extends React.Component {
 
         return (
             <Paper className='root'>
-                <Link to='/course-create'>Create course</Link>
+               
                 <FilterCourseBar filterCourses={this.filterCourses}></FilterCourseBar>
                 <div className='table-wrapper'>
                     <Table className={'table'}>

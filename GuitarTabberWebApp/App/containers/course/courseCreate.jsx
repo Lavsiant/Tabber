@@ -82,7 +82,13 @@ export default class CreateCourse extends React.Component {
             lessons.push(lesson);
 
         }
-        this.setState({ lessons: lessons });
+        this.setState({ lessons: lessons, lesson: {
+            name: '',
+            repeat: 1,
+            startBpm: 60,
+            stepBpm: 5,
+            tab: -1
+        } });
     }
 
     handleSubmit = () => {
@@ -188,15 +194,15 @@ export default class CreateCourse extends React.Component {
                             </TextField>
                         </div>
                         <div style={{marginBot: 40}}>
-                        {this.state.lessons.map(lesson => {
+                        {this.state.lessons.map(x => {
                             return (
                                 <ExpansionPanel style={{ width: '82%', margin: 'auto', marginBop: '15' }}>
                                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                        <Typography >{lesson.name}</Typography>
+                                        <Typography >{x.name}</Typography>
                                     </ExpansionPanelSummary>
                                     <ExpansionPanelDetails>
                                         <Typography style={{ fontSize: 15 }}>
-                                            Lesson name: {lesson.name}   Repeat times: {lesson.repeat}   Start bpm: {lesson.startBpm}  Default step: {lesson.stepBpm}
+                                            Lesson name: {x.name}   Repeat times: {x.repeat}   Start bpm: {x.startBpm}  Default step: {x.stepBpm}
                                         </Typography>
                                     </ExpansionPanelDetails>
                                 </ExpansionPanel>

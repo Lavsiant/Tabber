@@ -11,6 +11,13 @@ import Input from '@material-ui/core/Input';
 import { createTab } from './tabActions.jsx';
 import Button from '@material-ui/core/Button';
 import { config } from '../../helpers/config.jsx';
+import { FormLabel } from '@material-ui/core';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import NoSsr from '@material-ui/core/NoSsr';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 class CreateTab extends React.Component {
     constructor() {
@@ -126,9 +133,9 @@ class CreateTab extends React.Component {
                 width: 200,
             },
         });
-        let counter = -1;
+        let counter = 1;
         return (
-            <Paper className='tab-create' style={{ marginTop: 100, paddingBottom: 20}} >
+            <Paper className='tab-create' style={{ marginTop: 100, paddingBottom: 20 }} >
                 <div style={{ textAlign: 'center' }}>
                     <h2>Create</h2>
                     <form name="form" className='tab-create-form' onSubmit={this.handleSubmit} style={{ textAlign: 'center' }}>
@@ -200,7 +207,7 @@ class CreateTab extends React.Component {
                                 <MenuItem value={3}>Classical Guitar</MenuItem>
                             </Select> */}
                         </div>
-                        {this.state.iterations.map(iteration => {
+                        {/* {this.state.iterations.map(iteration => {
                             counter++;
                             return (
                                 <Paper className='root' style={{ textAlign: 'left', width: 'max-content', margin: 'auto', marginBottom: 100 }}>
@@ -216,7 +223,43 @@ class CreateTab extends React.Component {
                                     <Button type='button' onClick={() => this.handleRemoveIterationClickButton(counter)} style={{ marginLeft: 5 }}>Remove</Button>
                                 </Paper>
                             );
+                        })} */}
+                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Lessons</FormLabel>
+                        {this.state.iterations.map(iteration => {
+                            const co = counter;
+                            return (
+                                <ExpansionPanel style={{ width: '80%', margin: 'auto', marginBo: '15' }}>
+                                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                        <Typography >Iteration {counter++}</Typography>
+                                        
+                                    </ExpansionPanelSummary>
+                                    <ExpansionPanelDetails>
+                                        <Typography style={{ fontSize: 18, width: '100%' }}>
+                                            Tempo scale: {iteration.WaitTimeScalar} bpm
+                                            <br />
+                                            {iteration.activeNotes.map(x => {
+                                                return (
+                                                    <label>  &nbsp;&nbsp;&nbsp; {x.StreingNumber}S-{x.Fret}F  &nbsp;&nbsp;&nbsp; </label>
+                                                )
+                                            })}
+                                           <Button size="small"  type='button' onClick={() => this.handleRemoveIterationClickButton(co-1)} style={{ marginLeft: '80%' }}>Remove</Button>
+                               
+                                        </Typography>
+                                             </ExpansionPanelDetails>
+                                </ExpansionPanel>
+                                // <Paper className='root' style={{textAlign:'left', width:'max-content', margin:'auto' ,marginBottom:20}}>
+                                //     <label>Lesson name: {lesson.name} </label>
+                                //     <label>Repeat: {lesson.name} </label>
+                                //     <label>Start Bpm: {lesson.startBpm} </label>
+                                //     <label>Step Bpm: {lesson.stepBpm} </label>
+
+                                //     <Button type='button' onClick={() => this.handleRemoveIterationClickButton(counter)} style={{ marginLeft: 5 }}>Remove</Button>
+                                // </Paper>
+                            );
                         })}
+                        <div style={{marginTop: 30}}>
+
+                        </div>
                         <Paper className='root' style={{ width: '60%', margin: 'auto', paddingBottom: 15 }}>
                             <TextField
                                 style={{ width: '90%' }}
@@ -234,26 +277,26 @@ class CreateTab extends React.Component {
 
                             {strings.map(string => {
                                 return (
-                                        <TextField
-                                            style={{ width: '40%', padding: 10 }}
-                                            label={this.getStringName(string)}
-                                            className={styles.textField}
-                                            type="number"
-                                            name={string.toString()}
-                                            autoComplete="Username"
-                                            margin="normal"
-                                            variant="outlined"
-                                            value={this.state.iteration.activeNotes[string - 1].Fret}
-                                            onChange={this.handleIterationChange}
-                                        />
+                                    <TextField
+                                        style={{ width: '40%', padding: 10 }}
+                                        label={this.getStringName(string)}
+                                        className={styles.textField}
+                                        type="number"
+                                        name={string.toString()}
+                                        autoComplete="Username"
+                                        margin="normal"
+                                        variant="outlined"
+                                        value={this.state.iteration.activeNotes[string - 1].Fret}
+                                        onChange={this.handleIterationChange}
+                                    />
                                 );
                             })}
 
-                            <Button variant="contained" type='button' style={{ marginBot:20, width: 150}} color="primary" onClick={this.handleAddIterationClickButton} >Add</Button>
+                            <Button variant="contained" type='button' style={{ marginBot: 20, width: 150 }} color="primary" onClick={this.handleAddIterationClickButton} >Add</Button>
                         </Paper>
 
                         <div className="form-group">
-                            <Button size='large'variant="contained" type='submit' style={{ marginBot:20}} color="primary">Create</Button>
+                            <Button size='large' variant="contained" type='submit' style={{ marginBot: 20 }} color="primary">Create</Button>
                         </div>
                     </form>
                 </div>

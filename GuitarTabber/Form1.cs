@@ -1,10 +1,12 @@
 ﻿using Model.GuitarTab;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -149,20 +151,48 @@ namespace GuitarTabber
             };
             var data = new Data();
             tabs = data.GetAllTabs();
-            currentTab = tabs.First();
-            progress_bar.Maximum = currentTab.Iterations.Count-1;
-            NameLabel.Text = currentTab.Name;
-            tempoSlowK.Value = 100;
+            //currentTab = tabs.First();
           
+            tempoSlowK.Value = 100;
 
-            
+            var activeCourse = new Model.GuitarTab.ActiveCourse();
+            var client = new HttpClient();
+            for (int i = 5; i <= 8; i++)
+            {
+                try
+                {
+                    var response = client.GetAsync($"http://192.168.4.39:4545{i}/api/Course/get-activated-course").Result;
+                    var content = response.Content.ReadAsStringAsync().Result;
+                    activeCourse = JsonConvert.DeserializeObject<ActiveCourse>(content);
+
+                    response = client.GetAsync($"http://192.168.4.39:4545{i}/api/Course/course?id=" + activeCourse.CourseId).Result;
+                    content = response.Content.ReadAsStringAsync().Result;
+                    course = JsonConvert.DeserializeObject<Course>(content);
+                    break;
+                }
+                catch
+                {
+
+                }
+            }
+         
+
+            currentLesson = course.Lessons.FirstOrDefault();
+            progress_bar.Maximum = currentLesson.Tab.Iterations.Count - 1;
+            NameLabel.Text = currentLesson.Name;
+
+
+
         }
 
         private readonly Tab _testTab;
         private int _indexOfLastIteration;
         private CancellationTokenSource _cts;
         private List<Tab> tabs;
-        private Tab currentTab;
+        private Tab cursrentTab;
+        private Lesson currentLesson;
+        private Course course;
+        private List<Lesson> lessons;
 
 
         private void button79_Click(object sender, EventArgs e)
@@ -181,25 +211,25 @@ namespace GuitarTabber
 
         private void StartTabReading(CancellationToken ct, Form form, int startIndex)
         {
-            for (int i = startIndex; i < currentTab.Iterations.Count; i++)
+            for (int i = startIndex; i < currentLesson.Tab.Iterations.Count; i++)
             {
                 
                 if (!ct.IsCancellationRequested)
                 {
                     this.InvokeEx(f => f.progress_bar.Value = i);
 
-                    foreach (var note in currentTab.Iterations[i].ActiveNotes)
+                    foreach (var note in currentLesson.Tab.Iterations[i].ActiveNotes)
                     {
                         var bt = form.Controls.Find($"note_{note.StringNumber}_{note.Fret}", true).First();
                         this.InvokeEx(f => bt.Visible = true);
 
                     }
                     this.InvokeEx(f => f.Update());
-                    Thread.Sleep(Convert.ToInt32((currentTab.Tempo * currentTab.Iterations[i].WaitTimeScalar)* 5/100 * Convert.ToInt32(tempoSlowK.Value)));
+                    Thread.Sleep(Convert.ToInt32((currentLesson.Tab.Tempo * currentLesson.Tab.Iterations[i].WaitTimeScalar)* 5/100 * Convert.ToInt32(tempoSlowK.Value)));
 
 
 
-                    foreach (var note in currentTab.Iterations[i].ActiveNotes)
+                    foreach (var note in currentLesson.Tab.Iterations[i].ActiveNotes)
                     {
                         var bt = form.Controls.Find($"note_{note.StringNumber}_{note.Fret}", true).First();
                         this.InvokeEx(f => bt.Visible = false);
@@ -245,17 +275,17 @@ namespace GuitarTabber
         {
             _cts.Cancel();
             start_button.Enabled = true;
-            var indx = tabs.FindIndex(x => x == currentTab);
-            if(indx+1 == tabs.Count)
+            var indx = course.Lessons.FindIndex(x => x == currentLesson);
+            if(indx+1 == course.Lessons.Count)
             {
-                currentTab = tabs.First();
+                currentLesson = course.Lessons.First();
             }
             else
             {
-                currentTab = tabs[indx+1];
+                currentLesson = course.Lessons[indx+1];
             }
-            NameLabel.Text = currentTab.Name;
-            progress_bar.Maximum = currentTab.Iterations.Count - 1;
+            NameLabel.Text = currentLesson.Name;
+            progress_bar.Maximum = currentLesson.Tab.Iterations.Count - 1;
             progress_bar.Value = 0;
             _indexOfLastIteration = progress_bar.Value;
         }
@@ -264,17 +294,17 @@ namespace GuitarTabber
         {
             _cts.Cancel();
             start_button.Enabled = true;
-            var indx = tabs.FindIndex(x => x == currentTab);
+            var indx = course.Lessons.FindIndex(x => x == currentLesson);
             if (indx - 1 < 0)
             {
-                currentTab = tabs.Last();
+                currentLesson = course.Lessons.Last();
             }
             else
             {
-                currentTab = tabs[indx];
+                currentLesson = course.Lessons[indx];
             }
-            NameLabel.Text = currentTab.Name;
-            progress_bar.Maximum = currentTab.Iterations.Count - 1;
+            NameLabel.Text = currentLesson.Name;
+            progress_bar.Maximum = currentLesson.Tab.Iterations.Count - 1;
             progress_bar.Value = 0;
             _indexOfLastIteration = progress_bar.Value;
         }

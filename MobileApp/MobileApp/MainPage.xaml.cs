@@ -33,17 +33,21 @@ namespace MobileApp
 
         private async void LogInClicked(object sender, EventArgs e)
         {
-            try
+            for (int i = 5; i < 9; i++)
             {
-                var response = client.GetAsync("http://192.168.1.5:45455/api/Identity/all").Result;
-                var content = response.Content.ReadAsStringAsync().Result;
-                userData = JsonConvert.DeserializeObject<List<User>>(content);
-                await DisplayAlert("Alert", userData.Count.ToString(), "OK");
+                try
+                {
+                    var response = client.GetAsync($"http://192.168.1.198:4545{i}/api/Identity/all").Result;
+                    var content = response.Content.ReadAsStringAsync().Result;
+                    userData = JsonConvert.DeserializeObject<List<User>>(content);
+                    break;
+                }
+                catch
+                {
+                   
+                }
             }
-            catch
-            {
-                await DisplayAlert("Alert", "Incorrect login or password", "OK");
-            }
+          
             var user = userData.FirstOrDefault(x => x.UserName.Equals(this.Login.Text) && x.Password.Equals(this.Password.Text));
             if (user != null)
             {

@@ -12,9 +12,9 @@ using Xamarin.Forms.Xaml;
 
 namespace MobileApp
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Lesson : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class Lesson : ContentPage
+    {
         public Lesson()
         {
             InitializeComponent();
@@ -33,7 +33,7 @@ namespace MobileApp
             Header = $"Course '{course.Name}' items:";
             IsAdmin = user.UserName == "admin" ? true : false;
             this.BindingContext = this;
-  
+
         }
 
         public bool IsAdmin { get; set; }
@@ -53,21 +53,31 @@ namespace MobileApp
             var counter = 0;
             foreach (var lesson in Course.Lessons)
             {
-                if(lesson.ID == selectedCourse.ID)
+                if (lesson.ID == selectedCourse.ID)
                 {
                     break;
                 }
                 counter++;
             }
-            var response = client.GetAsync("http://192.168.1.5:45455/api/Course/course-activate?id=" + Course.ID+"&index="+ counter).Result;
-            await DisplayAlert("Success", "Lesson" +selectedCourse.Name +" was uploaded to 'Smart Tabber", "OK");
+            for (int i = 5; i < 9; i++)
+            {
+                try
+                {
+                    var response = client.GetAsync($"http://192.168.1.198:4545{i}/api/Course/course-activate?id=" + Course.ID + "&index=" + counter).Result;
+                }
+                catch
+                {
+
+                }
+            }
+            await DisplayAlert("Success", "Lesson" + selectedCourse.Name + " was uploaded to 'Smart Tabber", "OK");
         }
 
         private void Back(object sender, EventArgs e)
         {
             Application.Current.MainPage = new Courses(User);
         }
-        
+
 
         public void DeleteCourse(object sender, EventArgs e)
         {

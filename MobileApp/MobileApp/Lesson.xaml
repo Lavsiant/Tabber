@@ -27,9 +27,11 @@
                                             <ColumnDefinition Width="80"></ColumnDefinition>
                                             <ColumnDefinition Width="80"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Row="0" Grid.Column="0" Text="Start Tempo: " />
+                                        <Label Grid.Row="0" Grid.Column="0" Text="Tempo for start training: " />
                                         <Label Grid.Row="0" Grid.Column="1" Text="{Binding StartBpm}" />
-                                        <Label Grid.Row="1" Grid.Column="0" Text="Repeat: "/>
+                                        <Label Grid.Row="1" Grid.Column="0" Text="Tempo step: "/>
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding MinTempoStep}"/>
+                                        <Label Grid.Row="1" Grid.Column="0" Text="Repeat for step: "/>
                                         <Label Grid.Row="1" Grid.Column="1" Text="{Binding RepeatNumber}"/>
                                     </Grid>
                                    
