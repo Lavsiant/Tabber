@@ -175,10 +175,11 @@ namespace GuitarTabber
 
                 }
             }
-         
 
+          
             currentLesson = course.Lessons.FirstOrDefault();
             progress_bar.Maximum = currentLesson.Tab.Iterations.Count - 1;
+          
             NameLabel.Text = currentLesson.Name;
 
 
@@ -234,8 +235,15 @@ namespace GuitarTabber
                         var bt = form.Controls.Find($"note_{note.StringNumber}_{note.Fret}", true).First();
                         this.InvokeEx(f => bt.Visible = false);
                     }
+
                     this.InvokeEx(f => f.Update());
                     _indexOfLastIteration = i;
+                    if(i== currentLesson.Tab.Iterations.Count - 1 && isLoop.Checked)
+                    {
+                        this.InvokeEx(f => f.progress_bar.Value = 0);
+                        i = 0;
+                        
+                    }
                 }
                 else
                 {

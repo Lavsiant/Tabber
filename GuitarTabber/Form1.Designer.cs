@@ -171,6 +171,7 @@
             this.NameLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tempoSlowK = new System.Windows.Forms.NumericUpDown();
+            this.isLoop = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.progress_bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tempoSlowK)).BeginInit();
@@ -2141,11 +2142,24 @@
             0,
             0});
             // 
+            // isLoop
+            // 
+            this.isLoop.AutoSize = true;
+            this.isLoop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.isLoop.Location = new System.Drawing.Point(396, 392);
+            this.isLoop.Name = "isLoop";
+            this.isLoop.Size = new System.Drawing.Size(64, 24);
+            this.isLoop.TabIndex = 148;
+            this.isLoop.Text = "Loop";
+            this.isLoop.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
+            this.AcceptButton = this.backButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1169, 587);
+            this.Controls.Add(this.isLoop);
             this.Controls.Add(this.tempoSlowK);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.NameLabel);
@@ -2442,6 +2456,7 @@
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown tempoSlowK;
+        private System.Windows.Forms.CheckBox isLoop;
     }
 }
 
