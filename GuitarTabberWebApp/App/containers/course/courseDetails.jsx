@@ -40,12 +40,30 @@ export default class CourseDetails extends React.Component {
     }
 
     getTypeString = (x) => {
-        switch (x) {
-            case 1: return 'Acoustic Guitar';
-            case 2: return 'Electric Guitar';
-            case 3: return 'Classical Guitar';
+        let language = '';
+        if (localStorage.getItem('lang')) {
+            language = localStorage.getItem('lang');
+        }
+        else {
+            language = 'en';
+            localStorage.setItem('lang', 'en');
+        }
+        if (language == 'en') {
+            switch (x) {
+                case 1: return 'Acoustic Guitar';
+                case 2: return 'Electric Guitar';
+                case 3: return 'Classical Guitar';
+            }
+        }
+        else{
+            switch (x) {
+                case 1: return 'Акустична гітара';
+                case 2: return 'Електрогітара';
+                case 3: return 'Класична гітара';
+            }
         }
     }
+
 
     handleSubscribe = () =>{
         let usern='';
@@ -67,12 +85,19 @@ export default class CourseDetails extends React.Component {
     }
 
     render() {
-
+        let language = '';
+        if(localStorage.getItem('lang')){
+            language = localStorage.getItem('lang');
+        }
+        else{
+            language = 'en';
+            localStorage.setItem('lang', 'en');
+        }
         return (
             <Paper className='tab-create' style={{ fontSize: 20, marginTop: 200 }} >
                 <div style={{ textAlign: 'center', display: 'block' }}>
                     <div>
-                    <FormLabel style={{ fontSize: 22 }}>Course name </FormLabel>
+                    <FormLabel style={{ fontSize: 22 }}>{language == 'en' ? 'Course name' : 'Назва курсу'} </FormLabel>
                     <TextField
                         style={{ width: '85%' }}
                         id="outlined-read-only-input"
@@ -86,8 +111,9 @@ export default class CourseDetails extends React.Component {
                     />
                     </div>
                     <br />
-                    <div style={{ marginTop: 30 }}>
-                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Description </FormLabel>
+                    <div style={{ marginTop: 30 }}></div>
+                    <div style = {{margin:'auto'}}>
+                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}>{language == 'en' ? 'Description' : 'Опис'} </FormLabel>  <br />
                         <TextField
                             style={{  width: '85%' }}
                             id="outlined-read-only-input"
@@ -102,7 +128,7 @@ export default class CourseDetails extends React.Component {
                     </div>
                     <br/>
                     <div style={{ marginTop: 30, marginBottom: 30 }}>
-                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Type</FormLabel>
+                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}>{language == 'en' ?  'Type' : 'Тип'}</FormLabel>
                         <br/>
                         <TextField
                             style={{ width: '85%' }}
@@ -116,7 +142,7 @@ export default class CourseDetails extends React.Component {
                             variant="outlined"
                         />
                     </div>
-                    <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Lessons</FormLabel>
+                    <FormLabel style={{ fontSize: 22, marginTop: 80 }}>{language == 'en' ? 'Lessons' : 'Вправи'}</FormLabel>
                     {this.state.course.lessons.map(lesson => {
                             return (
                                 <ExpansionPanel style={{ width: '85%', margin: 'auto', marginBop: '15' }}>
@@ -125,7 +151,7 @@ export default class CourseDetails extends React.Component {
                                     </ExpansionPanelSummary>
                                     <ExpansionPanelDetails>
                                         <Typography style={{ fontSize: 18 }}>
-                                            <i>Lesson name:</i> {lesson.name}  &nbsp;&nbsp;&nbsp;   <i>Repeat times: {lesson.repeatNumber}</i>  &nbsp;&nbsp;&nbsp;    <i>Start bpm:</i> {lesson.startBpm}  &nbsp;&nbsp;&nbsp;   <i>Default step: </i> {lesson.minTempoStep}
+                                            <i>{language == 'en' ? 'Lesson name' : 'Назва вправи'}:</i> {lesson.name}  &nbsp;&nbsp;&nbsp;   <i>{language == 'en' ? 'Repeat times' : 'Кількість повторювань'} : {lesson.repeatNumber}</i>  &nbsp;&nbsp;&nbsp;    <i>{language == 'en' ? 'Start bpm' : 'Початковий темп'}:</i> {lesson.startBpm}  &nbsp;&nbsp;&nbsp;   <i>{language == 'en' ? 'Default step' : 'Рекомендований шаг'}: </i> {lesson.minTempoStep}
                                         </Typography>
                                     </ExpansionPanelDetails>
                                 </ExpansionPanel>
@@ -140,7 +166,7 @@ export default class CourseDetails extends React.Component {
                             );
                         })}
                     <br/>
-                    <Button size="large" variant="contained" color="primary" type='button' onClick={this.handleSubscribe} style={{ margin: 15 }}>Subscribe</Button>
+                    <Button size="large" variant="contained" color="primary" type='button' onClick={this.handleSubscribe} style={{ margin: 15 }}>{language == 'en' ? 'Subscribe' : 'Добавити'}</Button>
 
 
 

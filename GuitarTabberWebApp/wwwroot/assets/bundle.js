@@ -39119,26 +39119,31 @@ var Header = function (_React$Component) {
         value: function render() {
             var isLoggedIn = this.state.isLoggedIn;
             var authControl = void 0;
+            var language = '';
+            if (localStorage.getItem('lang')) {
+                language = localStorage.getItem('lang');
+            } else {
+                language = 'en';
+                localStorage.setItem('lang', 'en');
+            }
 
             if (localStorage.getItem('user')) {
                 authControl = _react2.default.createElement(
                     _Tabs2.default,
                     { indicatorColor: 'primary', textColor: 'primary', value: this.state.value, onChange: this.handleChange, centered: true },
-                    _react2.default.createElement(_Tab2.default, { label: 'Tabs', component: _reactRouterDom.Link, to: '/tabs' }),
-                    _react2.default.createElement(_Tab2.default, { label: 'Courses', component: _reactRouterDom.Link, to: '/courses' }),
-                    _react2.default.createElement(_Tab2.default, { label: 'Test tab', component: _reactRouterDom.Link, to: '/test' }),
-                    _react2.default.createElement(_Tab2.default, { label: 'Logout', onClick: this.handleLogOut, component: _reactRouterDom.Link, to: '/login' }),
-                    _react2.default.createElement(_Tab2.default, { style: { float: 'right' }, label: 'Profile', component: _reactRouterDom.Link, to: '/profile' })
+                    _react2.default.createElement(_Tab2.default, { label: language == 'en' ? "Tabs" : 'Табулатури', component: _reactRouterDom.Link, to: '/tabs' }),
+                    _react2.default.createElement(_Tab2.default, { label: language == 'en' ? "Courses" : 'Курси', component: _reactRouterDom.Link, to: '/courses' }),
+                    _react2.default.createElement(_Tab2.default, { label: language == 'en' ? "Logout" : 'Вихід', onClick: this.handleLogOut, component: _reactRouterDom.Link, to: '/login' }),
+                    _react2.default.createElement(_Tab2.default, { style: { float: 'right' }, label: language == 'en' ? "Profile" : 'Профіль', component: _reactRouterDom.Link, to: '/profile' })
                 );
             } else {
                 authControl = _react2.default.createElement(
                     _Tabs2.default,
                     { indicatorColor: 'primary', textColor: 'primary', value: this.state.value, onChange: this.handleChange, centered: true },
-                    _react2.default.createElement(_Tab2.default, { label: 'Tabs', component: _reactRouterDom.Link, to: '/tabs' }),
-                    _react2.default.createElement(_Tab2.default, { label: 'Courses', component: _reactRouterDom.Link, to: '/courses' }),
-                    _react2.default.createElement(_Tab2.default, { label: 'Test tab', component: _reactRouterDom.Link, to: '/test' }),
-                    _react2.default.createElement(_Tab2.default, { label: 'Register', component: _reactRouterDom.Link, to: '/register' }),
-                    _react2.default.createElement(_Tab2.default, { label: 'Login', component: _reactRouterDom.Link, to: '/login' }),
+                    _react2.default.createElement(_Tab2.default, { label: language == 'en' ? "Tabs" : 'Табулатури', component: _reactRouterDom.Link, to: '/tabs' }),
+                    _react2.default.createElement(_Tab2.default, { label: language == 'en' ? "Courses" : 'Курси', component: _reactRouterDom.Link, to: '/courses' }),
+                    _react2.default.createElement(_Tab2.default, { label: language == 'en' ? "Register" : 'Реєстрація', component: _reactRouterDom.Link, to: '/register' }),
+                    _react2.default.createElement(_Tab2.default, { label: language == 'en' ? "Login" : 'Вхід', component: _reactRouterDom.Link, to: '/login' }),
                     ';'
                 );
             }
@@ -74005,7 +74010,13 @@ var TabList = function (_React$Component) {
                 page = _state.page;
 
             var emptyRows = rowsPerPage - Math.min(rowsPerPage, this.state.filteredTabs.length - page * rowsPerPage);
-
+            var language = '';
+            if (localStorage.getItem('lang')) {
+                language = localStorage.getItem('lang');
+            } else {
+                language = 'en';
+                localStorage.setItem('lang', 'en');
+            }
             return _react2.default.createElement(
                 _Paper2.default,
                 { className: 'root' },
@@ -74025,17 +74036,17 @@ var TabList = function (_React$Component) {
                                 _react2.default.createElement(
                                     _TableCell2.default,
                                     { style: { fontSize: 20 } },
-                                    'Name'
+                                    language == 'en' ? 'Name' : 'Назва'
                                 ),
                                 _react2.default.createElement(
                                     _TableCell2.default,
                                     { style: { fontSize: 20 }, numeric: true },
-                                    'Tempo (bmp)'
+                                    language == 'en' ? 'Tempo (bmp)' : 'Темп вправи'
                                 ),
                                 _react2.default.createElement(
                                     _TableCell2.default,
                                     { style: { fontSize: 20 }, numeric: true },
-                                    'Creator'
+                                    language == 'en' ? 'Creator' : 'Створив'
                                 )
                             )
                         ),
@@ -75163,6 +75174,13 @@ var FilterTabBar = function (_React$Component) {
     _createClass(FilterTabBar, [{
         key: 'render',
         value: function render() {
+            var language = '';
+            if (localStorage.getItem('lang')) {
+                language = localStorage.getItem('lang');
+            } else {
+                language = 'en';
+                localStorage.setItem('lang', 'en');
+            }
             return _react2.default.createElement(
                 'div',
                 { className: 'filter-bar', style: { width: '100%' } },
@@ -75171,7 +75189,7 @@ var FilterTabBar = function (_React$Component) {
                     { className: 'filter' },
                     _react2.default.createElement(_TextField2.default, {
                         className: 'filter-field',
-                        label: 'Tab name',
+                        label: language == 'en' ? "Tab name" : 'Назва табулатури',
                         margin: 'normal',
                         variant: 'outlined',
                         onChange: this.onNameChanged
@@ -75181,7 +75199,7 @@ var FilterTabBar = function (_React$Component) {
                     'div',
                     { className: 'filter' },
                     _react2.default.createElement(_TextField2.default, {
-                        label: 'Min tempo',
+                        label: language == 'en' ? "Min tempo" : 'Мінімальний темп',
                         defaultValue: '',
                         type: 'number',
                         className: 'filter-field',
@@ -75195,7 +75213,7 @@ var FilterTabBar = function (_React$Component) {
                     { className: 'filter' },
                     _react2.default.createElement(_TextField2.default, {
                         className: 'filter-field',
-                        label: 'Max tempo',
+                        label: language == 'en' ? "Max tempo" : 'Максимальний темп',
                         type: 'number',
                         margin: 'normal',
                         variant: 'outlined',
@@ -75349,13 +75367,31 @@ var CourseList = function (_React$Component) {
         };
 
         _this.getTypeString = function (x) {
-            switch (x) {
-                case 1:
-                    return 'Acoustic Guitar';
-                case 2:
-                    return 'Electric Guitar';
-                case 3:
-                    return 'Classical Guitar';
+            var language = '';
+            if (localStorage.getItem('lang')) {
+                language = localStorage.getItem('lang');
+            } else {
+                language = 'en';
+                localStorage.setItem('lang', 'en');
+            }
+            if (language == 'en') {
+                switch (x) {
+                    case 1:
+                        return 'Acoustic Guitar';
+                    case 2:
+                        return 'Electric Guitar';
+                    case 3:
+                        return 'Classical Guitar';
+                }
+            } else {
+                switch (x) {
+                    case 1:
+                        return 'Акустична гітара';
+                    case 2:
+                        return 'Електрогітара';
+                    case 3:
+                        return 'Класична гітара';
+                }
             }
         };
 
@@ -75386,7 +75422,13 @@ var CourseList = function (_React$Component) {
                 page = _state.page;
 
             var emptyRows = rowsPerPage - Math.min(rowsPerPage, this.state.filteredCourses.length - page * rowsPerPage);
-
+            var language = '';
+            if (localStorage.getItem('lang')) {
+                language = localStorage.getItem('lang');
+            } else {
+                language = 'en';
+                localStorage.setItem('lang', 'en');
+            }
             return _react2.default.createElement(
                 _Paper2.default,
                 { className: 'root' },
@@ -75406,17 +75448,17 @@ var CourseList = function (_React$Component) {
                                 _react2.default.createElement(
                                     _TableCell2.default,
                                     { style: { fontSize: 20 } },
-                                    'Name'
+                                    language == 'en' ? 'Name' : 'Назва'
                                 ),
                                 _react2.default.createElement(
                                     _TableCell2.default,
                                     { style: { fontSize: 20 } },
-                                    'Type'
+                                    language == 'en' ? 'Type' : 'Тип'
                                 ),
                                 _react2.default.createElement(
                                     _TableCell2.default,
                                     { style: { fontSize: 20 }, numeric: true },
-                                    'Creator'
+                                    language == 'en' ? 'Creator' : 'Створив'
                                 )
                             )
                         ),
@@ -75624,6 +75666,13 @@ var FilterCourseBar = function (_React$Component) {
         // }
 
         value: function render() {
+            var language = '';
+            if (localStorage.getItem('lang')) {
+                language = localStorage.getItem('lang');
+            } else {
+                language = 'en';
+                localStorage.setItem('lang', 'en');
+            }
             return _react2.default.createElement(
                 'div',
                 { className: 'filter-bar' },
@@ -75632,7 +75681,7 @@ var FilterCourseBar = function (_React$Component) {
                     { className: 'filter' },
                     _react2.default.createElement(_TextField2.default, {
                         className: 'filter-field',
-                        label: 'Course name',
+                        label: language == 'en' ? "Course name" : 'Назва курсу',
                         margin: 'normal',
                         variant: 'outlined',
                         onChange: this.onNameChanged
@@ -75760,6 +75809,13 @@ var TabDetails = function (_React$Component) {
         key: 'render',
         value: function render() {
             var count = 1;
+            var language = '';
+            if (localStorage.getItem('lang')) {
+                language = localStorage.getItem('lang');
+            } else {
+                language = 'en';
+                localStorage.setItem('lang', 'en');
+            }
             return _react2.default.createElement(
                 _Paper2.default,
                 { className: 'tab-create', style: { fontSize: 20, marginTop: 100, paddingBottom: 50 } },
@@ -75772,7 +75828,8 @@ var TabDetails = function (_React$Component) {
                         _react2.default.createElement(
                             _core.FormLabel,
                             { style: { fontSize: 22 } },
-                            'Tab name '
+                            language == 'en' ? 'Tab name' : 'Назва табулатури',
+                            ' '
                         ),
                         _react2.default.createElement('br', null),
                         _react2.default.createElement(_TextField2.default, {
@@ -75794,7 +75851,8 @@ var TabDetails = function (_React$Component) {
                         _react2.default.createElement(
                             _core.FormLabel,
                             { style: { fontSize: 22, marginTop: 80 } },
-                            'Tempo '
+                            language == 'en' ? 'Tempo' : 'Темп',
+                            ' '
                         ),
                         _react2.default.createElement('br', null),
                         _react2.default.createElement(_TextField2.default, {
@@ -75816,7 +75874,7 @@ var TabDetails = function (_React$Component) {
                         _react2.default.createElement(
                             _core.FormLabel,
                             { style: { fontSize: 22, marginTop: 80 } },
-                            'Type'
+                            language == 'en' ? 'Type' : 'Тип'
                         ),
                         _react2.default.createElement('br', null),
                         _react2.default.createElement(_TextField2.default, {
@@ -75838,13 +75896,13 @@ var TabDetails = function (_React$Component) {
                         _react2.default.createElement(
                             _core.FormLabel,
                             { style: { fontSize: 22, marginTop: 80 } },
-                            'Creator'
+                            language == 'en' ? 'Creator' : 'Автор'
                         ),
                         _react2.default.createElement('br', null),
                         _react2.default.createElement(_TextField2.default, {
                             style: { width: '85%' },
                             id: 'outlined-read-only-input',
-                            value: this.getTypeString(this.props.tab.creator),
+                            value: this.props.tab.creator,
                             defaultValue: 'Hello World',
                             margin: 'normal',
                             InputProps: {
@@ -75856,7 +75914,7 @@ var TabDetails = function (_React$Component) {
                     _react2.default.createElement(
                         _core.FormLabel,
                         { style: { fontSize: 22, marginTop: 80 } },
-                        'Lessons'
+                        language == 'en' ? 'Lessons' : 'Вправи'
                     ),
                     this.props.tab.iterations.map(function (iteration) {
                         return _react2.default.createElement(
@@ -75868,7 +75926,8 @@ var TabDetails = function (_React$Component) {
                                 _react2.default.createElement(
                                     _Typography2.default,
                                     null,
-                                    'Iteration ',
+                                    language == 'en' ? 'Iteration' : 'Ітерації',
+                                    ' ',
                                     count++
                                 )
                             ),
@@ -75878,7 +75937,8 @@ var TabDetails = function (_React$Component) {
                                 _react2.default.createElement(
                                     _Typography2.default,
                                     { style: { fontSize: 18 } },
-                                    'Tempo scale: ',
+                                    language == 'en' ? 'Tempo scale' : 'Коефіцієнт очікування',
+                                    ': ',
                                     iteration.waitTimeScalar,
                                     ' bpm',
                                     _react2.default.createElement('br', null),
@@ -76017,13 +76077,31 @@ var CourseDetails = function (_React$Component) {
         };
 
         _this.getTypeString = function (x) {
-            switch (x) {
-                case 1:
-                    return 'Acoustic Guitar';
-                case 2:
-                    return 'Electric Guitar';
-                case 3:
-                    return 'Classical Guitar';
+            var language = '';
+            if (localStorage.getItem('lang')) {
+                language = localStorage.getItem('lang');
+            } else {
+                language = 'en';
+                localStorage.setItem('lang', 'en');
+            }
+            if (language == 'en') {
+                switch (x) {
+                    case 1:
+                        return 'Acoustic Guitar';
+                    case 2:
+                        return 'Electric Guitar';
+                    case 3:
+                        return 'Classical Guitar';
+                }
+            } else {
+                switch (x) {
+                    case 1:
+                        return 'Акустична гітара';
+                    case 2:
+                        return 'Електрогітара';
+                    case 3:
+                        return 'Класична гітара';
+                }
             }
         };
 
@@ -76062,7 +76140,13 @@ var CourseDetails = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-
+            var language = '';
+            if (localStorage.getItem('lang')) {
+                language = localStorage.getItem('lang');
+            } else {
+                language = 'en';
+                localStorage.setItem('lang', 'en');
+            }
             return _react2.default.createElement(
                 _Paper2.default,
                 { className: 'tab-create', style: { fontSize: 20, marginTop: 200 } },
@@ -76075,7 +76159,8 @@ var CourseDetails = function (_React$Component) {
                         _react2.default.createElement(
                             _core.FormLabel,
                             { style: { fontSize: 22 } },
-                            'Course name '
+                            language == 'en' ? 'Course name' : 'Назва курсу',
+                            ' '
                         ),
                         _react2.default.createElement(_TextField2.default, {
                             style: { width: '85%' },
@@ -76090,14 +76175,18 @@ var CourseDetails = function (_React$Component) {
                         })
                     ),
                     _react2.default.createElement('br', null),
+                    _react2.default.createElement('div', { style: { marginTop: 30 } }),
                     _react2.default.createElement(
                         'div',
-                        { style: { marginTop: 30 } },
+                        { style: { margin: 'auto' } },
                         _react2.default.createElement(
                             _core.FormLabel,
                             { style: { fontSize: 22, marginTop: 80 } },
-                            'Description '
+                            language == 'en' ? 'Description' : 'Опис',
+                            ' '
                         ),
+                        '  ',
+                        _react2.default.createElement('br', null),
                         _react2.default.createElement(_TextField2.default, {
                             style: { width: '85%' },
                             id: 'outlined-read-only-input',
@@ -76117,7 +76206,7 @@ var CourseDetails = function (_React$Component) {
                         _react2.default.createElement(
                             _core.FormLabel,
                             { style: { fontSize: 22, marginTop: 80 } },
-                            'Type'
+                            language == 'en' ? 'Type' : 'Тип'
                         ),
                         _react2.default.createElement('br', null),
                         _react2.default.createElement(_TextField2.default, {
@@ -76135,7 +76224,7 @@ var CourseDetails = function (_React$Component) {
                     _react2.default.createElement(
                         _core.FormLabel,
                         { style: { fontSize: 22, marginTop: 80 } },
-                        'Lessons'
+                        language == 'en' ? 'Lessons' : 'Вправи'
                     ),
                     this.state.course.lessons.map(function (lesson) {
                         return _react2.default.createElement(
@@ -76159,7 +76248,8 @@ var CourseDetails = function (_React$Component) {
                                     _react2.default.createElement(
                                         'i',
                                         null,
-                                        'Lesson name:'
+                                        language == 'en' ? 'Lesson name' : 'Назва вправи',
+                                        ':'
                                     ),
                                     ' ',
                                     lesson.name,
@@ -76167,14 +76257,16 @@ var CourseDetails = function (_React$Component) {
                                     _react2.default.createElement(
                                         'i',
                                         null,
-                                        'Repeat times: ',
+                                        language == 'en' ? 'Repeat times' : 'Кількість повторювань',
+                                        ' : ',
                                         lesson.repeatNumber
                                     ),
                                     '  \xA0\xA0\xA0    ',
                                     _react2.default.createElement(
                                         'i',
                                         null,
-                                        'Start bpm:'
+                                        language == 'en' ? 'Start bpm' : 'Початковий темп',
+                                        ':'
                                     ),
                                     ' ',
                                     lesson.startBpm,
@@ -76182,7 +76274,8 @@ var CourseDetails = function (_React$Component) {
                                     _react2.default.createElement(
                                         'i',
                                         null,
-                                        'Default step: '
+                                        language == 'en' ? 'Default step' : 'Рекомендований шаг',
+                                        ': '
                                     ),
                                     ' ',
                                     lesson.minTempoStep
@@ -76203,7 +76296,7 @@ var CourseDetails = function (_React$Component) {
                     _react2.default.createElement(
                         _Button2.default,
                         { size: 'large', variant: 'contained', color: 'primary', type: 'button', onClick: this.handleSubscribe, style: { margin: 15 } },
-                        'Subscribe'
+                        language == 'en' ? 'Subscribe' : 'Добавити'
                     )
                 )
             );
@@ -76361,6 +76454,13 @@ var RegisterPage = function (_React$Component) {
                     }
                 };
             };
+            var language = '';
+            if (localStorage.getItem('lang')) {
+                language = localStorage.getItem('lang');
+            } else {
+                language = 'en';
+                localStorage.setItem('lang', 'en');
+            }
             return _react2.default.createElement(
                 _Paper2.default,
                 { className: 'login', centered: true, style: { marginTop: 200 } },
@@ -76380,7 +76480,7 @@ var RegisterPage = function (_React$Component) {
                             null,
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'First name',
+                                label: language == 'en' ? "First name" : 'Ім`я',
                                 className: styles.textField,
                                 type: 'text',
                                 name: 'firstName',
@@ -76397,7 +76497,7 @@ var RegisterPage = function (_React$Component) {
                             { className: 'login-field' },
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'Last name',
+                                label: language == 'en' ? "Last name" : 'Прізвище',
                                 className: styles.textField,
                                 type: 'text',
                                 name: 'lastName',
@@ -76414,7 +76514,7 @@ var RegisterPage = function (_React$Component) {
                             { className: 'login-field' },
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'Username',
+                                label: language == 'en' ? "Username" : 'Логін',
                                 className: styles.textField,
                                 type: 'text',
                                 name: 'username',
@@ -76431,7 +76531,7 @@ var RegisterPage = function (_React$Component) {
                             { className: 'login-field' },
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'Passwprd',
+                                label: language == 'en' ? "Passwprd" : 'Пароль',
                                 className: styles.textField,
                                 type: 'password',
                                 name: 'password',
@@ -76466,7 +76566,7 @@ var RegisterPage = function (_React$Component) {
                             _react2.default.createElement(
                                 _Button2.default,
                                 { size: 'large', variant: 'contained', type: 'submit', style: { marginBot: 20 }, color: 'primary' },
-                                'Register'
+                                language == 'en' ? 'Register' : 'Зареєструвати'
                             )
                         )
                     )
@@ -76833,13 +76933,21 @@ var LoginPage = function (_React$Component) {
                     }
                 };
             };
+            var language = '';
+            if (localStorage.getItem('lang')) {
+                language = localStorage.getItem('lang');
+            } else {
+                language = 'en';
+                localStorage.setItem('lang', 'en');
+            }
+
             return _react2.default.createElement(
                 _Paper2.default,
                 { className: 'login', style: { marginTop: 300 } },
                 _react2.default.createElement(
                     'h2',
                     { style: { color: '#666' } },
-                    'Login'
+                    language == 'en' ? 'Login' : 'Вхід'
                 ),
                 _react2.default.createElement(
                     'form',
@@ -76849,7 +76957,7 @@ var LoginPage = function (_React$Component) {
                         { className: 'login-field' },
                         _react2.default.createElement(_TextField2.default, {
                             style: { width: '90%' },
-                            label: 'Login',
+                            label: language == 'en' ? 'Login' : 'Логін',
                             className: styles.textField,
                             type: 'text',
                             name: 'username',
@@ -76865,7 +76973,7 @@ var LoginPage = function (_React$Component) {
                         { className: 'login-field' },
                         _react2.default.createElement(_TextField2.default, {
                             style: { width: '90%' },
-                            label: 'Password',
+                            label: language == 'en' ? "Password" : 'Пароль',
                             className: styles.textField,
                             type: 'password',
                             name: 'password',
@@ -76882,12 +76990,12 @@ var LoginPage = function (_React$Component) {
                         _react2.default.createElement(
                             _Button2.default,
                             { variant: 'contained', type: 'submit', style: { float: 'left', marginBot: 20 }, color: 'primary' },
-                            'Sign in'
+                            language == 'en' ? 'Sign in' : 'Реэстрація'
                         ),
                         _react2.default.createElement(
                             _Button2.default,
                             { variant: 'contained', type: 'submit', style: { float: 'right', marginBot: 20 }, color: 'primary' },
-                            'Login'
+                            language == 'en' ? 'Login' : 'Вхід'
                         )
                     )
                 )
@@ -77136,6 +77244,13 @@ var CreateTab = function (_React$Component) {
                 };
             };
             var counter = 1;
+            var language = '';
+            if (localStorage.getItem('lang')) {
+                language = localStorage.getItem('lang');
+            } else {
+                language = 'en';
+                localStorage.setItem('lang', 'en');
+            }
             return _react2.default.createElement(
                 _Paper2.default,
                 { className: 'tab-create', style: { marginTop: 100, paddingBottom: 20 } },
@@ -77145,7 +77260,7 @@ var CreateTab = function (_React$Component) {
                     _react2.default.createElement(
                         'h2',
                         null,
-                        'Create'
+                        language == 'en' ? 'Create' : 'Створення'
                     ),
                     _react2.default.createElement(
                         'form',
@@ -77155,7 +77270,7 @@ var CreateTab = function (_React$Component) {
                             { className: 'field' },
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'Tab name',
+                                label: language == 'en' ? "Tab name" : 'Назва табулатури',
                                 className: styles.textField,
                                 type: 'text',
                                 name: 'name',
@@ -77172,7 +77287,7 @@ var CreateTab = function (_React$Component) {
                             { className: 'field' },
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'Tempo',
+                                label: language == 'en' ? "Tempo" : 'Темп',
                                 className: styles.textField,
                                 type: 'number',
                                 name: 'tempo',
@@ -77191,7 +77306,7 @@ var CreateTab = function (_React$Component) {
                                 _TextField2.default,
                                 {
                                     select: true,
-                                    label: 'Select type',
+                                    label: language == 'en' ? "Select type" : 'Тип',
                                     className: styles.textField,
                                     style: { width: '90%' },
                                     value: this.state.type,
@@ -77201,7 +77316,7 @@ var CreateTab = function (_React$Component) {
                                             className: styles.menu
                                         }
                                     },
-                                    helperText: 'Please select type',
+                                    helperText: language == 'en' ? "Please select type" : 'Будь ласка оберіть тип',
                                     margin: 'normal',
                                     variant: 'outlined',
                                     onChange: this.handleChange
@@ -77209,24 +77324,24 @@ var CreateTab = function (_React$Component) {
                                 _react2.default.createElement(
                                     _MenuItem2.default,
                                     { value: 1 },
-                                    'Acoustic Guitar'
+                                    language == 'en' ? 'Acoustic Guitar' : 'Акустична гітара'
                                 ),
                                 _react2.default.createElement(
                                     _MenuItem2.default,
                                     { value: 2 },
-                                    'Electric Guitar'
+                                    language == 'en' ? 'Electric Guitar' : 'Електрогітара'
                                 ),
                                 _react2.default.createElement(
                                     _MenuItem2.default,
                                     { value: 3 },
-                                    'Classical Guitar'
+                                    language == 'en' ? 'Classical Guitar' : 'Класична гітара'
                                 )
                             )
                         ),
                         _react2.default.createElement(
                             _core.FormLabel,
                             { style: { fontSize: 22, marginTop: 80 } },
-                            'Lessons'
+                            language == 'en' ? 'Вправи' : 'Ітерації'
                         ),
                         this.state.iterations.map(function (iteration) {
                             var co = counter;
@@ -77239,7 +77354,8 @@ var CreateTab = function (_React$Component) {
                                     _react2.default.createElement(
                                         _Typography2.default,
                                         null,
-                                        'Iteration ',
+                                        language == 'en' ? 'Iteration' : 'Ітерація',
+                                        ' ',
                                         counter++
                                     )
                                 ),
@@ -77249,9 +77365,9 @@ var CreateTab = function (_React$Component) {
                                     _react2.default.createElement(
                                         _Typography2.default,
                                         { style: { fontSize: 18, width: '100%' } },
-                                        'Tempo scale: ',
+                                        language == 'en' ? 'Tempo scale' : 'Коефіцієнт очікування',
+                                        ': ',
                                         iteration.WaitTimeScalar,
-                                        ' bpm',
                                         _react2.default.createElement('br', null),
                                         iteration.activeNotes.map(function (x) {
                                             return _react2.default.createElement(
@@ -77269,7 +77385,7 @@ var CreateTab = function (_React$Component) {
                                             { size: 'small', type: 'button', onClick: function onClick() {
                                                     return _this2.handleRemoveIterationClickButton(co - 1);
                                                 }, style: { marginLeft: '80%' } },
-                                            'Remove'
+                                            language == 'en' ? 'Remove' : 'Видалити'
                                         )
                                     )
                                 )
@@ -77290,7 +77406,7 @@ var CreateTab = function (_React$Component) {
                             { className: 'root', style: { width: '60%', margin: 'auto', paddingBottom: 15 } },
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'Tempo scale',
+                                label: language == 'en' ? "Tempo scale" : 'Коефіцієнт очікування',
                                 className: styles.textField,
                                 type: 'number',
                                 name: 'WaitTimeScalar',
@@ -77318,7 +77434,7 @@ var CreateTab = function (_React$Component) {
                             _react2.default.createElement(
                                 _Button2.default,
                                 { variant: 'contained', type: 'button', style: { marginBot: 20, width: 150 }, color: 'primary', onClick: this.handleAddIterationClickButton },
-                                'Add'
+                                language == 'en' ? 'Add' : 'Добавити'
                             )
                         ),
                         _react2.default.createElement(
@@ -77327,7 +77443,7 @@ var CreateTab = function (_React$Component) {
                             _react2.default.createElement(
                                 _Button2.default,
                                 { size: 'large', variant: 'contained', type: 'submit', style: { marginBot: 20 }, color: 'primary' },
-                                'Create'
+                                language == 'en' ? 'Create' : 'Створити'
                             )
                         )
                     )
@@ -77573,6 +77689,13 @@ var CreateCourse = function (_React$Component) {
                     }
                 };
             };
+            var language = '';
+            if (localStorage.getItem('lang')) {
+                language = localStorage.getItem('lang');
+            } else {
+                language = 'en';
+                localStorage.setItem('lang', 'en');
+            }
             return _react2.default.createElement(
                 _Paper2.default,
                 { className: 'tab-create', style: { fontSize: 20, marginTop: 100 } },
@@ -77587,7 +77710,7 @@ var CreateCourse = function (_React$Component) {
                             { className: 'field' },
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'Course name',
+                                label: language == 'en' ? "Course name" : 'Назва курсу',
                                 className: styles.textField,
                                 type: 'text',
                                 name: 'name',
@@ -77604,7 +77727,7 @@ var CreateCourse = function (_React$Component) {
                             { className: 'field' },
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'Description',
+                                label: language == 'en' ? "Description" : 'Опис',
                                 className: styles.textField,
                                 type: 'text',
                                 name: 'description',
@@ -77623,7 +77746,7 @@ var CreateCourse = function (_React$Component) {
                                 _TextField2.default,
                                 {
                                     select: true,
-                                    label: 'Select type',
+                                    label: language == 'en' ? "Select type" : 'Тип',
                                     className: styles.textField,
                                     style: { width: '90%' },
                                     value: this.state.type,
@@ -77633,7 +77756,7 @@ var CreateCourse = function (_React$Component) {
                                             className: styles.menu
                                         }
                                     },
-                                    helperText: 'Please select type',
+                                    helperText: language == 'en' ? "Please select type" : "Будь ласка оберіть тип",
                                     margin: 'normal',
                                     variant: 'outlined',
                                     onChange: this.handleChange
@@ -77641,17 +77764,17 @@ var CreateCourse = function (_React$Component) {
                                 _react2.default.createElement(
                                     _MenuItem2.default,
                                     { value: 1 },
-                                    'Acoustic Guitar'
+                                    language == 'en' ? 'Acoustic Guitar' : 'Акустична гітара'
                                 ),
                                 _react2.default.createElement(
                                     _MenuItem2.default,
                                     { value: 2 },
-                                    'Electric Guitar'
+                                    language == 'en' ? 'Electric Guitar' : 'Електрогітара'
                                 ),
                                 _react2.default.createElement(
                                     _MenuItem2.default,
                                     { value: 3 },
-                                    'Classical Guitar'
+                                    language == 'en' ? 'Classical Guitar' : 'Класична гітара'
                                 )
                             )
                         ),
@@ -77677,14 +77800,40 @@ var CreateCourse = function (_React$Component) {
                                         _react2.default.createElement(
                                             _Typography2.default,
                                             { style: { fontSize: 15 } },
-                                            'Lesson name: ',
+                                            _react2.default.createElement(
+                                                'i',
+                                                null,
+                                                language == 'en' ? 'Lesson name' : 'Назва вправи',
+                                                ':'
+                                            ),
+                                            ' ',
                                             x.name,
-                                            '   Repeat times: ',
-                                            x.repeat,
-                                            '   Start bpm: ',
+                                            '  \xA0\xA0\xA0   ',
+                                            _react2.default.createElement(
+                                                'i',
+                                                null,
+                                                language == 'en' ? 'Repeat times' : 'Кількість повторювань',
+                                                ' : ',
+                                                x.repeatNumber
+                                            ),
+                                            '  \xA0\xA0\xA0    ',
+                                            _react2.default.createElement(
+                                                'i',
+                                                null,
+                                                language == 'en' ? 'Start bpm' : 'Початковий темп',
+                                                ':'
+                                            ),
+                                            ' ',
                                             x.startBpm,
-                                            '  Default step: ',
-                                            x.stepBpm
+                                            '  \xA0\xA0\xA0   ',
+                                            _react2.default.createElement(
+                                                'i',
+                                                null,
+                                                language == 'en' ? 'Default step' : 'Рекомендований шаг',
+                                                ': '
+                                            ),
+                                            ' ',
+                                            x.minTempoStep
                                         )
                                     )
                                 )
@@ -77707,7 +77856,7 @@ var CreateCourse = function (_React$Component) {
                                 { className: 'root', style: { width: '70%', margin: 'auto' } },
                                 _react2.default.createElement(_TextField2.default, {
                                     style: { width: '90%' },
-                                    label: 'Lesson name',
+                                    label: language == 'en' ? "Lesson name" : 'Назва вправи',
                                     className: styles.textField,
                                     type: 'text',
                                     name: 'name',
@@ -77725,7 +77874,7 @@ var CreateCourse = function (_React$Component) {
                                         _TextField2.default,
                                         {
                                             select: true,
-                                            label: 'Select tab',
+                                            label: language == 'en' ? "Select tab" : 'Оберіть табулатуру',
                                             className: styles.textField,
                                             style: { width: '90%' },
                                             value: this.state.lesson.tab,
@@ -77750,7 +77899,7 @@ var CreateCourse = function (_React$Component) {
                                 ),
                                 _react2.default.createElement(_TextField2.default, {
                                     style: { width: '90%' },
-                                    label: 'Number to repeat',
+                                    label: language == 'en' ? "Number to repeat" : 'Кількість повторювань',
                                     className: styles.textField,
                                     type: 'text',
                                     name: 'repeat',
@@ -77764,7 +77913,7 @@ var CreateCourse = function (_React$Component) {
                                 _react2.default.createElement('br', null),
                                 _react2.default.createElement(_TextField2.default, {
                                     style: { width: '90%' },
-                                    label: 'Start bpm for learning',
+                                    label: language == 'en' ? "Start bpm for learning" : 'Початковий темп',
                                     className: styles.textField,
                                     type: 'text',
                                     name: 'startBpm',
@@ -77778,7 +77927,7 @@ var CreateCourse = function (_React$Component) {
                                 _react2.default.createElement('br', null),
                                 _react2.default.createElement(_TextField2.default, {
                                     style: { width: '90%' },
-                                    label: 'Step bpm',
+                                    label: language == 'en' ? "Step bpm" : 'Шаг темпу',
                                     className: styles.textField,
                                     type: 'text',
                                     name: 'stepBpm',
@@ -77793,7 +77942,7 @@ var CreateCourse = function (_React$Component) {
                                 _react2.default.createElement(
                                     _Button2.default,
                                     { variant: 'contained', color: 'primary', type: 'button', onClick: this.handleAddLessonClickButton, style: { marginLeft: 5 } },
-                                    'Add'
+                                    language == 'en' ? 'Add' : 'Добавити'
                                 )
                             )
                         ),
@@ -77803,7 +77952,7 @@ var CreateCourse = function (_React$Component) {
                             _react2.default.createElement(
                                 _Button2.default,
                                 { variant: 'contained', color: 'primary', size: 'large', type: 'submit', className: 'form-group', style: { margin: 'auto' } },
-                                'Create'
+                                language == 'en' ? 'Create' : 'Створити'
                             )
                         )
                     )
@@ -77850,6 +77999,12 @@ var _TextField = __webpack_require__(29);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
+var _core = __webpack_require__(76);
+
+var _MenuItem = __webpack_require__(85);
+
+var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
 var _Button = __webpack_require__(24);
 
 var _Button2 = _interopRequireDefault(_Button);
@@ -77890,6 +78045,13 @@ var UserDetails = function (_React$Component) {
             _this.setState({ user: user });
         };
 
+        _this.handleLangChange = function (e) {
+            var value = e.target.value;
+
+            _this.setState({ language: value });
+            localStorage.setItem('lang', value);
+        };
+
         _this.handleSubmit = function () {
             var url = 'api/Identity/user-update';
             var request = {
@@ -77906,8 +78068,15 @@ var UserDetails = function (_React$Component) {
         };
 
         _this.state = {
-            user: {}
+            user: {},
+            language: ''
         };
+
+        if (localStorage.getItem('lang')) {
+            _this.state.language = localStorage.getItem('lang');
+        } else {
+            _this.state.language = 'en';
+        }
 
         if (localStorage.getItem('user')) {
             _this.state.user = JSON.parse(localStorage.getItem('user')).username;
@@ -77961,9 +78130,16 @@ var UserDetails = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'field' },
+                            _react2.default.createElement(
+                                _core.FormLabel,
+                                { style: { fontSize: 22 } },
+                                this.state.language == 'en' ? 'Username' : 'Логін',
+                                ' '
+                            ),
+                            _react2.default.createElement('br', null),
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'User name',
+                                label: '',
                                 className: styles.textField,
                                 type: 'text',
                                 name: 'name',
@@ -77978,9 +78154,16 @@ var UserDetails = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'field' },
+                            _react2.default.createElement(
+                                _core.FormLabel,
+                                { style: { fontSize: 22 } },
+                                this.state.language == 'en' ? 'New Password' : 'Новий пароль',
+                                ' '
+                            ),
+                            _react2.default.createElement('br', null),
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'New password',
+                                label: '',
                                 className: styles.textField,
                                 type: 'password',
                                 name: 'password',
@@ -77995,9 +78178,15 @@ var UserDetails = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'field' },
+                            _react2.default.createElement(
+                                _core.FormLabel,
+                                { style: { fontSize: 22 } },
+                                ' Email '
+                            ),
+                            _react2.default.createElement('br', null),
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'Email',
+                                label: '',
                                 className: styles.textField,
                                 type: 'email',
                                 name: 'email',
@@ -78012,16 +78201,23 @@ var UserDetails = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'field' },
+                            _react2.default.createElement(
+                                _core.FormLabel,
+                                { style: { fontSize: 22 } },
+                                this.state.language == 'en' ? 'First name' : 'Ім`я',
+                                ' '
+                            ),
+                            _react2.default.createElement('br', null),
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'First name',
+                                label: '',
                                 className: styles.textField,
                                 type: 'text',
                                 name: 'firstname',
                                 autoComplete: 'Username',
                                 margin: 'normal',
                                 variant: 'outlined',
-                                value: this.state.user.firstname,
+                                value: this.state.user.firstName,
                                 onChange: this.handleChange,
                                 required: true
                             })
@@ -78029,9 +78225,16 @@ var UserDetails = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'field' },
+                            _react2.default.createElement(
+                                _core.FormLabel,
+                                { style: { fontSize: 22 } },
+                                this.state.language == 'en' ? 'Last name' : 'Прізвище',
+                                ' '
+                            ),
+                            _react2.default.createElement('br', null),
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'Last name',
+                                label: '',
                                 className: styles.textField,
                                 type: 'text',
                                 name: 'lastName',
@@ -78046,9 +78249,16 @@ var UserDetails = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'field' },
+                            _react2.default.createElement(
+                                _core.FormLabel,
+                                { style: { fontSize: 22 } },
+                                this.state.language == 'en' ? 'Biography' : 'Біографія',
+                                ' '
+                            ),
+                            _react2.default.createElement('br', null),
                             _react2.default.createElement(_TextField2.default, {
                                 style: { width: '90%' },
-                                label: 'Biography',
+                                label: '',
                                 className: styles.textField,
                                 type: 'text',
                                 name: 'bio',
@@ -78061,9 +78271,42 @@ var UserDetails = function (_React$Component) {
                             })
                         ),
                         _react2.default.createElement(
+                            'div',
+                            { className: 'field' },
+                            _react2.default.createElement(
+                                _TextField2.default,
+                                {
+                                    select: true,
+                                    label: this.state.language == 'en' ? 'Select language' : 'Оберіть мову сайту',
+                                    className: styles.textField,
+                                    style: { width: '90%' },
+                                    value: this.state.language,
+                                    name: 'type',
+                                    SelectProps: {
+                                        MenuProps: {
+                                            className: styles.menu
+                                        }
+                                    },
+                                    margin: 'normal',
+                                    variant: 'outlined',
+                                    onChange: this.handleLangChange
+                                },
+                                _react2.default.createElement(
+                                    _MenuItem2.default,
+                                    { value: "en" },
+                                    'English'
+                                ),
+                                _react2.default.createElement(
+                                    _MenuItem2.default,
+                                    { value: 'ua' },
+                                    '\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430'
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
                             _Button2.default,
                             { variant: 'contained', color: 'primary', size: 'large', type: 'submit', className: 'form-group', style: { margin: 'auto' } },
-                            'Create'
+                            this.state.language == 'en' ? 'Update' : 'Оновити'
                         )
                     )
                 )
@@ -78073,6 +78316,9 @@ var UserDetails = function (_React$Component) {
 
     return UserDetails;
 }(_react2.default.Component);
+
+exports.default = UserDetails;
+
 
 var mapProps = function mapProps(state) {
     return {
@@ -78087,7 +78333,7 @@ var mapDispatch = function mapDispatch(dispatch) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapProps, mapDispatch)(UserDetails);
+(0, _reactRedux.connect)(mapProps, mapDispatch)(UserDetails);
 
 /***/ }),
 /* 576 */

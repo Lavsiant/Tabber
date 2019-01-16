@@ -133,6 +133,14 @@ export default class CreateCourse extends React.Component {
                 width: 200,
             },
         });
+        let language = '';
+        if(localStorage.getItem('lang')){
+            language = localStorage.getItem('lang');
+        }
+        else{
+            language = 'en';
+            localStorage.setItem('lang', 'en');
+        }
         return (
             <Paper className='tab-create' style={{ fontSize: 20, marginTop: 100 }} >
                 <div style={{ textAlign: 'center' }}>
@@ -141,7 +149,7 @@ export default class CreateCourse extends React.Component {
                         <div className='field'>
                             <TextField
                                 style={{ width: '90%' }}
-                                label="Course name"
+                                label={language == 'en' ? "Course name" : 'Назва курсу'}
                                 className={styles.textField}
                                 type="text"
                                 name="name"
@@ -157,7 +165,7 @@ export default class CreateCourse extends React.Component {
                         <div className='field'>
                             <TextField
                                 style={{ width: '90%' }}
-                                label="Description"
+                                label={language == 'en' ? "Description" : 'Опис'}
                                 className={styles.textField}
                                 type="text"
                                 name="description"
@@ -173,7 +181,7 @@ export default class CreateCourse extends React.Component {
 
                             <TextField
                                 select
-                                label="Select type"
+                                label={language == 'en' ? "Select type" : 'Тип'}
                                 className={styles.textField}
                                 style={{ width: '90%' }}
                                 value={this.state.type}
@@ -183,14 +191,14 @@ export default class CreateCourse extends React.Component {
                                         className: styles.menu,
                                     },
                                 }}
-                                helperText="Please select type"
+                                helperText={language == 'en' ? "Please select type" : "Будь ласка оберіть тип"}
                                 margin="normal"
                                 variant="outlined"
                                 onChange={this.handleChange}
                             >
-                                <MenuItem value={1}>Acoustic Guitar</MenuItem>
-                                <MenuItem value={2}>Electric Guitar</MenuItem>
-                                <MenuItem value={3}>Classical Guitar</MenuItem>
+                                <MenuItem value={1}>{language == 'en' ? 'Acoustic Guitar' : 'Акустична гітара'}</MenuItem>
+                                <MenuItem value={2}>{language == 'en' ? 'Electric Guitar' : 'Електрогітара'}</MenuItem>
+                                <MenuItem value={3}>{language == 'en' ? 'Classical Guitar' : 'Класична гітара'}</MenuItem>
                             </TextField>
                         </div>
                         <div style={{marginBot: 40}}>
@@ -202,7 +210,7 @@ export default class CreateCourse extends React.Component {
                                     </ExpansionPanelSummary>
                                     <ExpansionPanelDetails>
                                         <Typography style={{ fontSize: 15 }}>
-                                            Lesson name: {x.name}   Repeat times: {x.repeat}   Start bpm: {x.startBpm}  Default step: {x.stepBpm}
+                                        <i>{language == 'en' ? 'Lesson name' : 'Назва вправи'}:</i> {x.name}  &nbsp;&nbsp;&nbsp;   <i>{language == 'en' ? 'Repeat times' : 'Кількість повторювань'} : {x.repeatNumber}</i>  &nbsp;&nbsp;&nbsp;    <i>{language == 'en' ? 'Start bpm' : 'Початковий темп'}:</i> {x.startBpm}  &nbsp;&nbsp;&nbsp;   <i>{language == 'en' ? 'Default step' : 'Рекомендований шаг'}: </i> {x.minTempoStep}
                                         </Typography>
                                     </ExpansionPanelDetails>
                                 </ExpansionPanel>
@@ -221,7 +229,7 @@ export default class CreateCourse extends React.Component {
                         <Paper className='root' style={{ width: '70%', margin: 'auto' }}>
                             <TextField
                                 style={{ width: '90%' }}
-                                label="Lesson name"
+                                label={language == 'en' ? "Lesson name" : 'Назва вправи'}
                                 className={styles.textField}
                                 type="text"
                                 name="name"
@@ -236,7 +244,7 @@ export default class CreateCourse extends React.Component {
                             <div className='form-control'>
                                 <TextField
                                     select
-                                    label="Select tab"
+                                    label={language == 'en' ? "Select tab" : 'Оберіть табулатуру'}
                                     className={styles.textField}
                                     style={{ width: '90%' }}
                                     value={this.state.lesson.tab}
@@ -260,7 +268,7 @@ export default class CreateCourse extends React.Component {
                             </div>
                             <TextField
                                 style={{ width: '90%' }}
-                                label="Number to repeat"
+                                label={language == 'en' ? "Number to repeat" : 'Кількість повторювань'}
                                 className={styles.textField}
                                 type="text"
                                 name="repeat"
@@ -274,7 +282,7 @@ export default class CreateCourse extends React.Component {
                             <br />
                             <TextField
                                 style={{ width: '90%' }}
-                                label="Start bpm for learning"
+                                label={language == 'en' ? "Start bpm for learning" : 'Початковий темп'}
                                 className={styles.textField}
                                 type="text"
                                 name="startBpm"
@@ -288,7 +296,7 @@ export default class CreateCourse extends React.Component {
                             <br />
                             <TextField
                                 style={{ width: '90%' }}
-                                label="Step bpm"
+                                label={language == 'en' ? "Step bpm" : 'Шаг темпу'}
                                 className={styles.textField}
                                 type="text"
                                 name="stepBpm"
@@ -301,14 +309,14 @@ export default class CreateCourse extends React.Component {
                             />
 
                             <br />
-                            <Button variant="contained" color="primary" type='button' onClick={this.handleAddLessonClickButton} style={{ marginLeft: 5 }}>Add</Button>
+                            <Button variant="contained" color="primary" type='button' onClick={this.handleAddLessonClickButton} style={{ marginLeft: 5 }}>{language == 'en' ? 'Add' : 'Добавити'}</Button>
 
                         </Paper>
                         </div>
 
 
                         <div className="form-group">
-                            <Button variant="contained" color="primary" size='large' type='submit' className="form-group" style={{ margin: 'auto' }}>Create</Button>
+                            <Button variant="contained" color="primary" size='large' type='submit' className="form-group" style={{ margin: 'auto' }}>{language == 'en' ? 'Create' : 'Створити'}</Button>
                         </div>
                     </form>
                 </div>

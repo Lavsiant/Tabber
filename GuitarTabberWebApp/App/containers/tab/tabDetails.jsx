@@ -41,11 +41,19 @@ class TabDetails extends React.Component {
 
     render() {
         let count = 1;
+        let language = '';
+        if(localStorage.getItem('lang')){
+            language = localStorage.getItem('lang');
+        }
+        else{
+            language = 'en';
+            localStorage.setItem('lang', 'en');
+        }
         return (
             <Paper className='tab-create' style={{ fontSize: 20, marginTop: 100, paddingBottom: 50 }} >
             <div style={{ textAlign: 'center', display: 'block' }}>
                 <div>
-                <FormLabel style={{ fontSize: 22 }}>Tab name </FormLabel>
+                <FormLabel style={{ fontSize: 22 }}>{language == 'en' ? 'Tab name' : 'Назва табулатури'} </FormLabel>
                 <br/>
                 <TextField
                     style={{ width: '85%' }}
@@ -61,7 +69,7 @@ class TabDetails extends React.Component {
                 </div>
                 <br />
                 <div style={{ marginTop: 20 }}>
-                    <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Tempo </FormLabel>
+                    <FormLabel style={{ fontSize: 22, marginTop: 80 }}>{language == 'en' ? 'Tempo' : 'Темп'} </FormLabel>
                     <br/>
                     <TextField
                         style={{  width: '85%' }}
@@ -77,7 +85,7 @@ class TabDetails extends React.Component {
                 </div>
                 <br/>
                 <div style={{ marginTop: 20}}>
-                    <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Type</FormLabel>
+                    <FormLabel style={{ fontSize: 22, marginTop: 80 }}>{language == 'en' ? 'Type': 'Тип'}</FormLabel>
                     <br/>
                     <TextField
                         style={{ width: '85%' }}
@@ -93,12 +101,12 @@ class TabDetails extends React.Component {
                 </div>
                 <br/>
                 <div style={{ marginTop: 20, marginBottom: 30 }}>
-                    <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Creator</FormLabel>
+                    <FormLabel style={{ fontSize: 22, marginTop: 80 }}>{language == 'en' ? 'Creator' : 'Автор'}</FormLabel>
                     <br/>
                     <TextField
                         style={{ width: '85%' }}
                         id="outlined-read-only-input"
-                        value={this.getTypeString(this.props.tab.creator)}
+                        value={this.props.tab.creator}
                         defaultValue="Hello World"
                         margin="normal"
                         InputProps={{
@@ -107,16 +115,16 @@ class TabDetails extends React.Component {
                         variant="outlined"
                     />
                 </div>
-                <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Lessons</FormLabel>
+                <FormLabel style={{ fontSize: 22, marginTop: 80 }}>{language == 'en' ? 'Lessons' : 'Вправи'}</FormLabel>
                 {this.props.tab.iterations.map(iteration => {
                         return (
                             <ExpansionPanel style={{ width: '85%', margin: 'auto', marginBop: '15' }}>
                                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography >Iteration {count++}</Typography>
+                                    <Typography >{language == 'en' ? 'Iteration' : 'Ітерації'} {count++}</Typography>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
                                     <Typography style={{ fontSize: 18 }}>
-                                        Tempo scale: {iteration.waitTimeScalar} bpm
+                                    {language == 'en' ? 'Tempo scale' : 'Коефіцієнт очікування'}: {iteration.waitTimeScalar} bpm
                                         <br/>
                                         {iteration.activeNotes.map(x=>{
                                             return(

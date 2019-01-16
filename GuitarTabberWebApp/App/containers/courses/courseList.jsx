@@ -51,17 +51,34 @@ class CourseList extends React.Component {
         let courses = this.props.courses;
         console.log(courses);
         if (filterOptions.name)
-        courses = courses.filter(x => x.name.toLowerCase().includes(filterOptions.name.toLowerCase()));
-      
+            courses = courses.filter(x => x.name.toLowerCase().includes(filterOptions.name.toLowerCase()));
+
         // tabs = !isNaN(filterOptions.minTempo) ? tabs.filter(x=>+x.tempo >= +filterOptions.minTempo) : tabs;
         this.setState({ filteredCourses: courses });
     }
 
     getTypeString = (x) => {
-        switch (x) {
-            case 1: return 'Acoustic Guitar';
-            case 2: return 'Electric Guitar';
-            case 3: return 'Classical Guitar';
+        let language = '';
+        if (localStorage.getItem('lang')) {
+            language = localStorage.getItem('lang');
+        }
+        else {
+            language = 'en';
+            localStorage.setItem('lang', 'en');
+        }
+        if (language == 'en') {
+            switch (x) {
+                case 1: return 'Acoustic Guitar';
+                case 2: return 'Electric Guitar';
+                case 3: return 'Classical Guitar';
+            }
+        }
+        else{
+            switch (x) {
+                case 1: return 'Акустична гітара';
+                case 2: return 'Електрогітара';
+                case 3: return 'Класична гітара';
+            }
         }
     }
 
@@ -69,26 +86,34 @@ class CourseList extends React.Component {
 
         const { rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, this.state.filteredCourses.length - page * rowsPerPage);
-
+        let language = '';
+        if (localStorage.getItem('lang')) {
+            language = localStorage.getItem('lang');
+        }
+        else {
+            language = 'en';
+            localStorage.setItem('lang', 'en');
+        }
         return (
             <Paper className='root'>
-               
+
                 <FilterCourseBar filterCourses={this.filterCourses}></FilterCourseBar>
                 <div className='table-wrapper'>
                     <Table className={'table'}>
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{ fontSize: 20 }}>Name</TableCell>
-                                <TableCell style={{ fontSize: 20 }}>Type</TableCell>
-                                <TableCell style={{ fontSize: 20 }} numeric>Creator</TableCell>
+
+                                <TableCell style={{ fontSize: 20 }}>{language == 'en' ? 'Name' : 'Назва'}</TableCell>
+                                <TableCell style={{ fontSize: 20 }}>{language == 'en' ? 'Type' : 'Тип'}</TableCell>
+                                <TableCell style={{ fontSize: 20 }} numeric>{language == 'en' ? 'Creator' : 'Створив'}</TableCell>
 
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {this.state.filteredCourses.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(course => {
                                 return (
-                                    <TableRow key={course.id} className="table-field"  component={Link} to={'/course/' + course.id}>
-                                        <TableCell  style={{ fontSize: 18 }} component="th" scope="row" >
+                                    <TableRow key={course.id} className="table-field" component={Link} to={'/course/' + course.id}>
+                                        <TableCell style={{ fontSize: 18 }} component="th" scope="row" >
                                             {course.name}
                                         </TableCell>
                                         <TableCell style={{ fontSize: 18 }} component="th" scope="row" >

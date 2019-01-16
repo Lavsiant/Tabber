@@ -69,7 +69,14 @@ class TabList extends React.Component {
 
         const { rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, this.state.filteredTabs.length - page * rowsPerPage);
-
+        let language = '';
+        if(localStorage.getItem('lang')){
+            language = localStorage.getItem('lang');
+        }
+        else{
+            language = 'en';
+            localStorage.setItem('lang', 'en');
+        }
         return (
             <Paper className='root'>
 
@@ -79,9 +86,9 @@ class TabList extends React.Component {
                     <Table className={'table'} >
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{ fontSize: 20 }}>Name</TableCell>
-                                <TableCell style={{ fontSize: 20 }} numeric>Tempo (bmp)</TableCell>
-                                <TableCell style={{ fontSize: 20 }} numeric>Creator</TableCell>
+                                <TableCell style={{ fontSize: 20 }}>{language == 'en' ? 'Name' : 'Назва'}</TableCell>
+                                <TableCell style={{ fontSize: 20 }} numeric>{language == 'en' ? 'Tempo (bmp)' : 'Темп вправи'}</TableCell>
+                                <TableCell style={{ fontSize: 20 }} numeric>{language == 'en' ? 'Creator' : 'Створив'}</TableCell>
 
                             </TableRow>
                         </TableHead>

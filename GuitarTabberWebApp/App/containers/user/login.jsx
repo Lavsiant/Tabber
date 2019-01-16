@@ -60,15 +60,24 @@ class LoginPage extends React.Component {
                 width: 200,
             },
         });
+        let language = '';
+        if (localStorage.getItem('lang')) {
+            language = localStorage.getItem('lang');
+        }
+        else {
+            language = 'en';
+            localStorage.setItem('lang', 'en');
+        }
+
         return (
             <Paper className='login' style={{ marginTop: 300 }}>
 
-                <h2 style={{color:'#666'}}>Login</h2>
+                <h2 style={{ color: '#666' }}>{language == 'en' ? 'Login' : 'Вхід'}</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
                     <div className='login-field'>
                         <TextField
                             style={{ width: '90%' }}
-                            label="Login"
+                            label={language == 'en' ? 'Login' : 'Логін'}
                             className={styles.textField}
                             type="text"
                             name="username"
@@ -82,7 +91,7 @@ class LoginPage extends React.Component {
                     <div className='login-field'>
                         <TextField
                             style={{ width: '90%' }}
-                            label="Password"
+                            label={language == 'en' ? "Password" : 'Пароль'}
                             className={styles.textField}
                             type="password"
                             name="password"
@@ -91,16 +100,16 @@ class LoginPage extends React.Component {
                             variant="outlined"
                             value={password}
                             onChange={this.handleChange}
-                        />                       
+                        />
                     </div>
-                    <div className="form-group" style={{justifyContent: 'space-between', display:'flex', paddingBottom:20}}>
-                    <Button variant="contained" type='submit' style={{float: 'left', marginBot:20}}  color="primary">
-                         Sign in
-                    </Button>
-                    <Button variant="contained" type='submit' style={{float: 'right', marginBot:20}} color="primary">
-                         Login
-                    </Button>
-                       
+                    <div className="form-group" style={{ justifyContent: 'space-between', display: 'flex', paddingBottom: 20 }}>
+                        <Button variant="contained" type='submit' style={{ float: 'left', marginBot: 20 }} color="primary">
+                            {language == 'en' ? 'Sign in' : 'Реэстрація'}
+                        </Button>
+                        <Button variant="contained" type='submit' style={{ float: 'right', marginBot: 20 }} color="primary">
+                            {language == 'en' ? 'Login' : 'Вхід'}
+                        </Button>
+
 
                     </div>
                 </form>

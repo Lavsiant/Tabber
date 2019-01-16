@@ -134,15 +134,23 @@ class CreateTab extends React.Component {
             },
         });
         let counter = 1;
+        let language = '';
+        if(localStorage.getItem('lang')){
+            language = localStorage.getItem('lang');
+        }
+        else{
+            language = 'en';
+            localStorage.setItem('lang', 'en');
+        }
         return (
             <Paper className='tab-create' style={{ marginTop: 100, paddingBottom: 20 }} >
                 <div style={{ textAlign: 'center' }}>
-                    <h2>Create</h2>
+                    <h2>{language == 'en' ? 'Create' : 'Створення'}</h2>
                     <form name="form" className='tab-create-form' onSubmit={this.handleSubmit} style={{ textAlign: 'center' }}>
                         <div className='field'>
                             <TextField
                                 style={{ width: '90%' }}
-                                label="Tab name"
+                                label={language == 'en' ? "Tab name" : 'Назва табулатури'}
                                 className={styles.textField}
                                 type="text"
                                 name="name"
@@ -158,7 +166,7 @@ class CreateTab extends React.Component {
                         <div className='field'>
                             <TextField
                                 style={{ width: '90%' }}
-                                label="Tempo"
+                                label={language == 'en' ? "Tempo" : 'Темп'}
                                 className={styles.textField}
                                 type="number"
                                 name="tempo"
@@ -173,7 +181,7 @@ class CreateTab extends React.Component {
                         <div className='field'>
                             <TextField
                                 select
-                                label="Select type"
+                                label={language == 'en' ? "Select type" : 'Тип'}
                                 className={styles.textField}
                                 style={{ width: '90%' }}
                                 value={this.state.type}
@@ -183,14 +191,14 @@ class CreateTab extends React.Component {
                                         className: styles.menu,
                                     },
                                 }}
-                                helperText="Please select type"
+                                helperText={language == 'en' ? "Please select type" : 'Будь ласка оберіть тип'}
                                 margin="normal"
                                 variant="outlined"
                                 onChange={this.handleChange}
                             >
-                                <MenuItem value={1}>Acoustic Guitar</MenuItem>
-                                <MenuItem value={2}>Electric Guitar</MenuItem>
-                                <MenuItem value={3}>Classical Guitar</MenuItem>
+                                <MenuItem value={1}>{language == 'en' ? 'Acoustic Guitar' : 'Акустична гітара'}</MenuItem>
+                                <MenuItem value={2}>{language == 'en' ? 'Electric Guitar' : 'Електрогітара'}</MenuItem>
+                                <MenuItem value={3}>{language == 'en' ? 'Classical Guitar' : 'Класична гітара'}</MenuItem>
                             </TextField>
                             {/* <InputLabel htmlFor="age-simple">Type </InputLabel>
                             <Select
@@ -224,25 +232,25 @@ class CreateTab extends React.Component {
                                 </Paper>
                             );
                         })} */}
-                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Lessons</FormLabel>
+                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}>{language == 'en' ? 'Вправи' : 'Ітерації'}</FormLabel>
                         {this.state.iterations.map(iteration => {
                             const co = counter;
                             return (
                                 <ExpansionPanel style={{ width: '80%', margin: 'auto', marginBo: '15' }}>
                                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                        <Typography >Iteration {counter++}</Typography>
+                                        <Typography >{language == 'en' ? 'Iteration' : 'Ітерація'} {counter++}</Typography>
                                         
                                     </ExpansionPanelSummary>
                                     <ExpansionPanelDetails>
                                         <Typography style={{ fontSize: 18, width: '100%' }}>
-                                            Tempo scale: {iteration.WaitTimeScalar} bpm
+                                        {language == 'en' ? 'Tempo scale' : 'Коефіцієнт очікування'}: {iteration.WaitTimeScalar} 
                                             <br />
                                             {iteration.activeNotes.map(x => {
                                                 return (
                                                     <label>  &nbsp;&nbsp;&nbsp; {x.StreingNumber}S-{x.Fret}F  &nbsp;&nbsp;&nbsp; </label>
                                                 )
                                             })}
-                                           <Button size="small"  type='button' onClick={() => this.handleRemoveIterationClickButton(co-1)} style={{ marginLeft: '80%' }}>Remove</Button>
+                                           <Button size="small"  type='button' onClick={() => this.handleRemoveIterationClickButton(co-1)} style={{ marginLeft: '80%' }}>{language == 'en' ? 'Remove' : 'Видалити'}</Button>
                                
                                         </Typography>
                                              </ExpansionPanelDetails>
@@ -263,7 +271,7 @@ class CreateTab extends React.Component {
                         <Paper className='root' style={{ width: '60%', margin: 'auto', paddingBottom: 15 }}>
                             <TextField
                                 style={{ width: '90%' }}
-                                label="Tempo scale"
+                                label={language == 'en' ? "Tempo scale" : 'Коефіцієнт очікування'}
                                 className={styles.textField}
                                 type="number"
                                 name="WaitTimeScalar"
@@ -292,11 +300,11 @@ class CreateTab extends React.Component {
                                 );
                             })}
 
-                            <Button variant="contained" type='button' style={{ marginBot: 20, width: 150 }} color="primary" onClick={this.handleAddIterationClickButton} >Add</Button>
+                            <Button variant="contained" type='button' style={{ marginBot: 20, width: 150 }} color="primary" onClick={this.handleAddIterationClickButton} >{language == 'en' ? 'Add' : 'Добавити'}</Button>
                         </Paper>
 
                         <div className="form-group">
-                            <Button size='large' variant="contained" type='submit' style={{ marginBot: 20 }} color="primary">Create</Button>
+                            <Button size='large' variant="contained" type='submit' style={{ marginBot: 20 }} color="primary">{language == 'en' ? 'Create' : 'Створити'}</Button>
                         </div>
                     </form>
                 </div>

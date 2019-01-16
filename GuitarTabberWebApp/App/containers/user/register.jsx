@@ -74,6 +74,14 @@ class RegisterPage extends React.Component {
                 width: 200,
             },
         });
+        let language = '';
+        if(localStorage.getItem('lang')){
+            language = localStorage.getItem('lang');
+        }
+        else{
+            language = 'en';
+            localStorage.setItem('lang', 'en');
+        }
         return (
             <Paper className='login' centered style={{marginTop:200}}>
                 <div className="col-md-6 col-md-offset-3">
@@ -82,7 +90,7 @@ class RegisterPage extends React.Component {
                         <div >
                             <TextField
                                 style={{ width: '90%' }}
-                                label="First name"
+                                label={language == 'en' ? "First name" : 'Ім`я'}
                                 className={styles.textField}
                                 type="text"
                                 name="firstName"
@@ -98,7 +106,7 @@ class RegisterPage extends React.Component {
                         <div className='login-field'>
                         <TextField
                                 style={{ width: '90%' }}
-                                label="Last name"
+                                label={language == 'en' ? "Last name" : 'Прізвище'}
                                 className={styles.textField}
                                 type="text"
                                 name="lastName"
@@ -114,7 +122,7 @@ class RegisterPage extends React.Component {
                         <div className='login-field' >
                         <TextField
                                 style={{ width: '90%' }}
-                                label="Username"
+                                label={language == 'en' ? "Username" : 'Логін'}
                                 className={styles.textField}
                                 type="text"
                                 name="username"
@@ -130,7 +138,7 @@ class RegisterPage extends React.Component {
                         <div className='login-field'>
                         <TextField
                                 style={{ width: '90%' }}
-                                label="Passwprd"
+                                label={language == 'en' ? "Passwprd" : 'Пароль'}
                                 className={styles.textField}
                                 type="password"
                                 name="password"
@@ -161,7 +169,7 @@ class RegisterPage extends React.Component {
                         </div>
                         <div className="form-group" style={{paddingBottom: 20}}>
                             <Button size="large" variant="contained" type='submit' style={{ marginBot:20}}  color="primary">
-                                Register
+                               {language == 'en' ? 'Register' : 'Зареєструвати'}
                             </Button>
                         </div>
                     </form>

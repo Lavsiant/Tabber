@@ -36,12 +36,20 @@ export default class FilterCourseBar extends React.Component {
     // }
 
     render() {
+        let language = '';
+        if(localStorage.getItem('lang')){
+            language = localStorage.getItem('lang');
+        }
+        else{
+            language = 'en';
+            localStorage.setItem('lang', 'en');
+        }
         return (
             <div className="filter-bar">
                 <div className="filter">
                     <TextField 
                         className="filter-field"
-                        label="Course name"
+                        label={language == 'en' ? "Course name" : 'Назва курсу'}
                         margin="normal"
                         variant="outlined"
                         onChange={this.onNameChanged}

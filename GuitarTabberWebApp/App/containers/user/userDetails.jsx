@@ -6,18 +6,28 @@ import Paper from '@material-ui/core/Paper';
 import { userActions } from './userActions.jsx';
 import { config } from '../../helpers/config.jsx';
 import TextField from '@material-ui/core/TextField';
+import { FormLabel } from '@material-ui/core';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import Button from '@material-ui/core/Button';
 
 import "isomorphic-fetch";
 
 
-class UserDetails extends React.Component {
+export default class UserDetails extends React.Component {
     constructor() {
         super();
         this.state = {
-            user: {}
+            user: {},
+            language: ''
         };
+        
+        if(localStorage.getItem('lang')){
+            this.state.language = localStorage.getItem('lang');
+        }
+        else{
+            this.state.language = 'en';
+        }
 
         if (localStorage.getItem('user')) {
             this.state.user = JSON.parse(localStorage.getItem('user')).username;
@@ -49,6 +59,13 @@ class UserDetails extends React.Component {
         this.setState({ user: user });
     }
 
+    handleLangChange = (e) => {
+        const {value} = e.target;
+        this.setState({ language: value });
+        localStorage.setItem('lang', value);
+
+    }
+
     handleSubmit = () => {
         const url = 'api/Identity/user-update';
         const request = {
@@ -64,7 +81,7 @@ class UserDetails extends React.Component {
                 // window.location = config.apiUrl + "/tabs";
             }).catch((ex) => {
 
-            });       
+            });
     }
 
     render() {
@@ -90,9 +107,11 @@ class UserDetails extends React.Component {
 
                     <form name="form" className='tab-create-form' onSubmit={this.handleSubmit} style={{ textAlign: 'center' }}>
                         <div className='field'>
+                            <FormLabel style={{ fontSize: 22 }}>{this.state.language=='en' ? 'Username' : 'Логін'} </FormLabel>
+                            <br />
                             <TextField
                                 style={{ width: '90%' }}
-                                label="User name"
+                                label=""
                                 className={styles.textField}
                                 type="text"
                                 name="name"
@@ -106,9 +125,11 @@ class UserDetails extends React.Component {
 
                         </div>
                         <div className='field'>
+                            <FormLabel style={{ fontSize: 22 }}>{this.state.language=='en' ? 'New Password' : 'Новий пароль'} </FormLabel>
+                            <br />
                             <TextField
                                 style={{ width: '90%' }}
-                                label="New password"
+                                label=""
                                 className={styles.textField}
                                 type="password"
                                 name="password"
@@ -121,9 +142,11 @@ class UserDetails extends React.Component {
                             />
                         </div>
                         <div className='field'>
+                            <FormLabel style={{ fontSize: 22 }}> Email </FormLabel>
+                            <br />
                             <TextField
                                 style={{ width: '90%' }}
-                                label="Email"
+                                label=""
                                 className={styles.textField}
                                 type="email"
                                 name="email"
@@ -137,25 +160,29 @@ class UserDetails extends React.Component {
                         </div>
 
                         <div className='field'>
+                            <FormLabel style={{ fontSize: 22 }}>{this.state.language=='en' ? 'First name' : 'Ім`я'} </FormLabel>
+                            <br />
                             <TextField
                                 style={{ width: '90%' }}
-                                label="First name"
+                                label=""
                                 className={styles.textField}
                                 type="text"
                                 name="firstname"
                                 autoComplete="Username"
                                 margin="normal"
                                 variant="outlined"
-                                value={this.state.user.firstname}
+                                value={this.state.user.firstName}
                                 onChange={this.handleChange}
                                 required
                             />
                         </div>
 
                         <div className='field'>
+                            <FormLabel style={{ fontSize: 22 }}>{this.state.language=='en' ? 'Last name' : 'Прізвище'} </FormLabel>
+                            <br />
                             <TextField
                                 style={{ width: '90%' }}
-                                label="Last name"
+                                label=""
                                 className={styles.textField}
                                 type="text"
                                 name="lastName"
@@ -168,9 +195,11 @@ class UserDetails extends React.Component {
                             />
                         </div>
                         <div className='field'>
+                            <FormLabel style={{ fontSize: 22 }}>{this.state.language=='en' ? 'Biography' : 'Біографія'} </FormLabel>
+                            <br />
                             <TextField
                                 style={{ width: '90%' }}
-                                label="Biography"
+                                label=""
                                 className={styles.textField}
                                 type="text"
                                 name="bio"
@@ -182,8 +211,30 @@ class UserDetails extends React.Component {
                                 required
                             />
                         </div>
-                        <Button variant="contained" color="primary" size='large' type='submit' className="form-group" style={{ margin: 'auto' }}>Create</Button>
-        
+                        <div className='field'>
+                            <TextField
+                                select
+                                label={this.state.language=='en' ? 'Select language' : 'Оберіть мову сайту'}
+                                className={styles.textField}
+                                style={{ width: '90%' }}
+                                value={this.state.language}
+                                name='type'
+                                SelectProps={{
+                                    MenuProps: {
+                                        className: styles.menu,
+                                    },
+                                }}
+                                margin="normal"
+                                variant="outlined"
+                                onChange={this.handleLangChange}
+                            >
+                                <MenuItem value={"en"}>English</MenuItem>
+                                <MenuItem value={'ua'}>Українська</MenuItem>
+                           
+                            </TextField>
+                        </div>
+                        <Button variant="contained" color="primary" size='large' type='submit' className="form-group" style={{ margin: 'auto' }}>{this.state.language=='en' ? 'Update' : 'Оновити'}</Button>
+
                     </form>
                 </div>
             </Paper>)
@@ -203,4 +254,4 @@ let mapDispatch = (dispatch) => {
     }
 }
 
-export default connect(mapProps, mapDispatch)(UserDetails) 
+connect(mapProps, mapDispatch)(UserDetails) 

@@ -36,12 +36,20 @@ export default class FilterTabBar extends React.Component {
     }
 
     render() {
+        let language = '';
+        if(localStorage.getItem('lang')){
+            language = localStorage.getItem('lang');
+        }
+        else{
+            language = 'en';
+            localStorage.setItem('lang', 'en');
+        }
         return (
             <div className="filter-bar" style={{width:'100%'}}>
                 <div className="filter">
                     <TextField 
                         className="filter-field"
-                        label="Tab name"
+                        label={language == 'en' ? "Tab name" : 'Назва табулатури'}
                         margin="normal"
                         variant="outlined"
                         onChange={this.onNameChanged}
@@ -49,7 +57,7 @@ export default class FilterTabBar extends React.Component {
                 </div>
                 <div className="filter">
                     <TextField                   
-                        label="Min tempo"
+                        label={language == 'en' ? "Min tempo" : 'Мінімальний темп'}
                         defaultValue=""
                         type="number"
                         className="filter-field"
@@ -61,7 +69,7 @@ export default class FilterTabBar extends React.Component {
                 <div className="filter">
                     <TextField
                         className="filter-field"
-                        label="Max tempo"
+                        label={language == 'en' ? "Max tempo" : 'Максимальний темп'}
                         type="number"
                         margin="normal"
                         variant="outlined"

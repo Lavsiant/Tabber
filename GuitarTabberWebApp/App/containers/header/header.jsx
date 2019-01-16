@@ -31,24 +31,32 @@ export default class Header extends React.Component {
     render() {
         const isLoggedIn = this.state.isLoggedIn;
         let authControl;
+        let language = '';
+        if(localStorage.getItem('lang')){
+            language = localStorage.getItem('lang');
+        }
+        else{
+            language = 'en';
+            localStorage.setItem('lang', 'en');
+        }
         
         if (localStorage.getItem('user')) {
             authControl =  
                 <Tabs   indicatorColor="primary" textColor="primary" value={this.state.value}  onChange={this.handleChange} centered>
-                <Tab label="Tabs" component={Link} to="/tabs" />
-                <Tab label="Courses" component={Link} to="/courses" /> 
-                <Tab label="Test tab" component={Link} to="/test" />                       
-                <Tab label="Logout" onClick={this.handleLogOut} component={Link} to="/login" />     
-                <Tab style={{float: 'right'}} label="Profile"  component={Link} to="/profile" />           
+                <Tab label={language == 'en' ? "Tabs" : 'Табулатури'} component={Link} to="/tabs" />
+                <Tab label={language == 'en' ? "Courses" : 'Курси'} component={Link} to="/courses" /> 
+                {/* <Tab label="Test tab" component={Link} to="/test" />                        */}
+                <Tab label={language == 'en' ? "Logout" : 'Вихід'} onClick={this.handleLogOut} component={Link} to="/login" />     
+                <Tab style={{float: 'right'}} label={language == 'en' ? "Profile" : 'Профіль'} component={Link} to="/profile" />           
         </Tabs>     
         } else {
             authControl =   
                 <Tabs indicatorColor="primary" textColor="primary" value={this.state.value}  onChange={this.handleChange} centered>
-                <Tab label="Tabs" component={Link} to="/tabs" />
-                <Tab label="Courses" component={Link} to="/courses" /> 
-                <Tab label="Test tab" component={Link} to="/test" />         
-                <Tab label="Register" component={Link} to="/register" />     
-                <Tab label="Login" component={Link} to="/login" />;         
+                <Tab label={language == 'en' ? "Tabs" : 'Табулатури'} component={Link} to="/tabs" />
+                <Tab label={language == 'en' ? "Courses" : 'Курси'} component={Link} to="/courses" /> 
+                {/* <Tab label={language == 'en' ? "Test tab" : ''} component={Link} to="/test" />          */}
+                <Tab label={language == 'en' ? "Register" : 'Реєстрація'} component={Link} to="/register" />     
+                <Tab label={language == 'en' ? "Login" : 'Вхід'} component={Link} to="/login" />;         
         </Tabs>     
         }
 
