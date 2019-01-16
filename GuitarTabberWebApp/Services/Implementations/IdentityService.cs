@@ -87,5 +87,10 @@ namespace GuitarTabberWebApp.Services.Implementations
             return await _identityRepository.GetUserFullInfo(userName);
         }
 
+        public async Task UpdateUser(User user)
+        {
+            await _identityRepository.UpdateUser(user);
+        }
+
     }
 }

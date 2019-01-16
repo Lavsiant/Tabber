@@ -128,5 +128,12 @@ namespace GuitarTabberWebApp.Controllers
             var result = await _identityService.GetUserFullInfo(userName);
             return Ok(result);
         }
+
+        [HttpPost]
+        [Route("user-update")]
+        public async Task UpdateUser([FromBody] User user)
+        {
+            await _identityService.UpdateUser(user);
+        }
     }
 }

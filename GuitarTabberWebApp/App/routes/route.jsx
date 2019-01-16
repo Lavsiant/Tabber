@@ -28,6 +28,7 @@ export default class Routing extends React.Component {
                     <Route path="/login" component={LoginPage} />
                     <Route path="/tab-create" component={CreateTab} />
                     <Route path="/course-create" component={CreateCourse} />
+                    <Route path="/profile" component={UserDetails}/>
                     <Route path="/tab/:id" render={(props) => <TabDetails id={props.match.params.id} {...props}/>} />
                     <Route path="/user/:id" render={(props) => <UserDetails id={props.match.params.id} {...props}/>} />
                     <Route path="/course/:id" render={(props) => <CourseDetails id={props.match.params.id} {...props}/>} />

@@ -24,5 +24,7 @@ namespace DbRepository.Interfaces
         Task<User> GetUserFullInfo(string userName);
 
         Task Create(User user);
+
+        Task UpdateUser(User user);
     }
 }

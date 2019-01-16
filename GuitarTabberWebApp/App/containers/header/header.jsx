@@ -38,7 +38,8 @@ export default class Header extends React.Component {
                 <Tab label="Tabs" component={Link} to="/tabs" />
                 <Tab label="Courses" component={Link} to="/courses" /> 
                 <Tab label="Test tab" component={Link} to="/test" />                       
-                <Tab label="Logout" onClick={this.handleLogOut} component={Link} to="/login" />             
+                <Tab label="Logout" onClick={this.handleLogOut} component={Link} to="/login" />     
+                <Tab style={{float: 'right'}} label="Profile"  component={Link} to="/profile" />           
         </Tabs>     
         } else {
             authControl =   

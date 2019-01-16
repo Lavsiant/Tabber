@@ -42,7 +42,7 @@ namespace DbRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                return await context.Users.FirstOrDefaultAsync(x => x.ID == id);
+                return await context.Users.Include(x=>x.Courses).FirstOrDefaultAsync(x => x.ID == id);
             }
         }
 
@@ -75,6 +75,22 @@ namespace DbRepository.Repositories
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 context.Users.Add(user);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task UpdateUser(User user)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var u = await context.Users.FirstOrDefaultAsync(x => x.UserName == user.UserName);
+                u.UserName = user.UserName;
+                u.Password = user.Password;
+                u.Email = user.Email;
+                u.FirstName = user.FirstName;
+                u.LastName = user.LastName;
+                u.Bio = user.Bio;
+                context.Entry(u).State = EntityState.Modified;
                 await context.SaveChangesAsync();
             }
         }

@@ -27,5 +27,8 @@ namespace GuitarTabberWebApp.Services.Interfaces
 
         Task<List<User>> GetAllUsers();
 
+        Task UpdateUser(User user);
+
+
     }
 }
