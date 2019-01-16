@@ -75914,7 +75914,7 @@ var TabDetails = function (_React$Component) {
                     _react2.default.createElement(
                         _core.FormLabel,
                         { style: { fontSize: 22, marginTop: 80 } },
-                        language == 'en' ? 'Lessons' : 'Вправи'
+                        language == 'en' ? 'Iteration' : 'Ітерації'
                     ),
                     this.props.tab.iterations.map(function (iteration) {
                         return _react2.default.createElement(
@@ -76052,6 +76052,8 @@ var _Button = __webpack_require__(24);
 
 var _Button2 = _interopRequireDefault(_Button);
 
+var _config = __webpack_require__(38);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -76112,11 +76114,11 @@ var CourseDetails = function (_React$Component) {
                 usern = JSON.parse(localStorage.getItem('user')).username;
                 var url = 'api/Course/course-add?id=' + _this.props.id + '&username=' + usern;
                 return fetch(url).then(function (response) {
-                    window.location = config.apiUrl + "/courses";
+                    window.location = _config.config.apiUrl + "/courses";
                     return response.json();
                 });
             } else {
-                window.location = config.apiUrl + "/login";
+                window.location = _config.config.apiUrl + "/login";
             }
         };
 
@@ -76162,6 +76164,7 @@ var CourseDetails = function (_React$Component) {
                             language == 'en' ? 'Course name' : 'Назва курсу',
                             ' '
                         ),
+                        _react2.default.createElement('br', null),
                         _react2.default.createElement(_TextField2.default, {
                             style: { width: '85%' },
                             id: 'outlined-read-only-input',

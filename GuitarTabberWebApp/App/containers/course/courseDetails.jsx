@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import NoSsr from '@material-ui/core/NoSsr';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
+import { config } from '../../helpers/config.jsx';
 
 
 export default class CourseDetails extends React.Component {
@@ -98,6 +99,7 @@ export default class CourseDetails extends React.Component {
                 <div style={{ textAlign: 'center', display: 'block' }}>
                     <div>
                     <FormLabel style={{ fontSize: 22 }}>{language == 'en' ? 'Course name' : 'Назва курсу'} </FormLabel>
+                    <br/>
                     <TextField
                         style={{ width: '85%' }}
                         id="outlined-read-only-input"

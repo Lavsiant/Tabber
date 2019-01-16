@@ -115,7 +115,7 @@ class TabDetails extends React.Component {
                         variant="outlined"
                     />
                 </div>
-                <FormLabel style={{ fontSize: 22, marginTop: 80 }}>{language == 'en' ? 'Lessons' : 'Вправи'}</FormLabel>
+                <FormLabel style={{ fontSize: 22, marginTop: 80 }}>{language == 'en' ? 'Iteration' : 'Ітерації'}</FormLabel>
                 {this.props.tab.iterations.map(iteration => {
                         return (
                             <ExpansionPanel style={{ width: '85%', margin: 'auto', marginBop: '15' }}>
